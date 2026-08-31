@@ -8,120 +8,114 @@ function json(data, status = 200) {
   });
 }
 
-function idFromUrl(value) {
+function archidektId(value) {
   const raw = String(value || '').trim();
   try {
     const url = new URL(raw);
-    const match = url.pathname.match(/\/decks\/([A-Za-z0-9_-]+)/);
+    const match = url.pathname.match(/\/decks\/(\d+)/);
     if (match) return match[1];
   } catch {}
-  const match = raw.match(/(?:moxfield\.com\/decks\/)?([A-Za-z0-9_-]{8,})/);
+  const match = raw.match(/(?:archidekt\.com\/decks\/)?(\d+)/i);
   return match ? match[1] : null;
 }
 
-function boardItems(board) {
-  if (!board) return [];
-  const source = board.cards || board;
-  const values = Array.isArray(source) ? source : Object.values(source || {});
-  return values.map((entry) => {
-    const card = entry.card || entry;
-    const name = card.name || entry.name || card.oracleCard?.name;
-    const quantity = Number(entry.quantity || card.quantity || 1);
-    const scryfallId = card.scryfall_id || card.scryfallId || card.id;
-    return name ? { name, quantity, scryfallId } : null;
+function categoryNames(entry, categoryById) {
+  return (entry.categories || []).map((category) => {
+    if (typeof category === 'string') return category;
+    if (typeof category === 'number') return categoryById.get(String(category))?.name || '';
+    if (category && typeof category === 'object') return category.name || categoryById.get(String(category.id))?.name || '';
+    return '';
   }).filter(Boolean);
 }
 
-function normalize(data) {
-  const boards = data.boards || data;
-  return {
-    name: data.name || 'Imported Moxfield Deck',
-    commander: boardItems(boards.commanders || data.commanders),
-    deck: boardItems(boards.mainboard || data.mainboard),
-    sideboard: boardItems(boards.sideboard || data.sideboard),
-    tokens: boardItems(boards.tokens || data.tokens),
+function normalizeArchidekt(data) {
+  const result = {
+    name: data.name || 'Imported Archidekt Deck',
+    commander: [],
+    deck: [],
+    sideboard: [],
+    tokens: [],
   };
-}
 
-function parseText(text) {
-  const result = { name: 'Imported Moxfield Deck', commander: [], deck: [], sideboard: [], tokens: [] };
-  let zone = 'deck';
-  for (const rawLine of String(text || '').split(/\r?\n/)) {
-    const line = rawLine.trim();
-    if (!line) continue;
-    const heading = line.toLowerCase().replace(/:$/, '');
-    if (/^commander/.test(heading)) { zone = 'commander'; continue; }
-    if (/^sideboard/.test(heading)) { zone = 'sideboard'; continue; }
-    if (/^tokens?/.test(heading)) { zone = 'tokens'; continue; }
-    const match = line.match(/^(\d+)\s*x?\s+(.+?)(?:\s+\([A-Za-z0-9]+\)\s+\S+)?$/i);
-    if (match) result[zone].push({ name: match[2].trim(), quantity: Number(match[1]) || 1 });
+  const categories = Array.isArray(data.categories) ? data.categories : [];
+  const categoryById = new Map(categories.map((category) => [String(category.id), category]));
+
+  for (const entry of (data.cards || [])) {
+    const card = entry.card || {};
+    const oracle = card.oracleCard || {};
+    const name = oracle.name || card.name || entry.name;
+    if (!name) continue;
+
+    const quantity = Math.max(1, Number(entry.quantity || 1));
+    const names = categoryNames(entry, categoryById).map((x) => x.toLowerCase());
+    const scryfallId = oracle.uid || oracle.id || card.uid || card.scryfallId || card.scryfall_id;
+    const item = { name, quantity, scryfallId };
+
+    const isCommander = names.some((x) => x === 'commander' || x === 'commanders' || x.includes('command zone'));
+    const isToken = names.some((x) => x === 'token' || x === 'tokens');
+    const isSideboard = names.some((x) => x === 'sideboard' || x === 'side board' || x === 'maybeboard' || x === 'maybe board');
+    const excludedCategory = categories.some((category) => category.includedInDeck === false && names.includes(String(category.name || '').toLowerCase()));
+
+    if (isCommander) result.commander.push(item);
+    else if (isToken) result.tokens.push(item);
+    else if (isSideboard || excludedCategory) result.sideboard.push(item);
+    else result.deck.push(item);
   }
+
   return result;
 }
 
-async function fetchMoxfield(url, id) {
-  const response = await fetch(url, {
-    headers: {
-      accept: 'application/json,text/plain,*/*',
-      origin: 'https://www.moxfield.com',
-      referer: `https://www.moxfield.com/decks/${id}`,
-      'cache-control': 'no-cache',
-      pragma: 'no-cache',
-      'user-agent': 'Mozilla/5.0 (compatible; MTGTabletop/1.0)',
-    },
-  });
-  return { response, body: await response.text() };
-}
-
-async function importMoxfield(request) {
+async function importArchidekt(request) {
   let input;
   try { input = await request.json(); }
   catch { return json({ error: 'Invalid request' }, 400); }
 
-  const id = idFromUrl(input?.url);
-  if (!id) return json({ error: 'Enter a valid Moxfield deck URL' }, 400);
+  const id = archidektId(input?.url);
+  if (!id) return json({ error: 'Enter a valid Archidekt deck URL' }, 400);
 
-  const attempts = [];
-  const sources = [
-    ['export', `https://api2.moxfield.com/v2/decks/all/${encodeURIComponent(id)}/export`],
-    ['v3', `https://api2.moxfield.com/v3/decks/all/${encodeURIComponent(id)}`],
-    ['v2', `https://api2.moxfield.com/v2/decks/all/${encodeURIComponent(id)}`],
-    ['legacy', `https://api.moxfield.com/v2/decks/all/${encodeURIComponent(id)}`],
-  ];
+  try {
+    const response = await fetch(`https://archidekt.com/api/decks/${encodeURIComponent(id)}/`, {
+      headers: {
+        accept: 'application/json',
+        'user-agent': 'MTGTabletop/1.0',
+      },
+    });
 
-  for (const [source, url] of sources) {
-    try {
-      const { response, body } = await fetchMoxfield(url, id);
-      attempts.push({ source, status: response.status });
-      if (!response.ok) continue;
-      if (source === 'export') {
-        const deck = parseText(body);
-        if (deck.deck.length || deck.commander.length) return json(deck);
-      } else {
-        const deck = normalize(JSON.parse(body));
-        if (deck.deck.length || deck.commander.length) return json(deck);
-      }
-    } catch (error) {
-      attempts.push({ source, error: error?.message || 'Unknown error' });
+    if (!response.ok) {
+      return json({
+        error: `Archidekt returned ${response.status}`,
+        detail: 'Make sure the deck exists and is public.',
+      }, response.status === 404 ? 404 : 502);
     }
-  }
 
-  return json({
-    error: 'Moxfield blocked or rejected this deck request',
-    detail: 'Make sure the deck is Public. If URL import is blocked by Moxfield, switch to Card List and paste the exported deck list.',
-    attempts,
-  }, 502);
+    const deck = normalizeArchidekt(await response.json());
+    if (!deck.deck.length && !deck.commander.length && !deck.sideboard.length) {
+      return json({ error: 'No cards were found in that Archidekt deck.' }, 422);
+    }
+    return json(deck);
+  } catch (error) {
+    return json({
+      error: 'Archidekt import failed',
+      detail: error?.message || 'Unknown network error',
+    }, 502);
+  }
 }
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === '/api/import-moxfield') {
+    if (url.pathname === '/api/import-archidekt' || url.pathname === '/api/import-moxfield') {
       if (request.method === 'OPTIONS') {
-        return new Response(null, { status: 204, headers: { 'access-control-allow-methods': 'POST,OPTIONS', 'access-control-allow-headers': 'Content-Type' } });
+        return new Response(null, {
+          status: 204,
+          headers: {
+            'access-control-allow-methods': 'POST,OPTIONS',
+            'access-control-allow-headers': 'Content-Type',
+          },
+        });
       }
       if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
-      return importMoxfield(request);
+      return importArchidekt(request);
     }
     return env.ASSETS.fetch(request);
   },
