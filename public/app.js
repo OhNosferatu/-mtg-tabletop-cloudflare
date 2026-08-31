@@ -1,7 +1,7 @@
 (()=>{const $=s=>document.querySelector(s),st={cards:{},deck:[],hand:[],cmd:[],side:[],tokens:[],discard:[],exile:[],field:[],opp:[],view:"you"};let seq=0,preview=null;
 const toast=t=>{let e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(e.t);e.t=setTimeout(()=>e.classList.remove("on"),1200)};
 function make(name,zone,meta={}){let id="c"+(++seq);st.cards[id]={id,name,zone,img:"",x:40,y:40,tap:false,p1:0,p:null,t:null,meta};return id}
-async function load(c){if(!c||c.img)return;try{let r=await fetch("/api/card?name="+encodeURIComponent(c.name));if(!r.ok)return;let d=await r.json();c.img=d.image||""}catch{}}
+async function load(c){if(!c||c.img)return;try{let q="/api/card?name="+encodeURIComponent(c.name);if(c.meta&&c.meta.scryfallId)q+="&id="+encodeURIComponent(c.meta.scryfallId);let r=await fetch(q);if(!r.ok)return;let d=await r.json();c.img=d.image||""}catch{}}
 ["Shivan Dragon","Birds of Paradise","Counterspell"].forEach((n,i)=>{let id=make(n,"opp");st.cards[id].x=25+i*25;st.cards[id].y=25;st.opp.push(id);load(st.cards[id]).then(render)});
 function face(c){return c.img?`<img src="${c.img}">`:`<div style="padding:5px;font-size:8px">${c.name}</div>`}
 function open(c,controls=false,back=false){preview=c||null;$("#ctrl").classList.toggle("on",controls);$("#xx").classList.remove("on");$("#pimg").src=back?"https://cards.scryfall.io/back.png":c?.img||"";$("#inspect").classList.add("on");if(c&&!c.img)load(c).then(()=>{$("#pimg").src=c.img})}
