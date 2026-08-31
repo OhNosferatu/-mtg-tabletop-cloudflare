@@ -28,6 +28,18 @@ function categoryNames(entry, categoryById) {
   }).filter(Boolean);
 }
 
+function selectedPrintingKey(card) {
+  const edition = card.edition || {};
+  const setCode = String(
+    edition.editioncode || edition.editionCode || edition.code || edition.setCode ||
+    card.setCode || card.set || ''
+  ).trim().toLowerCase();
+  const collector = String(card.collectorNumber || card.collector_number || '').trim();
+  if (setCode && collector) return `set:${setCode}:${collector}`;
+  const uid = String(card.uid || card.scryfallId || card.scryfall_id || '').trim();
+  return uid || null;
+}
+
 function normalizeArchidekt(data) {
   const result = {
     name: data.name || 'Imported Archidekt Deck',
@@ -48,7 +60,7 @@ function normalizeArchidekt(data) {
 
     const quantity = Math.max(1, Number(entry.quantity || 1));
     const names = categoryNames(entry, categoryById).map((x) => x.toLowerCase());
-    const scryfallId = card.uid || card.scryfallId || card.scryfall_id || null;
+    const scryfallId = selectedPrintingKey(card);
     const item = { name, quantity, ...(scryfallId ? { scryfallId } : {}) };
 
     const isCommander = names.some((x) => x === 'commander' || x === 'commanders' || x.includes('command zone'));
@@ -84,12 +96,8 @@ async function importArchidekt(request) {
 
   try {
     const response = await fetchArchidektDeck(id);
-
     if (!response.ok) {
-      return json({
-        error: `Archidekt returned ${response.status}`,
-        detail: 'Make sure the deck exists and is public.',
-      }, response.status === 404 ? 404 : 502);
+      return json({ error: `Archidekt returned ${response.status}`, detail: 'Make sure the deck exists and is public.' }, response.status === 404 ? 404 : 502);
     }
 
     const deck = normalizeArchidekt(await response.json());
@@ -98,10 +106,7 @@ async function importArchidekt(request) {
     }
     return json(deck);
   } catch (error) {
-    return json({
-      error: 'Archidekt import failed',
-      detail: error?.message || 'Unknown network error',
-    }, 502);
+    return json({ error: 'Archidekt import failed', detail: error?.message || 'Unknown network error' }, 502);
   }
 }
 
@@ -143,7 +148,14 @@ async function cardLookup(url) {
     let response = null;
     let usedExactPrinting = false;
 
-    if (id) {
+    if (id.startsWith('set:')) {
+      const [, setCode, ...collectorParts] = id.split(':');
+      const collector = collectorParts.join(':');
+      if (setCode && collector) {
+        response = await fetchScryfall(`/cards/${encodeURIComponent(setCode)}/${encodeURIComponent(collector)}`);
+        usedExactPrinting = response.ok;
+      }
+    } else if (id) {
       response = await fetchScryfall(`/cards/${encodeURIComponent(id)}`);
       usedExactPrinting = response.ok;
     }
@@ -162,7 +174,7 @@ async function cardLookup(url) {
     const image = card.image_uris?.normal || card.card_faces?.[0]?.image_uris?.normal || '';
     if (!image) return json({ error: 'No image available for this card' }, 404);
 
-    return new Response(JSON.stringify({ image, exactPrinting: usedExactPrinting, scryfallId: card.id || null }), {
+    return new Response(JSON.stringify({ image, exactPrinting: usedExactPrinting, scryfallId: card.id || null, set: card.set || null, collectorNumber: card.collector_number || null }), {
       status: 200,
       headers: {
         'content-type': 'application/json; charset=utf-8',
@@ -190,13 +202,7 @@ export default {
 
     if (url.pathname === '/api/import-archidekt' || url.pathname === '/api/import-moxfield') {
       if (request.method === 'OPTIONS') {
-        return new Response(null, {
-          status: 204,
-          headers: {
-            'access-control-allow-methods': 'POST,OPTIONS',
-            'access-control-allow-headers': 'Content-Type',
-          },
-        });
+        return new Response(null, { status: 204, headers: { 'access-control-allow-methods': 'POST,OPTIONS', 'access-control-allow-headers': 'Content-Type' } });
       }
       if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
       return importArchidekt(request);
