@@ -1,0 +1,1 @@
+(()=>{const deck=document.getElementById('deck');if(!deck)return;const sync=()=>{const count=deck.querySelector('.count');const n=Number(count?.textContent||0);deck.classList.toggle('empty',!n)};new MutationObserver(sync).observe(deck,{childList:true,subtree:true,characterData:true});sync()})();
