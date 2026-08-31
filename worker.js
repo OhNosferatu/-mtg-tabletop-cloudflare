@@ -100,9 +100,47 @@ async function importArchidekt(request) {
   }
 }
 
+async function cardLookup(url) {
+  const name = String(url.searchParams.get('name') || '').trim();
+  if (!name) return json({ error: 'Missing card name' }, 400);
+
+  try {
+    const response = await fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}`, {
+      headers: {
+        'accept': 'application/json;q=0.9,*/*;q=0.8',
+        'user-agent': 'MTGTabletop/1.0 (Cloudflare Worker)',
+      },
+    });
+
+    if (!response.ok) {
+      return json({ error: `Scryfall returned ${response.status}` }, response.status === 404 ? 404 : 502);
+    }
+
+    const card = await response.json();
+    const image = card.image_uris?.normal || card.card_faces?.[0]?.image_uris?.normal || '';
+    if (!image) return json({ error: 'No image available for this card' }, 404);
+
+    return new Response(JSON.stringify({ image }), {
+      status: 200,
+      headers: {
+        'content-type': 'application/json; charset=utf-8',
+        'cache-control': 'public, max-age=86400',
+      },
+    });
+  } catch (error) {
+    return json({ error: 'Card lookup failed', detail: error?.message || 'Unknown network error' }, 502);
+  }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname === '/api/card') {
+      if (request.method !== 'GET') return json({ error: 'Method not allowed' }, 405);
+      return cardLookup(url);
+    }
+
     if (url.pathname === '/api/import-archidekt' || url.pathname === '/api/import-moxfield') {
       if (request.method === 'OPTIONS') {
         return new Response(null, {
