@@ -48,8 +48,7 @@ function normalizeArchidekt(data) {
 
     const quantity = Math.max(1, Number(entry.quantity || 1));
     const names = categoryNames(entry, categoryById).map((x) => x.toLowerCase());
-    const scryfallId = oracle.uid || oracle.id || card.uid || card.scryfallId || card.scryfall_id;
-    const item = { name, quantity, scryfallId };
+    const item = { name, quantity };
 
     const isCommander = names.some((x) => x === 'commander' || x === 'commanders' || x.includes('command zone'));
     const isToken = names.some((x) => x === 'token' || x === 'tokens');
