@@ -48,7 +48,11 @@ function normalizeArchidekt(data) {
 
     const quantity = Math.max(1, Number(entry.quantity || 1));
     const names = categoryNames(entry, categoryById).map((x) => x.toLowerCase());
-    const item = { name, quantity };
+    // Archidekt's card.uid identifies the selected printing. Keep it so the
+    // frontend can request the exact Scryfall printing/art rather than a
+    // default printing returned by name lookup.
+    const scryfallId = card.uid || card.scryfallId || card.scryfall_id || null;
+    const item = { name, quantity, ...(scryfallId ? { scryfallId } : {}) };
 
     const isCommander = names.some((x) => x === 'commander' || x === 'commanders' || x.includes('command zone'));
     const isToken = names.some((x) => x === 'token' || x === 'tokens');
@@ -100,17 +104,36 @@ async function importArchidekt(request) {
   }
 }
 
+async function fetchScryfall(path) {
+  return fetch(`https://api.scryfall.com${path}`, {
+    headers: {
+      'accept': 'application/json;q=0.9,*/*;q=0.8',
+      'user-agent': 'MTGTabletop/1.0 (Cloudflare Worker)',
+    },
+  });
+}
+
 async function cardLookup(url) {
   const name = String(url.searchParams.get('name') || '').trim();
-  if (!name) return json({ error: 'Missing card name' }, 400);
+  const id = String(url.searchParams.get('id') || '').trim();
+  if (!name && !id) return json({ error: 'Missing card name or printing id' }, 400);
 
   try {
-    const response = await fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}`, {
-      headers: {
-        'accept': 'application/json;q=0.9,*/*;q=0.8',
-        'user-agent': 'MTGTabletop/1.0 (Cloudflare Worker)',
-      },
-    });
+    let response = null;
+    let usedExactPrinting = false;
+
+    if (id) {
+      response = await fetchScryfall(`/cards/${encodeURIComponent(id)}`);
+      usedExactPrinting = response.ok;
+    }
+
+    // If Archidekt's printing id is missing or Scryfall no longer recognizes it,
+    // gracefully fall back to the name-based lookup so card art still appears.
+    if (!response || !response.ok) {
+      if (!name) return json({ error: `Scryfall could not find printing ${id}` }, 404);
+      response = await fetchScryfall(`/cards/named?exact=${encodeURIComponent(name)}`);
+      usedExactPrinting = false;
+    }
 
     if (!response.ok) {
       return json({ error: `Scryfall returned ${response.status}` }, response.status === 404 ? 404 : 502);
@@ -120,7 +143,7 @@ async function cardLookup(url) {
     const image = card.image_uris?.normal || card.card_faces?.[0]?.image_uris?.normal || '';
     if (!image) return json({ error: 'No image available for this card' }, 404);
 
-    return new Response(JSON.stringify({ image }), {
+    return new Response(JSON.stringify({ image, exactPrinting: usedExactPrinting, scryfallId: card.id || null }), {
       status: 200,
       headers: {
         'content-type': 'application/json; charset=utf-8',
