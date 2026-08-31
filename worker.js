@@ -48,9 +48,6 @@ function normalizeArchidekt(data) {
 
     const quantity = Math.max(1, Number(entry.quantity || 1));
     const names = categoryNames(entry, categoryById).map((x) => x.toLowerCase());
-    // Archidekt's card.uid identifies the selected printing. Keep it so the
-    // frontend can request the exact Scryfall printing/art rather than a
-    // default printing returned by name lookup.
     const scryfallId = card.uid || card.scryfallId || card.scryfall_id || null;
     const item = { name, quantity, ...(scryfallId ? { scryfallId } : {}) };
 
@@ -68,6 +65,15 @@ function normalizeArchidekt(data) {
   return result;
 }
 
+async function fetchArchidektDeck(id) {
+  return fetch(`https://archidekt.com/api/decks/${encodeURIComponent(id)}/`, {
+    headers: {
+      accept: 'application/json',
+      'user-agent': 'MTGTabletop/1.0',
+    },
+  });
+}
+
 async function importArchidekt(request) {
   let input;
   try { input = await request.json(); }
@@ -77,12 +83,7 @@ async function importArchidekt(request) {
   if (!id) return json({ error: 'Enter a valid Archidekt deck URL' }, 400);
 
   try {
-    const response = await fetch(`https://archidekt.com/api/decks/${encodeURIComponent(id)}/`, {
-      headers: {
-        accept: 'application/json',
-        'user-agent': 'MTGTabletop/1.0',
-      },
-    });
+    const response = await fetchArchidektDeck(id);
 
     if (!response.ok) {
       return json({
@@ -101,6 +102,26 @@ async function importArchidekt(request) {
       error: 'Archidekt import failed',
       detail: error?.message || 'Unknown network error',
     }, 502);
+  }
+}
+
+async function debugArchidekt(url) {
+  const id = String(url.searchParams.get('id') || '').trim();
+  const wanted = String(url.searchParams.get('name') || '').trim().toLowerCase();
+  if (!/^\d+$/.test(id)) return json({ error: 'Missing deck id' }, 400);
+  try {
+    const response = await fetchArchidektDeck(id);
+    if (!response.ok) return json({ error: `Archidekt returned ${response.status}` }, 502);
+    const data = await response.json();
+    const matches = (data.cards || []).filter((entry) => {
+      const card = entry.card || {};
+      const oracle = card.oracleCard || {};
+      const name = String(oracle.name || card.name || entry.name || '').toLowerCase();
+      return !wanted || name.includes(wanted);
+    });
+    return json({ deck: { id: data.id, name: data.name }, matches });
+  } catch (error) {
+    return json({ error: 'Debug lookup failed', detail: error?.message || 'Unknown network error' }, 502);
   }
 }
 
@@ -127,8 +148,6 @@ async function cardLookup(url) {
       usedExactPrinting = response.ok;
     }
 
-    // If Archidekt's printing id is missing or Scryfall no longer recognizes it,
-    // gracefully fall back to the name-based lookup so card art still appears.
     if (!response || !response.ok) {
       if (!name) return json({ error: `Scryfall could not find printing ${id}` }, 404);
       response = await fetchScryfall(`/cards/named?exact=${encodeURIComponent(name)}`);
@@ -158,6 +177,11 @@ async function cardLookup(url) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname === '/api/debug-archidekt') {
+      if (request.method !== 'GET') return json({ error: 'Method not allowed' }, 405);
+      return debugArchidekt(url);
+    }
 
     if (url.pathname === '/api/card') {
       if (request.method !== 'GET') return json({ error: 'Method not allowed' }, 405);
