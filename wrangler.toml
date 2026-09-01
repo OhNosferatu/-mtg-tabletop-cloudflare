@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h38.js"
+main = "worker-h39.js"
 compatibility_date = "2026-08-31"
 
-# H38: render the game shell immediately, then load frontend assets one-by-one
-# with visible status and timeouts so a single bad asset cannot leave a white page.
+# H39: keep the reliable visible asset loader and deploy the iOS card-interaction
+# stability patch before Wrangler scans/uploads public/app.js.
 [assets]
 directory = "./public"
 binding = "ASSETS"
