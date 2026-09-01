@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h84.js"
+main = "worker-h85.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H84: preserve H83 token/tap behavior, but make Mulligan an immediate table
-# reset with nonblocking in-place Hand artwork loading to avoid iOS freezes.
+# H85: preserve the stable H83 interaction/token/tap-indicator stack and make
+# Mulligan restore exact imported card-id snapshots before shuffling/dealing 7.
 [assets]
 directory = "./public"
 binding = "ASSETS"
