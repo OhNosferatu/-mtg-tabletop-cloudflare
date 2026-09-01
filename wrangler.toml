@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h62.js"
+main = "worker-h63.js"
 compatibility_date = "2026-08-31"
 
-# H62: refresh the custom Hand scrollbar whenever the Hand tray opens/closes
-# or its rendered row changes size, including cards added while Hand is closed.
+# H63: draw new cards to the far-left of Hand and route Hand-card viewing
+# through the stable lightweight full-card viewer instead of legacy inspect.
 [assets]
 directory = "./public"
 binding = "ASSETS"
