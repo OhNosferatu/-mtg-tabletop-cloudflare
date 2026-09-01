@@ -13,11 +13,31 @@
   pointer-events:none;
 }
 
-/* Tokens joins the left-side pile column as the bottom-most pile. */
+/*
+ * Keep every personal pile in one evenly-spaced left column.
+ * These rules intentionally live in board-ui.css because it loads after the
+ * page-level layout rules and therefore becomes the single final authority.
+ */
+#you .cmds{
+  left:1.4%!important;
+  top:11.5%!important;
+}
+#you .discard{
+  left:1.4%!important;
+  top:28.25%!important;
+}
+#you .deck{
+  left:1.4%!important;
+  top:45%!important;
+}
+#you .exile{
+  left:1.4%!important;
+  top:61.75%!important;
+}
 #you .tokens{
   left:1.4%!important;
   right:auto!important;
-  top:88%!important;
+  top:78.5%!important;
 }
 
 .life-heart{
@@ -45,5 +65,9 @@
   .life-heart::before{font-size:49px!important}
   .life-heart span{font-size:15px!important}
   #you .land-zone{left:16%;right:4%;bottom:5%;height:27%}
-  #you .tokens{left:1.4%!important;right:auto!important;top:88%!important}
+  #you .cmds{left:1.4%!important;top:11.5%!important}
+  #you .discard{left:1.4%!important;top:28.25%!important}
+  #you .deck{left:1.4%!important;top:45%!important}
+  #you .exile{left:1.4%!important;top:61.75%!important}
+  #you .tokens{left:1.4%!important;right:auto!important;top:78.5%!important}
 }
