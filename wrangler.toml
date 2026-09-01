@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h46.js"
+main = "worker-h47.js"
 compatibility_date = "2026-08-31"
 
-# H46: keep the stable H45 viewer and compact battlefield badge while showing
-# one combined P/T value when X/X and +1/+1 counters are both active.
+# H47: keep the stable lightweight viewer, fix deck fullscreen exit/backdrop,
+# and make deck actions update state exactly once per button press.
 [assets]
 directory = "./public"
 binding = "ASSETS"
