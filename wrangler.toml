@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h68.js"
+main = "worker-h69.js"
 compatibility_date = "2026-08-31"
 
-# H68: deploy directly from the known-good H64 baseline and consolidate the
-# Reveal/Unreveal, orientation-preserving Flip Deck, and persistent Draw/Scry fixes.
+# H69: deploy only the proven H64 build-time patch chain, then apply newer
+# deck behavior at runtime when serving app.js.
 [assets]
 directory = "./public"
 binding = "ASSETS"
