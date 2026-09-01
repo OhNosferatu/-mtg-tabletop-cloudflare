@@ -3,9 +3,50 @@ import fs from 'node:fs';
 const path='public/app.js';
 let source=fs.readFileSync(path,'utf8');
 
+function replaceOnce(label,from,to){
+  if(!source.includes(from)) throw new Error(`H48 patch failed: ${label} target was not found`);
+  source=source.replace(from,to);
+}
+
+replaceOnce(
+  'deck visible-state helpers',
+  "function deckIsPreview(){return !!preview&&preview.zone==='deck'&&st.deck[0]===preview.id}",
+  "function deckIsPreview(){return !!preview&&preview.zone==='deck'&&st.deck[0]===preview.id}function deckVisibleCard(){return st.deck.length?st.cards[st.deck[0]]:null}function deckVisibleFaceUp(){const c=deckVisibleCard();return !!c&&(st.deckFlipped||!c.faceDown)}function syncDeckPileVisual(){const el=$('#deck'),c=deckVisibleCard();if(!el||!c)return;const img=el.querySelector('img');if(img)img.src=deckVisibleFaceUp()?(frontImage(c)||BACK):BACK}async function openDeckOptions(){if(!st.deck.length)return;preview=deckVisibleCard();deckPreviewReveal=false;$('#ctrl')?.classList.remove('on');$('#inspect')?.classList.add('on');if(deckVisibleFaceUp()){await load(preview);if(deckIsPreview())$('#pimg').src=frontImage(preview)||BACK}else $('#pimg').src=BACK;updateDeckPanel();syncDeckPileVisual()}"
+);
+
+replaceOnce(
+  'deck panel visible state',
+  "function updateDeckPanel(){installDeckPanel();const p=$('#deckctrl');const on=deckIsPreview();p.classList.toggle('on',on);if(on){$('#deckstatus').textContent=`${st.deck.length} cards · ${st.deckFlipped?'FACE UP':'FACE DOWN'}`}}",
+  "function updateDeckPanel(){installDeckPanel();const p=$('#deckctrl');const on=deckIsPreview();p.classList.toggle('on',on);if(on){const state=st.deckFlipped?'FLIPPED · FACE UP':deckVisibleFaceUp()?'TOP FACE UP':'FACE DOWN';$('#deckstatus').textContent=`${st.deck.length} cards · ${state}`}}"
+);
+
+replaceOnce(
+  'show deck top from visible face',
+  "async function showDeckTop(reveal=deckPreviewReveal){if(!st.deck.length){preview=null;$('#inspect').classList.remove('on');$('#deckctrl')?.classList.remove('on');render();return}preview=st.cards[st.deck[0]];if(reveal||st.deckFlipped){await load(preview);$('#pimg').src=frontImage(preview)||BACK}else $('#pimg').src=BACK;updateDeckPanel();render()}",
+  "async function showDeckTop(reveal=deckPreviewReveal){if(!st.deck.length){preview=null;$('#inspect').classList.remove('on');$('#deckctrl')?.classList.remove('on');render();return}preview=deckVisibleCard();if(reveal||deckVisibleFaceUp()){await load(preview);$('#pimg').src=frontImage(preview)||BACK}else $('#pimg').src=BACK;updateDeckPanel();render();syncDeckPileVisual()}"
+);
+
+replaceOnce(
+  'deck tap opens options',
+  "if(!moved){openCard(c,true);return}",
+  "if(!moved){if(from==='deck'){openDeckOptions();return}openCard(c,true);return}"
+);
+
+replaceOnce(
+  'deck pile visible card',
+  "if(back){const img=document.createElement('img');img.src=st.deckFlipped&&el.id==='deck'?frontImage(c)||BACK:BACK;img.draggable=false;el.appendChild(img)}",
+  "if(back){const img=document.createElement('img');img.src=el.id==='deck'&&deckVisibleFaceUp()?frontImage(c)||BACK:BACK;img.draggable=false;el.appendChild(img)}"
+);
+
+replaceOnce(
+  'deck pile non-drag click',
+  "else el.onclick=()=>c?openCard(c,true):null",
+  "else el.onclick=()=>c?(el.id==='deck'?openDeckOptions():openCard(c,true)):null"
+);
+
 const start=source.indexOf('async function deckAction(action){');
 const end=source.indexOf('\nfunction openCard',start);
-if(start<0||end<0) throw new Error('H47 patch failed: deckAction block not found');
+if(start<0||end<0) throw new Error('H48 patch failed: deckAction block not found');
 
 const replacement=`function closeDeckOverlay(){
   preview=null;
@@ -19,15 +60,16 @@ const replacement=`function closeDeckOverlay(){
 
 async function refreshDeckAfterMutation(reveal=false){
   if(!st.deck.length){closeDeckOverlay();render();return}
-  preview=st.cards[st.deck[0]];
+  preview=deckVisibleCard();
   deckPreviewReveal=!!reveal;
   render();
   updateDeckPanel();
-  const shouldReveal=deckPreviewReveal||st.deckFlipped;
-  if(!shouldReveal){if(deckIsPreview())$('#pimg').src=BACK;return}
+  const shouldReveal=deckPreviewReveal||deckVisibleFaceUp();
+  if(!shouldReveal){if(deckIsPreview())$('#pimg').src=BACK;syncDeckPileVisual();return}
   const current=preview;
   await load(current);
   if(preview===current&&deckIsPreview()&&$('#inspect')?.classList.contains('on'))$('#pimg').src=frontImage(current)||BACK;
+  syncDeckPileVisual();
   updateDeckPanel();
 }
 
@@ -110,4 +152,4 @@ $('#inspect')?.addEventListener('click',e=>{
 
 source=source.slice(0,start)+replacement+source.slice(end);
 fs.writeFileSync(path,source);
-console.log('Applied H47 deck mechanics and close patch to public/app.js');
+console.log('Applied H48 deck-pile options, visible-card preview, and deck mechanics patch to public/app.js');
