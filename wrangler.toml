@@ -1,13 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h74.js"
+main = "worker-h75.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H74: preserve complete token discovery and prehydrate generated token art/face
-# data so token interactions do not trigger card lookups during iOS viewer opens.
+# H75: keep H74 complete/hydrated token import, but make Tokens-pile taps use
+# the exact Commander full-screen interaction path. Once moved to the board,
+# tokens continue to behave like ordinary battlefield cards.
 [assets]
 directory = "./public"
 binding = "ASSETS"
