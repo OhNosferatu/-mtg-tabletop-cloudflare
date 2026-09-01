@@ -1,0 +1,90 @@
+/* Selection / hand interaction layer */
+.card.locked,.hcard.locked,.drag-ghost.locked{
+  outline:3px solid #f2c94c!important;
+  outline-offset:1px!important;
+  box-shadow:0 0 0 2px #2c2112,0 0 14px #f2c94c99!important;
+}
+.card.locked{z-index:90!important}
+
+.trash-zone{
+  position:absolute;
+  right:1.5%;
+  top:71%;
+  z-index:20;
+  width:var(--zone-w);
+  height:var(--zone-h);
+  border:2px dashed rgba(255,110,110,.75);
+  border-radius:7px;
+  background:rgba(90,20,20,.2);
+  color:#ffd7d7;
+  display:grid;
+  place-items:center;
+  padding:0;
+  touch-action:none;
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+.trash-zone span{font-size:23px;line-height:1;pointer-events:none}
+.trash-zone small{
+  position:absolute;
+  left:50%;
+  bottom:-11px;
+  transform:translateX(-50%);
+  font:900 5.6px/1 ui-monospace,Menlo,monospace;
+  letter-spacing:.08em;
+  white-space:nowrap;
+  color:#f5b5b5;
+  pointer-events:none;
+}
+.trash-zone:active{background:rgba(140,25,25,.38)}
+
+/* Open hand is a single horizontal carousel: approximately seven cards fit at once. */
+.hand.open{
+  height:150px!important;
+}
+.hand.open .handrow{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-start!important;
+  gap:4px!important;
+  width:100%!important;
+  height:calc(100% - 36px)!important;
+  padding:4px 2px 8px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x proximity;
+  overscroll-behavior-x:contain!important;
+  overscroll-behavior-y:none!important;
+  -webkit-overflow-scrolling:touch;
+  touch-action:none!important;
+}
+.hand.open .hcard{
+  flex:0 0 calc((100% - 24px)/7)!important;
+  width:calc((100% - 24px)/7)!important;
+  min-width:calc((100% - 24px)/7)!important;
+  height:auto!important;
+  aspect-ratio:.716!important;
+  border-radius:5px!important;
+  scroll-snap-align:start;
+  touch-action:none!important;
+}
+.hand.open .hcard img{
+  object-fit:contain!important;
+  background:#111;
+}
+
+@media(max-width:390px){
+  .hand.open{height:142px!important}
+  .hand.open .handrow{gap:3px!important}
+  .hand.open .hcard{
+    flex-basis:calc((100% - 18px)/7)!important;
+    width:calc((100% - 18px)/7)!important;
+    min-width:calc((100% - 18px)/7)!important;
+  }
+}
+
+@media(min-width:700px){
+  .hand.open{height:210px!important}
+  .trash-zone span{font-size:30px}
+}
