@@ -68,8 +68,8 @@ function normalizeArchidekt(data) {
     const isSideboard = names.some((x) => x === 'sideboard' || x === 'side board' || x === 'maybeboard' || x === 'maybe board');
     const excludedCategory = categories.some((category) => category.includedInDeck === false && names.includes(String(category.name || '').toLowerCase()));
 
-    if (isCommander) result.commander.push(item);
-    else if (isToken) result.tokens.push(item);
+    if (isCommander) result.commander.push({ ...item, commander: true });
+    else if (isToken) result.tokens.push({ ...item, token: true });
     else if (isSideboard || excludedCategory) result.sideboard.push(item);
     else result.deck.push(item);
   }
@@ -110,30 +110,10 @@ async function importArchidekt(request) {
   }
 }
 
-async function debugArchidekt(url) {
-  const id = String(url.searchParams.get('id') || '').trim();
-  const wanted = String(url.searchParams.get('name') || '').trim().toLowerCase();
-  if (!/^\d+$/.test(id)) return json({ error: 'Missing deck id' }, 400);
-  try {
-    const response = await fetchArchidektDeck(id);
-    if (!response.ok) return json({ error: `Archidekt returned ${response.status}` }, 502);
-    const data = await response.json();
-    const matches = (data.cards || []).filter((entry) => {
-      const card = entry.card || {};
-      const oracle = card.oracleCard || {};
-      const name = String(oracle.name || card.name || entry.name || '').toLowerCase();
-      return !wanted || name.includes(wanted);
-    });
-    return json({ deck: { id: data.id, name: data.name }, matches });
-  } catch (error) {
-    return json({ error: 'Debug lookup failed', detail: error?.message || 'Unknown network error' }, 502);
-  }
-}
-
 async function fetchScryfall(path) {
   return fetch(`https://api.scryfall.com${path}`, {
     headers: {
-      'accept': 'application/json;q=0.9,*/*;q=0.8',
+      accept: 'application/json;q=0.9,*/*;q=0.8',
       'user-agent': 'MTGTabletop/1.0 (Cloudflare Worker)',
     },
   });
@@ -171,10 +151,29 @@ async function cardLookup(url) {
     }
 
     const card = await response.json();
-    const image = card.image_uris?.normal || card.card_faces?.[0]?.image_uris?.normal || '';
-    if (!image) return json({ error: 'No image available for this card' }, 404);
+    const faceImages = (card.card_faces || [])
+      .map((face) => ({
+        name: face.name || card.name || '',
+        image: face.image_uris?.normal || '',
+      }))
+      .filter((face) => face.image);
 
-    return new Response(JSON.stringify({ image, exactPrinting: usedExactPrinting, scryfallId: card.id || null, set: card.set || null, collectorNumber: card.collector_number || null }), {
+    const frontImage = card.image_uris?.normal || faceImages[0]?.image || '';
+    if (!frontImage) return json({ error: 'No image available for this card' }, 404);
+
+    const doubleFacedLayouts = new Set(['transform', 'modal_dfc', 'double_faced_token', 'reversible_card']);
+    const isDoubleFaced = doubleFacedLayouts.has(card.layout) && faceImages.length > 1;
+
+    return new Response(JSON.stringify({
+      image: frontImage,
+      faces: faceImages.length ? faceImages : [{ name: card.name || name, image: frontImage }],
+      isDoubleFaced,
+      layout: card.layout || null,
+      exactPrinting: usedExactPrinting,
+      scryfallId: card.id || null,
+      set: card.set || null,
+      collectorNumber: card.collector_number || null,
+    }), {
       status: 200,
       headers: {
         'content-type': 'application/json; charset=utf-8',
@@ -190,11 +189,6 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (url.pathname === '/api/debug-archidekt') {
-      if (request.method !== 'GET') return json({ error: 'Method not allowed' }, 405);
-      return debugArchidekt(url);
-    }
-
     if (url.pathname === '/api/card') {
       if (request.method !== 'GET') return json({ error: 'Method not allowed' }, 405);
       return cardLookup(url);
@@ -202,11 +196,18 @@ export default {
 
     if (url.pathname === '/api/import-archidekt' || url.pathname === '/api/import-moxfield') {
       if (request.method === 'OPTIONS') {
-        return new Response(null, { status: 204, headers: { 'access-control-allow-methods': 'POST,OPTIONS', 'access-control-allow-headers': 'Content-Type' } });
+        return new Response(null, {
+          status: 204,
+          headers: {
+            'access-control-allow-methods': 'POST,OPTIONS',
+            'access-control-allow-headers': 'Content-Type',
+          },
+        });
       }
       if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
       return importArchidekt(request);
     }
+
     return env.ASSETS.fetch(request);
   },
 };
