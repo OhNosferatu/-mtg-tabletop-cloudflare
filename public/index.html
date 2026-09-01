@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover,user-scalable=no">
 <title>MTG Tabletop Desktop v1</title>
-<link rel="stylesheet" href="/style.css?v=20260831-23">
-<link rel="stylesheet" href="/controls.css?v=20260831-23">
-<link rel="stylesheet" href="/hand-select.css?v=20260831-23">
-<link rel="stylesheet" href="/counter-ui.css?v=20260831-23">
-<link rel="stylesheet" href="/board-ui.css?v=20260831-23">
+<link rel="stylesheet" href="/style.css?v=20260831-24">
+<link rel="stylesheet" href="/controls.css?v=20260831-24">
+<link rel="stylesheet" href="/hand-select.css?v=20260831-24">
+<link rel="stylesheet" href="/counter-ui.css?v=20260831-24">
+<link rel="stylesheet" href="/board-ui.css?v=20260831-24">
 <style>
 .inspect,.inspect *{touch-action:none!important;-webkit-touch-callout:none!important;-webkit-user-select:none!important;user-select:none!important}
-.inspect-close{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:120;width:44px;height:44px;border:1px solid #8b7659;border-radius:50%;background:#211b17;color:#fff;font:700 30px/1 system-ui;padding:0;display:grid;place-items:center}
+.inspect.on{z-index:20000!important;background:#0a0908fa!important}
+.inspect-close{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:20020!important;width:44px;height:44px;border:1px solid #8b7659;border-radius:50%;background:#211b17;color:#fff;font:700 30px/1 system-ui;padding:0;display:grid;place-items:center}
 .toast{display:none!important}
 /* Critical hand layout is inline so stale external CSS cannot override it. */
 #hand.hand:not(.empty){height:190px!important;padding:6px!important;overflow:hidden!important}
@@ -66,7 +67,7 @@
   </section>
 </div>
 <aside id="hand" class="hand empty">
-  <div class="handhead"><b>Your Hand <span class="hand-build">H23</span></b><button id="closehand" class="close">Close</button></div>
+  <div class="handhead"><b>Your Hand <span class="hand-build">H24</span></b><button id="closehand" class="close">Close</button></div>
   <div id="handrow" class="handrow"></div>
   <div class="hand-scroll-wrap"><input id="handscroll" type="range" min="0" max="1" value="0" step="1" aria-label="Scroll hand"></div>
 </aside>
@@ -76,10 +77,10 @@
   <div class="previewwrap"><div class="preview"><img id="pimg"></div><div id="ctrl" class="ctrl"><button id="tap">Tap / Untap</button><button id="flip">Flip Card</button><button id="state" hidden>Other Side</button><button id="one">+1/+1</button><button id="manual">X/X</button><button id="tohand">To Hand</button><button id="todiscard">Discard</button><button id="toexile">Exile</button><div id="xx" class="xx"><input id="px" inputmode="numeric" placeholder="P"><input id="tx" inputmode="numeric" placeholder="T"><button id="apply">Apply</button></div></div></div>
 </div>
 <div id="toast" class="toast"></div>
-<script src="/app.js?v=20260831-23" defer></script>
-<script src="/counter-ui.js?v=20260831-23" defer></script>
-<script src="/hand-close.js?v=20260831-23" defer></script>
-<script src="/deck-state.js?v=20260831-23" defer></script>
-<script src="/ios-guard.js?v=20260831-23" defer></script>
+<script src="/app.js?v=20260831-24" defer></script>
+<script src="/counter-ui.js?v=20260831-24" defer></script>
+<script src="/hand-close.js?v=20260831-24" defer></script>
+<script src="/deck-state.js?v=20260831-24" defer></script>
+<script src="/ios-guard.js?v=20260831-24" defer></script>
 </body>
 </html>
