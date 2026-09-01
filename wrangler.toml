@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h63.js"
+main = "worker-h64.js"
 compatibility_date = "2026-08-31"
 
-# H63: draw new cards to the far-left of Hand and route Hand-card viewing
-# through the stable lightweight full-card viewer instead of legacy inspect.
+# H64: simplify deck controls and make Reveal Top / Flip Deck update the
+# physical deck-pile card orientation and order correctly.
 [assets]
 directory = "./public"
 binding = "ASSETS"
