@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover,user-scalable=no">
 <title>MTG Tabletop Desktop v1</title>
-<link rel="stylesheet" href="/style.css?v=20260831-22">
-<link rel="stylesheet" href="/controls.css?v=20260831-22">
-<link rel="stylesheet" href="/hand-select.css?v=20260831-22">
-<link rel="stylesheet" href="/counter-ui.css?v=20260831-22">
+<link rel="stylesheet" href="/style.css?v=20260831-23">
+<link rel="stylesheet" href="/controls.css?v=20260831-23">
+<link rel="stylesheet" href="/hand-select.css?v=20260831-23">
+<link rel="stylesheet" href="/counter-ui.css?v=20260831-23">
+<link rel="stylesheet" href="/board-ui.css?v=20260831-23">
 <style>
 .inspect,.inspect *{touch-action:none!important;-webkit-touch-callout:none!important;-webkit-user-select:none!important;user-select:none!important}
 .inspect-close{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:120;width:44px;height:44px;border:1px solid #8b7659;border-radius:50%;background:#211b17;color:#fff;font:700 30px/1 system-ui;padding:0;display:grid;place-items:center}
@@ -42,7 +43,6 @@
 <div class="tools"><button id="draw">Draw 1</button><button id="mulligan">Mulligan</button><button id="untap">Untap All</button></div>
 <div id="board" class="board">
   <section id="you" class="screen on">
-    <div class="title">YOUR SIDE</div>
     <button class="life-heart" data-life="you" aria-label="Life total: tap to lose one, double tap to gain one"><span>40</span></button>
     <div id="cmds" class="cmds"></div>
     <div id="discard" class="zone discard" data-name="DISCARD" data-icon="☠"></div>
@@ -50,6 +50,7 @@
     <div id="exile" class="zone exile" data-name="EXILE" data-icon="✦"></div>
     <div id="tokens" class="zone tokens" data-name="TOKENS" data-icon="◉"></div>
     <div id="side" style="display:none"></div>
+    <div class="land-zone" aria-hidden="true"></div>
     <div id="field"></div>
   </section>
   <section id="full" class="screen">
@@ -65,7 +66,7 @@
   </section>
 </div>
 <aside id="hand" class="hand empty">
-  <div class="handhead"><b>Your Hand <span class="hand-build">H22</span></b><button id="closehand" class="close">Close</button></div>
+  <div class="handhead"><b>Your Hand <span class="hand-build">H23</span></b><button id="closehand" class="close">Close</button></div>
   <div id="handrow" class="handrow"></div>
   <div class="hand-scroll-wrap"><input id="handscroll" type="range" min="0" max="1" value="0" step="1" aria-label="Scroll hand"></div>
 </aside>
@@ -75,10 +76,10 @@
   <div class="previewwrap"><div class="preview"><img id="pimg"></div><div id="ctrl" class="ctrl"><button id="tap">Tap / Untap</button><button id="flip">Flip Card</button><button id="state" hidden>Other Side</button><button id="one">+1/+1</button><button id="manual">X/X</button><button id="tohand">To Hand</button><button id="todiscard">Discard</button><button id="toexile">Exile</button><div id="xx" class="xx"><input id="px" inputmode="numeric" placeholder="P"><input id="tx" inputmode="numeric" placeholder="T"><button id="apply">Apply</button></div></div></div>
 </div>
 <div id="toast" class="toast"></div>
-<script src="/app.js?v=20260831-22" defer></script>
-<script src="/counter-ui.js?v=20260831-22" defer></script>
-<script src="/hand-close.js?v=20260831-22" defer></script>
-<script src="/deck-state.js?v=20260831-22" defer></script>
-<script src="/ios-guard.js?v=20260831-22" defer></script>
+<script src="/app.js?v=20260831-23" defer></script>
+<script src="/counter-ui.js?v=20260831-23" defer></script>
+<script src="/hand-close.js?v=20260831-23" defer></script>
+<script src="/deck-state.js?v=20260831-23" defer></script>
+<script src="/ios-guard.js?v=20260831-23" defer></script>
 </body>
 </html>
