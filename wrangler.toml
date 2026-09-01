@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h81.js"
+main = "worker-h82.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H81: preserve H79 interaction/mulligan fixes, discover only token cards
-# actually created by main-deck/Commander Oracle text, and use double-tap on
-# the Tokens pile to open the stable full-card viewer.
+# H82: preserve H81 token count and interactions, but preload artwork for every
+# imported token type so the next token is already rendered when the top token
+# is dragged away. Apply the same preload after Mulligan restores the token pile.
 [assets]
 directory = "./public"
 binding = "ASSETS"
