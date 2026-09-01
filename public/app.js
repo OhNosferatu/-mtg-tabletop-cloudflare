@@ -113,7 +113,7 @@ function placeOnField(id,x,y,faceDown=null){
 
 function handHit(x,y){
   const h=$("#hand");
-  return h && !h.classList.contains("empty") && pointInRect(x,y,h.getBoundingClientRect());
+  return h && pointInRect(x,y,h.getBoundingClientRect());
 }
 
 function snapTargetFor(el,c){
@@ -290,7 +290,7 @@ function zoneDrag(el,id,from,{forceBack=false,label=""}={}){
     ghost?.remove();
 
     if(!moved){
-      openCard(c,false);
+      openCard(c,true);
       return;
     }
 
@@ -317,23 +317,46 @@ function handCard(id){
   d.className="hcard";
   d.dataset.id=id;
   d.innerHTML=face(c);
-  let s=null,moved=false;
+  let s=null,moved=false,scrollMode=false;
 
   d.onpointerdown=e=>{
     e.preventDefault();
-    s={x:e.clientX,y:e.clientY,pid:e.pointerId};
+    const row=$("#handrow");
+    s={x:e.clientX,y:e.clientY,pid:e.pointerId,scrollTop:row.scrollTop};
     moved=false;
+    scrollMode=false;
     d.setPointerCapture?.(e.pointerId);
   };
 
   d.onpointermove=e=>{
-    if(s&&Math.hypot(e.clientX-s.x,e.clientY-s.y)>10)moved=true;
+    if(!s)return;
+    const dx=e.clientX-s.x,dy=e.clientY-s.y;
+    const handRect=$("#hand").getBoundingClientRect();
+    const open=$("#hand").classList.contains("open");
+
+    if(open && pointInRect(e.clientX,e.clientY,handRect) && !moved){
+      if(Math.abs(dy)>8 && Math.abs(dy)>Math.abs(dx)*1.15){
+        scrollMode=true;
+      }
+    }
+
+    if(scrollMode){
+      $("#handrow").scrollTop=s.scrollTop-dy;
+      return;
+    }
+
+    if(Math.hypot(dx,dy)>10)moved=true;
   };
 
   d.onpointerup=e=>{
     if(!s)return;
     d.releasePointerCapture?.(s.pid);
     s=null;
+
+    if(scrollMode){
+      scrollMode=false;
+      return;
+    }
 
     if(!moved){
       openCard(c,true);
@@ -378,7 +401,7 @@ function renderPile(el,arr,label,{back=false,draggable=false,from=null,forceBack
   }
   el.insertAdjacentHTML("beforeend",`<span class="count">${arr.length}</span>`);
   if(c&&draggable)zoneDrag(el,id,from,{forceBack,label});
-  else el.onclick=()=>c?openCard(c,false):toast(label+" empty");
+  else el.onclick=()=>c?openCard(c,true):toast(label+" empty");
 }
 
 function renderLife(){
@@ -454,6 +477,7 @@ function applyDeck(d){
   st.field=[];st.hand=[];st.discard=[];st.exile=[];
   st.cmd=expand(d.commander,"cmd");
   st.deck=expand(d.deck,"deck");
+  st.deck.forEach(id=>st.cards[id].faceDown=true);
   st.side=expand(d.sideboard,"side");
   st.tokens=expand(d.tokens,"tokens");
   [...st.cmd.slice(0,2),st.side[0],st.tokens[0]].filter(Boolean).forEach(id=>load(st.cards[id]).then(render));
