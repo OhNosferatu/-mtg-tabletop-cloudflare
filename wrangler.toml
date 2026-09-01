@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h80.js"
+main = "worker-h81.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H80: preserve H79 interaction/mulligan fixes, but derive imported token
-# options only from Archidekt's Tokens-category source cards using batched
-# Scryfall related-token lookup instead of scanning the entire deck.
+# H81: preserve H79 interaction/mulligan fixes, discover only token cards
+# actually created by main-deck/Commander Oracle text, and use double-tap on
+# the Tokens pile to open the stable full-card viewer.
 [assets]
 directory = "./public"
 binding = "ASSETS"
