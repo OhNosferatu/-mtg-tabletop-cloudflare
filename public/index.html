@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover,user-scalable=no">
 <title>MTG Tabletop Desktop v1</title>
-<link rel="stylesheet" href="/style.css?v=20260831-8">
-<link rel="stylesheet" href="/controls.css?v=20260831-8">
+<link rel="stylesheet" href="/style.css?v=20260831-9">
+<link rel="stylesheet" href="/controls.css?v=20260831-9">
 </head>
 <body>
 <div class="bar">
@@ -16,13 +16,11 @@
   </div>
   <button id="import">Import</button>
 </div>
-
 <div class="tools">
   <button id="draw">Draw 1</button>
   <button id="mulligan">Mulligan</button>
   <button id="untap">Untap All</button>
 </div>
-
 <div id="board" class="board">
   <section id="you" class="screen on">
     <div class="title">YOUR SIDE</div>
@@ -35,51 +33,34 @@
     <div id="side" class="zone side" data-name="SIDEBOARD" data-icon="▤"></div>
     <div id="field"></div>
   </section>
-
   <section id="full" class="screen">
     <div class="title">FULL BOARD</div>
     <button class="life-heart full-life-opp" data-life="opp" aria-label="Opponent life total"><span>40</span></button>
     <button class="life-heart" data-life="you" aria-label="Your life total"><span>40</span></button>
     <div id="fullcards"></div>
   </section>
-
   <section id="opp" class="screen">
     <div class="title">OPPONENT</div>
     <button class="life-heart" data-life="opp" aria-label="Opponent life total"><span>40</span></button>
     <div id="oppcards"></div>
   </section>
 </div>
-
 <aside id="hand" class="hand empty">
-  <div class="handhead">
-    <b>Your Hand</b>
-    <button id="closehand" class="close">Close</button>
-  </div>
+  <div class="handhead"><b>Your Hand</b><button id="closehand" class="close">Close</button></div>
   <div id="handrow" class="handrow"></div>
 </aside>
-
 <div id="imp" class="modal">
   <div class="box">
     <h3>Import Deck</h3>
-    <div class="methods">
-      <button id="urlm" class="on">Deck URL</button>
-      <button id="listm">Card List</button>
-    </div>
-    <div id="urlp" class="pane on">
-      <input id="url" placeholder="https://archidekt.com/decks/...">
-    </div>
-    <div id="listp" class="pane">
-      <textarea id="list"></textarea>
-    </div>
+    <div class="methods"><button id="urlm" class="on">Deck URL</button><button id="listm">Card List</button></div>
+    <div id="urlp" class="pane on"><input id="url" placeholder="https://archidekt.com/decks/..."></div>
+    <div id="listp" class="pane"><textarea id="list"></textarea></div>
     <div id="msg" class="msg">Archidekt URL is preferred.</div>
-    <div class="actions">
-      <button id="cancel">Cancel</button>
-      <button id="run">Import</button>
-    </div>
+    <div class="actions"><button id="cancel">Cancel</button><button id="run">Import</button></div>
   </div>
 </div>
-
 <div id="inspect" class="inspect">
+  <button id="closeinspect" class="inspect-close" aria-label="Close card preview">×</button>
   <div class="previewwrap">
     <div class="preview"><img id="pimg"></div>
     <div id="ctrl" class="ctrl">
@@ -91,17 +72,13 @@
       <button id="tohand">To Hand</button>
       <button id="todiscard">Discard</button>
       <button id="toexile">Exile</button>
-      <div id="xx" class="xx">
-        <input id="px" inputmode="numeric" placeholder="P">
-        <input id="tx" inputmode="numeric" placeholder="T">
-        <button id="apply">Apply</button>
-      </div>
+      <div id="xx" class="xx"><input id="px" inputmode="numeric" placeholder="P"><input id="tx" inputmode="numeric" placeholder="T"><button id="apply">Apply</button></div>
     </div>
   </div>
 </div>
-
 <div id="toast" class="toast"></div>
-<script src="/app.js?v=20260831-8" defer></script>
-<script src="/deck-state.js?v=20260831-8" defer></script>
+<script src="/app.js?v=20260831-9" defer></script>
+<script src="/deck-state.js?v=20260831-9" defer></script>
+<script src="/ios-guard.js?v=20260831-9" defer></script>
 </body>
 </html>
