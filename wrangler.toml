@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h58.js"
+main = "worker-h59.js"
 compatibility_date = "2026-08-31"
 
-# H58: keep H57's stacked Scry + Hand layout while making Scry drags track
-# reliably from pointer-down and giving the per-card arrow controls full height.
+# H59: while Scry is active, show only a compact Hand peek strip beneath it
+# and hide Hand open/close and scrollbar controls until Scry is resolved.
 [assets]
 directory = "./public"
 binding = "ASSETS"
