@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h66.js"
+main = "worker-h67.js"
 compatibility_date = "2026-08-31"
 
-# H66: make Reveal/Unreveal follow the actual top-card face state and preserve
-# individual card orientations through Flip Deck round trips.
+# H67: keep the deck overlay open for Draw and Scry actions, then surface
+# the Hand or private Scry tray only when the player exits the deck menu.
 [assets]
 directory = "./public"
 binding = "ASSETS"
