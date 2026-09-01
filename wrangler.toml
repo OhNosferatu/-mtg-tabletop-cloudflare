@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h71.js"
+main = "worker-h72.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H71: keep the proven H64 build-time chain and scan the complete imported
-# Archidekt deck for Scryfall-related tokens and emblems at import time.
+# H72: keep H71 complete token discovery and use the lightweight card viewer
+# for taps on cards in the Tokens pile to avoid the legacy iOS inspect freeze.
 [assets]
 directory = "./public"
 binding = "ASSETS"
