@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h75.js"
+main = "worker-h76.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H75: keep H74 complete/hydrated token import, but make Tokens-pile taps use
-# the exact Commander full-screen interaction path. Once moved to the board,
-# tokens continue to behave like ordinary battlefield cards.
+# H76: preserve complete/hydrated token discovery and give token cards an
+# isolated full-screen control overlay with no legacy inspector or pointer-hold
+# machinery. Tokens use the same token-safe viewer from pile, Hand, or field.
 [assets]
 directory = "./public"
 binding = "ASSETS"
