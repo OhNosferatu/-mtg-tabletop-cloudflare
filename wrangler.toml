@@ -1,8 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h53.js"
+main = "worker-h54.js"
 compatibility_date = "2026-08-31"
 
-# H53: isolate deck opening from legacy inspect/preview/render integration.
+# H54: keep H53's stable isolated deck menu while making Scry Hand cards
+# move into the player's hand or battlefield using the normal hand destinations.
 [assets]
 directory = "./public"
 binding = "ASSETS"
