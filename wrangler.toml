@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h67.js"
+main = "worker-h68.js"
 compatibility_date = "2026-08-31"
 
-# H67: keep the deck overlay open for Draw and Scry actions, then surface
-# the Hand or private Scry tray only when the player exits the deck menu.
+# H68: deploy directly from the known-good H64 baseline and consolidate the
+# Reveal/Unreveal, orientation-preserving Flip Deck, and persistent Draw/Scry fixes.
 [assets]
 directory = "./public"
 binding = "ASSETS"
