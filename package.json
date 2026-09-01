@@ -2,7 +2,7 @@
   "name": "mtg-tabletop-cloudflare",
   "private": true,
   "scripts": {
-    "deploy": "node patch-app.mjs && node patch-h43.mjs && node patch-h46.mjs && wrangler deploy"
+    "deploy": "node patch-app.mjs && node patch-h43.mjs && node patch-h46.mjs && node patch-h47.mjs && wrangler deploy"
   },
   "devDependencies": {
     "wrangler": "4.127.1"
