@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h40.js"
+main = "worker-h41.js"
 compatibility_date = "2026-08-31"
 
-# H40: keep the reliable visible asset loader and replace battlefield double-tap
-# inspect previews with a lightweight full-screen zoom to avoid iOS freezes.
+# H41: keep the stable H40 lightweight battlefield viewer and add direct
+# card controls without reconnecting the old observer-heavy inspect stack.
 [assets]
 directory = "./public"
 binding = "ASSETS"
