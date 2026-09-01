@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h50.js"
+main = "worker-h51.js"
 compatibility_date = "2026-08-31"
 
-# H50: move deck fullscreen controls off the legacy inspect stack, serialize
-# deck actions, and allow repeated Scry 1 presses to build a private scry hand.
+# H51: keep the lightweight H50 deck overlay while making deck opening
+# single/double-tap safe and non-blocking on iPhone Safari.
 [assets]
 directory = "./public"
 binding = "ASSETS"
