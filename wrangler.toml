@@ -1,13 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h77.js"
+main = "worker-h78.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H77: return to the stable H71 interaction baseline, keep complete/hydrated
-# token import, and isolate Tokens-pile full-screen controls from normal cards.
+# H78: recovery build on the known-good H71/H70 interaction stack. Keep full
+# token discovery, but disable stationary Tokens-pile taps while preserving
+# drag-to-Hand and drag-to-battlefield behavior.
 [assets]
 directory = "./public"
 binding = "ASSETS"
