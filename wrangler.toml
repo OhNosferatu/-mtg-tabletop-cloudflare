@@ -1,9 +1,8 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h52.js"
+main = "worker-h53.js"
 compatibility_date = "2026-08-31"
 
-# H52: separate deck tapping from pointer capture so opening the deck cannot
-# occur inside the same captured pointer event used for dragging the top card.
+# H53: isolate deck opening from legacy inspect/preview/render integration.
 [assets]
 directory = "./public"
 binding = "ASSETS"
