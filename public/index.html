@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover,user-scalable=no">
 <title>MTG Tabletop Desktop v1</title>
-<link rel="stylesheet" href="/style.css?v=20260831-28">
-<link rel="stylesheet" href="/controls.css?v=20260831-28">
-<link rel="stylesheet" href="/hand-select.css?v=20260831-28">
-<link rel="stylesheet" href="/counter-ui.css?v=20260831-28">
-<link rel="stylesheet" href="/board-ui.css?v=20260831-28">
+<link rel="stylesheet" href="/style.css?v=20260831-29">
+<link rel="stylesheet" href="/controls.css?v=20260831-29">
+<link rel="stylesheet" href="/hand-select.css?v=20260831-29">
+<link rel="stylesheet" href="/counter-ui.css?v=20260831-29">
+<link rel="stylesheet" href="/board-ui.css?v=20260831-29">
 <style>
 .inspect,.inspect *{touch-action:none!important;-webkit-touch-callout:none!important;-webkit-user-select:none!important;user-select:none!important}
 .inspect.on{z-index:20000!important;background:#0a0908fa!important}
@@ -34,17 +34,58 @@
 #you .exile{left:1.4%!important;top:63.5%!important}
 #you .tokens{left:1.4%!important;right:auto!important;top:80%!important}
 #you .land-zone{position:absolute!important;left:17%!important;right:4.5%!important;bottom:2.5%!important;height:27%!important;z-index:3!important;border:1.5px solid rgba(24,55,36,.78)!important;border-radius:12px!important;background:rgba(24,55,36,.12)!important;box-shadow:inset 0 0 0 1px rgba(13,38,25,.16)!important;pointer-events:none!important}
-@media(max-width:390px){#hand.hand:not(.empty){height:184px!important}#hand.hand:not(.empty) #handrow{gap:5px!important;height:120px!important}#hand.hand:not(.empty) #handrow>.hcard{flex-basis:calc((100% - 20px)/5)!important;width:calc((100% - 20px)/5)!important;min-width:calc((100% - 20px)/5)!important}#hand.hand.closed:not(.empty){height:46px!important}#you .cmds{top:13.5%!important}#you .discard{top:30%!important}#you .deck{top:46.5%!important}#you .exile{top:63%!important}#you .tokens{top:79.5%!important}#you .land-zone{left:17%!important;right:4%!important;bottom:2%!important;height:27%!important}}
+
+/* H29 dedicated deck-view layout. */
+#inspect.deck-mode{align-items:flex-start!important;padding-top:max(70px,env(safe-area-inset-top))!important;padding-bottom:max(210px,env(safe-area-inset-bottom))!important}
+#inspect.deck-mode .previewwrap{width:100%!important;height:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0 8px 185px!important}
+#inspect.deck-mode #ctrl{display:none!important}
+#inspect.deck-mode:not(.deck-revealed) .preview{display:none!important}
+#inspect.deck-mode.deck-revealed .preview{display:block!important;width:min(68vw,300px)!important}
+#inspect.deck-mode #deckctrl{display:grid!important;position:absolute!important;left:14px!important;right:14px!important;bottom:max(18px,env(safe-area-inset-bottom))!important;top:auto!important;transform:none!important;width:auto!important;max-height:none!important;overflow:visible!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;z-index:20030!important}
+#inspect.deck-mode #deckctrl .deckstatus{grid-column:1/-1!important;min-height:30px!important;display:grid!important;place-items:center!important;padding:6px 8px!important;font-size:9px!important}
+#inspect.deck-mode #deckctrl button{width:100%!important;min-width:0!important;min-height:44px!important;padding:6px 4px!important;font-size:9px!important;border-radius:9px!important}
+
+@media(max-width:390px){#hand.hand:not(.empty){height:184px!important}#hand.hand:not(.empty) #handrow{gap:5px!important;height:120px!important}#hand.hand:not(.empty) #handrow>.hcard{flex-basis:calc((100% - 20px)/5)!important;width:calc((100% - 20px)/5)!important;min-width:calc((100% - 20px)/5)!important}#hand.hand.closed:not(.empty){height:46px!important}#you .cmds{top:13.5%!important}#you .discard{top:30%!important}#you .deck{top:46.5%!important}#you .exile{top:63%!important}#you .tokens{top:79.5%!important}#you .land-zone{left:17%!important;right:4%!important;bottom:2%!important;height:27%!important}#inspect.deck-mode{padding-bottom:max(200px,env(safe-area-inset-bottom))!important}#inspect.deck-mode .previewwrap{padding-bottom:178px!important}#inspect.deck-mode #deckctrl{left:10px!important;right:10px!important;gap:5px!important}#inspect.deck-mode #deckctrl button{min-height:42px!important;font-size:8px!important}}
 </style>
 </head>
 <body>
 <div class="bar"><div class="tabs"><button class="on" data-v="you">Your Side</button><button data-v="full">Full Board</button><button data-v="opp">Opponent</button></div><button id="import">Import</button></div>
 <div class="tools"><button id="draw">Draw 1</button><button id="mulligan">Mulligan</button><button id="untap">Untap All</button></div>
 <div id="board" class="board"><section id="you" class="screen on"><button class="life-heart" data-life="you" aria-label="Life total: tap to lose one, double tap to gain one"><span>40</span></button><div id="cmds" class="cmds"></div><div id="discard" class="zone discard" data-name="DISCARD" data-icon="☠"></div><div id="deck" class="zone deck empty" data-name="DECK"></div><div id="exile" class="zone exile" data-name="EXILE" data-icon="✦"></div><div id="tokens" class="zone tokens" data-name="TOKENS" data-icon="◉"></div><div id="side" style="display:none"></div><div class="land-zone" aria-hidden="true"></div><div id="field"></div></section><section id="full" class="screen"><div class="title">FULL BOARD</div><button class="life-heart full-life-opp" data-life="opp" aria-label="Opponent life total"><span>40</span></button><button class="life-heart" data-life="you" aria-label="Your life total"><span>40</span></button><div id="fullcards"></div></section><section id="opp" class="screen"><div class="title">OPPONENT</div><button class="life-heart" data-life="opp" aria-label="Opponent life total"><span>40</span></button><div id="oppcards"></div></section></div>
-<aside id="hand" class="hand empty"><div class="handhead"><b>Your Hand <span class="hand-build">H28</span></b><button id="closehand" class="close">Close</button></div><div id="handrow" class="handrow"></div><div class="hand-scroll-wrap"><input id="handscroll" type="range" min="0" max="1" value="0" step="1" aria-label="Scroll hand"></div></aside>
+<aside id="hand" class="hand empty"><div class="handhead"><b>Your Hand <span class="hand-build">H29</span></b><button id="closehand" class="close">Close</button></div><div id="handrow" class="handrow"></div><div class="hand-scroll-wrap"><input id="handscroll" type="range" min="0" max="1" value="0" step="1" aria-label="Scroll hand"></div></aside>
 <div id="imp" class="modal"><div class="box"><h3>Import Deck</h3><div class="methods"><button id="urlm" class="on">Deck URL</button><button id="listm">Card List</button></div><div id="urlp" class="pane on"><input id="url" placeholder="https://archidekt.com/decks/..."></div><div id="listp" class="pane"><textarea id="list"></textarea></div><div id="msg" class="msg">Archidekt URL is preferred.</div><div class="actions"><button id="cancel">Cancel</button><button id="run">Import</button></div></div></div>
 <div id="inspect" class="inspect"><button id="closeinspect" class="inspect-close" aria-label="Close card preview">×</button><div class="previewwrap"><div class="preview"><img id="pimg"></div><div id="ctrl" class="ctrl"><button id="tap">Tap / Untap</button><button id="flip">Flip Card</button><button id="state" hidden>Other Side</button><button id="one">+1/+1</button><button id="manual">X/X</button><button id="tohand">To Hand</button><button id="todiscard">Discard</button><button id="toexile">Exile</button><div id="xx" class="xx"><input id="px" inputmode="numeric" placeholder="P"><input id="tx" inputmode="numeric" placeholder="T"><button id="apply">Apply</button></div></div></div></div>
 <div id="toast" class="toast"></div>
-<script src="/app.js?v=20260831-28" defer></script><script src="/counter-ui.js?v=20260831-28" defer></script><script src="/hand-close.js?v=20260831-28" defer></script><script src="/deck-state.js?v=20260831-28" defer></script><script src="/ios-guard.js?v=20260831-28" defer></script>
+<script src="/app.js?v=20260831-29" defer></script><script src="/counter-ui.js?v=20260831-29" defer></script><script src="/hand-close.js?v=20260831-29" defer></script><script src="/deck-state.js?v=20260831-29" defer></script><script src="/ios-guard.js?v=20260831-29" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded',()=>{
+  const inspect=document.getElementById('inspect');
+  const ctrl=document.getElementById('ctrl');
+  const pimg=document.getElementById('pimg');
+  const attachDeckPanel=()=>{
+    const panel=document.getElementById('deckctrl');
+    if(!panel||!inspect)return null;
+    if(panel.parentElement!==inspect)inspect.appendChild(panel);
+    return panel;
+  };
+  const syncDeckMode=()=>{
+    const panel=attachDeckPanel();
+    if(!panel||!inspect)return;
+    const active=inspect.classList.contains('on')&&panel.classList.contains('on');
+    inspect.classList.toggle('deck-mode',active);
+    if(!active){inspect.classList.remove('deck-revealed');return;}
+    ctrl?.classList.remove('on');
+    const status=document.getElementById('deckstatus')?.textContent||'';
+    const src=pimg?.getAttribute('src')||'';
+    const isBack=/cards\.scryfall\.io\/back\.png/i.test(src);
+    inspect.classList.toggle('deck-revealed',/FACE UP/i.test(status)||(!isBack&&!!src));
+  };
+  const panel=attachDeckPanel();
+  if(panel)new MutationObserver(syncDeckMode).observe(panel,{attributes:true,subtree:true,characterData:true,childList:true});
+  if(inspect)new MutationObserver(syncDeckMode).observe(inspect,{attributes:true,attributeFilter:['class']});
+  if(pimg)new MutationObserver(syncDeckMode).observe(pimg,{attributes:true,attributeFilter:['src']});
+  syncDeckMode();
+});
+</script>
 </body>
 </html>
