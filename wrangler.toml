@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h47.js"
+main = "worker-h48.js"
 compatibility_date = "2026-08-31"
 
-# H47: keep the stable lightweight viewer, fix deck fullscreen exit/backdrop,
-# and make deck actions update state exactly once per button press.
+# H48: tapping any non-empty deck pile opens deck options; the preview follows
+# the actually visible face, including the original bottom card after flipping.
 [assets]
 directory = "./public"
 binding = "ASSETS"
