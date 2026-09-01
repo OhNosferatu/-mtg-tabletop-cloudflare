@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h82.js"
+main = "worker-h83.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H82: preserve H81 token count and interactions, but preload artwork for every
-# imported token type so the next token is already rendered when the top token
-# is dragged away. Apply the same preload after Mulligan restores the token pile.
+# H83: preserve H82 token preload/count behavior and add a full-screen visual
+# indicator beside tapped cards showing the clockwise sideways tap direction.
 [assets]
 directory = "./public"
 binding = "ASSETS"
