@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h61.js"
+main = "worker-h62.js"
 compatibility_date = "2026-08-31"
 
-# H61: make the rendered top-card image authoritative on the Deck pile and
-# recalculate the custom Hand scrollbar after Mulligan rebuilds the hand.
+# H62: refresh the custom Hand scrollbar whenever the Hand tray opens/closes
+# or its rendered row changes size, including cards added while Hand is closed.
 [assets]
 directory = "./public"
 binding = "ASSETS"
