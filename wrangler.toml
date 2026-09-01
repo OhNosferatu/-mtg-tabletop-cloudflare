@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h43.js"
+main = "worker-h44.js"
 compatibility_date = "2026-08-31"
 
-# H43: keep the stable lightweight viewer, move counter readouts onto the card,
-# shrink the zoomed card, and make the overlay translucent.
+# H44: keep H43's stable translucent lightweight viewer while moving the
+# counter badge to the lower-right and showing base P/T without an X/X label.
 [assets]
 directory = "./public"
 binding = "ASSETS"
