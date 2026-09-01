@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h59.js"
+main = "worker-h60.js"
 compatibility_date = "2026-08-31"
 
-# H59: while Scry is active, show only a compact Hand peek strip beneath it
-# and hide Hand open/close and scrollbar controls until Scry is resolved.
+# H60: preserve each card's own face orientation when placed on the deck and
+# remove Scry header text while keeping Scry and compact Hand strips separated.
 [assets]
 directory = "./public"
 binding = "ASSETS"
