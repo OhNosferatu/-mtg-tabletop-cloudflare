@@ -16,7 +16,7 @@
   overscroll-behavior-x:contain!important;
   overscroll-behavior-y:none!important;
   -webkit-overflow-scrolling:touch;
-  touch-action:none!important;
+  touch-action:pan-x!important;
 }
 .hand.open .hcard{
   flex:0 0 calc((100% - 24px)/7)!important;
@@ -25,20 +25,39 @@
   height:auto!important;
   aspect-ratio:.716!important;
   border-radius:5px!important;
-  touch-action:none!important;
-  transition:transform .12s ease, margin .12s ease, box-shadow .12s ease!important;
+  touch-action:pan-x!important;
+  transition:transform .12s ease, margin .12s ease, box-shadow .12s ease, opacity .12s ease!important;
 }
 .hand.open .hcard img{
   object-fit:contain!important;
   background:#111;
 }
-.hcard.hand-selected{
+.hcard.hand-selected,
+.hand-drag-floating.hand-selected{
   outline:3px solid #f2c94c!important;
   outline-offset:1px!important;
-  box-shadow:0 0 0 2px #2c2112,0 0 14px rgba(242,201,76,.75)!important;
-  position:relative;
-  z-index:40!important;
-  transform:translateY(-7px) scale(1.08)!important;
+  box-shadow:0 0 0 2px #2c2112,0 0 14px rgba(242,201,76,.78)!important;
+}
+.hcard.hand-placeholder{
+  opacity:.24!important;
+  outline:2px dashed #f2c94c!important;
+  outline-offset:0!important;
+}
+.hand-drag-floating{
+  position:fixed!important;
+  z-index:500!important;
+  transform:translate(-50%,-50%) scale(1.08)!important;
+  border-radius:6px!important;
+  overflow:hidden!important;
+  background:#111!important;
+  pointer-events:none!important;
+  touch-action:none!important;
+}
+.hand-drag-floating img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  background:#111!important;
 }
 @media(max-width:390px){
   .hand.open{height:142px!important}
