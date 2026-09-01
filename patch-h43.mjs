@@ -4,7 +4,7 @@ const path='public/app.js';
 let source=fs.readFileSync(path,'utf8');
 
 function replaceOnce(label,from,to){
-  if(!source.includes(from)) throw new Error(`H43 patch failed: ${label} target was not found`);
+  if(!source.includes(from)) throw new Error(`H44 patch failed: ${label} target was not found`);
   source=source.replace(from,to);
 }
 
@@ -14,11 +14,12 @@ replaceOnce('smaller zoom width','max-width:min(88vw,430px)','max-width:min(76vw
 replaceOnce('smaller zoom height','max-height:calc(100dvh - 278px)','max-height:calc(100dvh - 310px)');
 replaceOnce('smaller mobile zoom height','max-height:calc(100dvh - 270px)','max-height:calc(100dvh - 300px)');
 
-// Hide the old top-left readout and add a card-relative counter pill.
+// Hide the old top-left readout and add a card-relative counter pill at the
+// lower-right, just above the card's printed power/toughness box.
 replaceOnce(
   'zoom style insertion point',
   '#boardzoomcontrols .danger{border-color:#7f4c45}.zsplit',
-  '#boardzoomcontrols .danger{border-color:#7f4c45}#boardzoomreadout{display:none!important}#boardzoomcardwrap{position:relative;display:flex;align-items:center;justify-content:center;width:max-content;max-width:min(76vw,360px);max-height:calc(100dvh - 310px)}#boardzoomcardstats{position:absolute;left:5%;bottom:7.5%;z-index:4;min-width:58px;max-width:58%;padding:6px 8px;border:1px solid #eedca8;border-radius:8px;background:rgba(18,14,12,.88);color:#fff;font:900 12px/1.05 ui-monospace,Menlo,monospace;text-align:center;white-space:pre-line;box-shadow:0 2px 8px #0009}#boardzoomcardstats[hidden]{display:none!important}.zsplit'
+  '#boardzoomcontrols .danger{border-color:#7f4c45}#boardzoomreadout{display:none!important}#boardzoomcardwrap{position:relative;display:flex;align-items:center;justify-content:center;width:max-content;max-width:min(76vw,360px);max-height:calc(100dvh - 310px)}#boardzoomcardstats{position:absolute;right:5%;bottom:7.5%;z-index:4;min-width:58px;max-width:58%;padding:6px 8px;border:1px solid #eedca8;border-radius:8px;background:rgba(18,14,12,.88);color:#fff;font:900 12px/1.05 ui-monospace,Menlo,monospace;text-align:center;white-space:pre-line;box-shadow:0 2px 8px #0009}#boardzoomcardstats[hidden]{display:none!important}.zsplit'
 );
 
 replaceOnce(
@@ -27,7 +28,14 @@ replaceOnce(
   '<div id="boardzoomreadout" hidden></div><div id="boardzoomcardwrap"><img alt="Card preview" decoding="async"><div id="boardzoomcardstats" hidden></div></div>'
 );
 
-// Keep +1/+1 and X/X as separate concepts instead of collapsing them together.
+// Keep +1/+1 and base P/T as separate concepts. The base display is only the
+// numeric P/T value; do not prefix it with the literal text "X/X".
+replaceOnce(
+  'remove X/X label from zoom display',
+  "if(c.p!==null||c.t!==null)bits.push('X/X '+(c.p??0)+'/'+(c.t??0));",
+  "if(c.p!==null||c.t!==null)bits.push((c.p??0)+'/'+(c.t??0));"
+);
+
 replaceOnce(
   'zoom counter text separation',
   "return bits.join(' · ')||'No counters'",
@@ -53,4 +61,4 @@ replaceOnce(
 );
 
 fs.writeFileSync(path,source);
-console.log('Applied H43 zoom presentation and counter-display patch to public/app.js');
+console.log('Applied H44 zoom counter-position and label patch to public/app.js');
