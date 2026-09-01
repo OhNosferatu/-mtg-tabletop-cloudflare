@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h83.js"
+main = "worker-h84.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H83: preserve H82 token preload/count behavior and add a full-screen visual
-# indicator beside tapped cards showing the clockwise sideways tap direction.
+# H84: preserve H83 token/tap behavior, but make Mulligan an immediate table
+# reset with nonblocking in-place Hand artwork loading to avoid iOS freezes.
 [assets]
 directory = "./public"
 binding = "ASSETS"
