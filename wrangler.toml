@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h73.js"
+main = "worker-h74.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H73: preserve H71 complete token discovery, and make cards in the Tokens pile
-# use normal card controls plus safe battlefield/Hand dragging on iOS.
+# H74: preserve complete token discovery and prehydrate generated token art/face
+# data so token interactions do not trigger card lookups during iOS viewer opens.
 [assets]
 directory = "./public"
 binding = "ASSETS"
