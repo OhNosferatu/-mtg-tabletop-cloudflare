@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h39.js"
+main = "worker-h40.js"
 compatibility_date = "2026-08-31"
 
-# H39: keep the reliable visible asset loader and deploy the iOS card-interaction
-# stability patch before Wrangler scans/uploads public/app.js.
+# H40: keep the reliable visible asset loader and replace battlefield double-tap
+# inspect previews with a lightweight full-screen zoom to avoid iOS freezes.
 [assets]
 directory = "./public"
 binding = "ASSETS"
