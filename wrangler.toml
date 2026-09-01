@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h36.js"
+main = "worker-h37.js"
 compatibility_date = "2026-08-31"
 
-# H36: entry worker materializes HTML responses explicitly, while delegating APIs
-# to the existing game worker and serving CSS/JS/images directly from Assets.
+# H37: bundle the game HTML into the Worker at deploy time.
+# CSS/JS/images remain static assets; APIs delegate to the existing game worker.
 [assets]
 directory = "./public"
 binding = "ASSETS"
