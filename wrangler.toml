@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h56.js"
+main = "worker-h57.js"
 compatibility_date = "2026-08-31"
 
-# H56: keep H55 interaction fixes while positioning the private Scry tray
-# directly above the real Hand tray with matching width and separate layout.
+# H57: explicitly stack the private Scry tray above a temporarily expanded
+# Hand tray so both remain visible together while Scry cards exist.
 [assets]
 directory = "./public"
 binding = "ASSETS"
