@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h79.js"
+main = "worker-h80.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H79: keep H71 complete token discovery, remove post-import render races,
-# use the stable battlefield viewer for draggable piles, repair Flip, and make
-# Mulligan collect the full player table state before drawing seven.
+# H80: preserve H79 interaction/mulligan fixes, but derive imported token
+# options only from Archidekt's Tokens-category source cards using batched
+# Scryfall related-token lookup instead of scanning the entire deck.
 [assets]
 directory = "./public"
 binding = "ASSETS"
