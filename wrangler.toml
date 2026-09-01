@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h48.js"
+main = "worker-h49.js"
 compatibility_date = "2026-08-31"
 
-# H48: tapping any non-empty deck pile opens deck options; the preview follows
-# the actually visible face, including the original bottom card after flipping.
+# H49: keep the stable H48 deck controls, make Mill physically move/reveal the
+# top card in Discard, and add a private Scry Hand above the player's hand.
 [assets]
 directory = "./public"
 binding = "ASSETS"
