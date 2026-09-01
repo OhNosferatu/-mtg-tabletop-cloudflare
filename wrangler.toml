@@ -1,8 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h65.js"
+main = "worker-h66.js"
 compatibility_date = "2026-08-31"
 
-# H65: make Reveal Top toggle to Unreveal Card for the same revealed top card.
+# H66: make Reveal/Unreveal follow the actual top-card face state and preserve
+# individual card orientations through Flip Deck round trips.
 [assets]
 directory = "./public"
 binding = "ASSETS"
