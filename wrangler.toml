@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h55.js"
+main = "worker-h56.js"
 compatibility_date = "2026-08-31"
 
-# H55: preserve a card's current face orientation when it is placed onto the
-# deck and make Scry Hand drags continue reliably outside the fixed tray.
+# H56: keep H55 interaction fixes while positioning the private Scry tray
+# directly above the real Hand tray with matching width and separate layout.
 [assets]
 directory = "./public"
 binding = "ASSETS"
