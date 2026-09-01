@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h42.js"
+main = "worker-h43.js"
 compatibility_date = "2026-08-31"
 
-# H42: retain the stable lightweight battlefield viewer, restore the original
-# split +1/+1 and press/hold X/X behaviors, and evenly space left-side piles.
+# H43: keep the stable lightweight viewer, move counter readouts onto the card,
+# shrink the zoomed card, and make the overlay translucent.
 [assets]
 directory = "./public"
 binding = "ASSETS"
