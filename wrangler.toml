@@ -2,8 +2,9 @@ name = "mtg-tabletop-cloudflarefinal"
 main = "worker.js"
 compatibility_date = "2026-08-31"
 
-# Build marker H23: land zone, larger darker life counter, remove Your Side label.
+# H33 infrastructure recovery: static frontend assets are served directly by Cloudflare.
+# Only API routes run through worker.js first.
 [assets]
 directory = "./public"
 binding = "ASSETS"
-run_worker_first = true
+run_worker_first = [ "/api/*" ]
