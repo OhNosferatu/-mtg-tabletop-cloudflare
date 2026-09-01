@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h45.js"
+main = "worker-h46.js"
 compatibility_date = "2026-08-31"
 
-# H45: keep the stable H44 lightweight viewer while making battlefield
-# counter badges compact and unobtrusive on small board cards.
+# H46: keep the stable H45 viewer and compact battlefield badge while showing
+# one combined P/T value when X/X and +1/+1 counters are both active.
 [assets]
 directory = "./public"
 binding = "ASSETS"
