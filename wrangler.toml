@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h78.js"
+main = "worker-h79.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H78: recovery build on the known-good H71/H70 interaction stack. Keep full
-# token discovery, but disable stationary Tokens-pile taps while preserving
-# drag-to-Hand and drag-to-battlefield behavior.
+# H79: keep H71 complete token discovery, remove post-import render races,
+# use the stable battlefield viewer for draggable piles, repair Flip, and make
+# Mulligan collect the full player table state before drawing seven.
 [assets]
 directory = "./public"
 binding = "ASSETS"
