@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h60.js"
+main = "worker-h61.js"
 compatibility_date = "2026-08-31"
 
-# H60: preserve each card's own face orientation when placed on the deck and
-# remove Scry header text while keeping Scry and compact Hand strips separated.
+# H61: make the rendered top-card image authoritative on the Deck pile and
+# recalculate the custom Hand scrollbar after Mulligan rebuilds the hand.
 [assets]
 directory = "./public"
 binding = "ASSETS"
