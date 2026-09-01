@@ -1,7 +1,7 @@
 (()=>{
 const $=s=>document.querySelector(s), BACK='https://cards.scryfall.io/back.png';
 const st={cards:{},deck:[],hand:[],cmd:[],side:[],tokens:[],discard:[],exile:[],field:[],opp:[],view:'you',life:{you:40,opp:40}};
-let seq=0,preview=null,lastTap={},selectedHand=null;
+let seq=0,preview=null,lastTap={},selectedHand=null,handTap={};
 const toast=t=>{const e=$('#toast');if(!e)return;e.textContent=t;e.classList.add('on');clearTimeout(e.t);e.t=setTimeout(()=>e.classList.remove('on'),1200)};
 function make(name,zone,meta={}){const id='c'+(++seq);st.cards[id]={id,name,zone,img:'',faces:[],isDoubleFaced:false,stateIndex:0,faceDown:zone==='deck',x:40,y:40,tap:false,p1:0,p:null,t:null,meta:{...meta}};return id}
 async function load(c){if(!c||(c.img&&c.faces.length))return;try{let q='/api/card?name='+encodeURIComponent(c.name);if(c.meta?.scryfallId)q+='&id='+encodeURIComponent(c.meta.scryfallId);const r=await fetch(q);if(!r.ok)return;const d=await r.json();c.img=d.image||'';c.faces=Array.isArray(d.faces)&&d.faces.length?d.faces:[{name:c.name,image:c.img}];c.isDoubleFaced=!!d.isDoubleFaced&&c.faces.length>1;c.meta.scryfallId=d.scryfallId||c.meta.scryfallId}catch{}}
@@ -26,76 +26,16 @@ let drag=null,moved=false;d.onpointerdown=e=>{e.preventDefault();moved=false;bri
 function makeGhost(c,forceBack=false){const g=document.createElement('div');g.className='drag-ghost';const src=forceBack?BACK:displayImage(c);g.innerHTML=src?`<img src="${src}" draggable="false">`:`<span>${c.name}</span>`;document.body.appendChild(g);return g}
 function zoneDrag(el,id,from,{forceBack=false,label=''}={}){const c=st.cards[id];if(!c)return;let s=null,ghost=null,moved=false;el.onpointerdown=e=>{e.preventDefault();s={x:e.clientX,y:e.clientY,pid:e.pointerId};moved=false;el.setPointerCapture?.(e.pointerId)};el.onpointermove=e=>{if(!s)return;if(!moved&&Math.hypot(e.clientX-s.x,e.clientY-s.y)>8){moved=true;ghost=makeGhost(c,forceBack)}if(ghost){ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px'}};el.onpointerup=async e=>{if(!s)return;s=null;ghost?.remove();if(!moved){openCard(c,true);return}if(handHit(e.clientX,e.clientY)){putInZone(id,'hand');c.faceDown=false;if(!c.img)await load(c);render();toast('Moved to hand');return}const r=fieldRect();if(pointInRect(e.clientX,e.clientY,r)){placeOnField(id,e.clientX,e.clientY,forceBack);if(!forceBack&&!c.img)await load(c);render();toast(label||'Moved to battlefield')}};el.onpointercancel=()=>{s=null;ghost?.remove()};el.oncontextmenu=e=>e.preventDefault()}
 function handCard(id){
- const c=st.cards[id],d=document.createElement('div');d.className='hcard'+(selectedHand===id?' hand-selected':'');d.dataset.id=id;d.innerHTML=face(c);
- let s=null,longTimer=null,selected=false,scrollMode=false;
+ const c=st.cards[id],d=document.createElement('div');d.className='hcard';d.dataset.id=id;d.innerHTML=face(c);
+ let press=null,longTimer=null,selected=false,floating=null;
  const clearTimer=()=>{clearTimeout(longTimer);longTimer=null};
- const liveReorder=(x,y)=>{
-   const row=$('#handrow');
-   const target=document.elementsFromPoint(x,y).find(el=>el.classList?.contains('hcard')&&el!==d);
-   if(!target)return;
-   const from=st.hand.indexOf(id),targetId=target.dataset.id,targetIndex=st.hand.indexOf(targetId);
-   if(from<0||targetIndex<0)return;
-   const r=target.getBoundingClientRect();
-   const horizontal=Math.abs(x-(r.left+r.right)/2)>=Math.abs(y-(r.top+r.bottom)/2);
-   let insertIndex=targetIndex;
-   if(horizontal&&x>r.left+r.width/2)insertIndex=targetIndex+1;
-   else if(!horizontal&&y>r.top+r.height/2)insertIndex=targetIndex+1;
-   st.hand.splice(from,1);
-   if(from<insertIndex)insertIndex--;
-   insertIndex=Math.max(0,Math.min(st.hand.length,insertIndex));
-   st.hand.splice(insertIndex,0,id);
-   const ref=row.children[insertIndex];
-   if(ref!==d)row.insertBefore(d,ref||null);
- };
- d.onpointerdown=e=>{
-   e.preventDefault();
-   const row=$('#handrow');
-   s={x:e.clientX,y:e.clientY,pid:e.pointerId,scrollLeft:row.scrollLeft,scrollTop:row.scrollTop};
-   selected=false;scrollMode=false;
-   longTimer=setTimeout(()=>{
-     if(!s)return;
-     selected=true;selectedHand=id;
-     d.classList.add('hand-selected');
-   },550);
-   d.setPointerCapture?.(e.pointerId);
- };
- d.onpointermove=e=>{
-   if(!s)return;
-   const dx=e.clientX-s.x,dy=e.clientY-s.y,row=$('#handrow');
-   if(!selected){
-     if(Math.hypot(dx,dy)>8){
-       clearTimer();
-       if($('#hand').classList.contains('open')){
-         scrollMode=true;
-         if(Math.abs(dx)>Math.abs(dy))row.scrollLeft=s.scrollLeft-dx;
-         else row.scrollTop=s.scrollTop-dy;
-       }
-     }
-     return;
-   }
-   e.preventDefault();
-   liveReorder(e.clientX,e.clientY);
-   const rr=row.getBoundingClientRect();
-   if(e.clientX<rr.left+28)row.scrollLeft-=7;
-   else if(e.clientX>rr.right-28)row.scrollLeft+=7;
-   if(e.clientY<rr.top+28)row.scrollTop-=7;
-   else if(e.clientY>rr.bottom-28)row.scrollTop+=7;
- };
- d.onpointerup=e=>{
-   clearTimer();
-   if(!s)return;
-   d.releasePointerCapture?.(s.pid);s=null;
-   if(selected){
-     selected=false;selectedHand=null;d.classList.remove('hand-selected');
-     toast('Hand reordered');
-     return;
-   }
-   if(scrollMode){scrollMode=false;return;}
-   openCard(c,true);
- };
- d.onpointercancel=()=>{clearTimer();s=null;selected=false;if(selectedHand===id)selectedHand=null;d.classList.remove('hand-selected')};
- d.oncontextmenu=e=>e.preventDefault();
- return d
+ const cleanup=()=>{clearTimer();floating?.remove();floating=null;d.classList.remove('hand-selected','hand-placeholder');selected=false;if(selectedHand===id)selectedHand=null};
+ const makeFloating=(x,y)=>{const r=d.getBoundingClientRect(),g=document.createElement('div');g.className='hand-drag-floating hand-selected';g.innerHTML=face(c);g.style.width=r.width+'px';g.style.height=r.height+'px';g.style.left=x+'px';g.style.top=y+'px';document.body.appendChild(g);return g};
+ const reorderAt=x=>{const row=$('#handrow'),others=[...row.querySelectorAll('.hcard')].filter(el=>el!==d);let idx=others.length;for(let i=0;i<others.length;i++){const r=others[i].getBoundingClientRect();if(x<r.left+r.width/2){idx=i;break}}const from=st.hand.indexOf(id);if(from<0)return;const without=st.hand.filter(v=>v!==id);idx=Math.max(0,Math.min(without.length,idx));if(without[idx]===id)return;without.splice(idx,0,id);if(without.every((v,i)=>v===st.hand[i]))return;st.hand.splice(0,st.hand.length,...without);row.insertBefore(d,others[idx]||null)};
+ d.onpointerdown=e=>{if(e.button!==undefined&&e.button!==0)return;press={x:e.clientX,y:e.clientY,pid:e.pointerId,moved:false};clearTimer();longTimer=setTimeout(()=>{if(!press||press.moved)return;selected=true;selectedHand=id;d.classList.add('hand-selected','hand-placeholder');floating=makeFloating(e.clientX,e.clientY);d.setPointerCapture?.(e.pointerId)},500)};
+ d.onpointermove=e=>{if(!press)return;const dist=Math.hypot(e.clientX-press.x,e.clientY-press.y);if(!selected){if(dist>10){press.moved=true;clearTimer()}return}e.preventDefault();if(floating){floating.style.left=e.clientX+'px';floating.style.top=e.clientY+'px'}const row=$('#handrow'),rr=row.getBoundingClientRect();if(e.clientX<rr.left+34)row.scrollLeft-=10;else if(e.clientX>rr.right-34)row.scrollLeft+=10;if(pointInRect(e.clientX,e.clientY,rr))reorderAt(e.clientX)};
+ d.onpointerup=e=>{clearTimer();if(!press)return;const wasSelected=selected,wasMoved=press.moved;press=null;if(wasSelected){d.releasePointerCapture?.(e.pointerId);floating?.remove();floating=null;d.classList.remove('hand-selected','hand-placeholder');selected=false;selectedHand=null;const fr=fieldRect();if(pointInRect(e.clientX,e.clientY,fr)&&!handHit(e.clientX,e.clientY)){placeOnField(id,e.clientX,e.clientY,false);render();toast('Played from hand');return}render();toast('Hand reordered');return}if(wasMoved)return;const now=Date.now(),prev=handTap[id]||0;if(now-prev<340){handTap[id]=0;openCard(c,true)}else{handTap[id]=now;setTimeout(()=>{if(handTap[id]===now)handTap[id]=0},340)}};
+ d.onpointercancel=()=>{press=null;cleanup()};d.oncontextmenu=e=>e.preventDefault();return d
 }
 function renderPile(el,arr,label,{back=false,draggable=false,from=null,forceBack=false}={}){el.innerHTML='';el.classList.toggle('empty',!arr.length);const id=arr[0],c=id?st.cards[id]:null;if(c){if(back){const img=document.createElement('img');img.src=BACK;img.draggable=false;el.appendChild(img)}else el.insertAdjacentHTML('beforeend',face(c))}el.insertAdjacentHTML('beforeend',`<span class="count">${arr.length}</span>`);if(c&&draggable)zoneDrag(el,id,from,{forceBack,label});else el.onclick=()=>c?openCard(c,true):toast(label+' empty')}
 function renderLife(){document.querySelectorAll('.life-heart[data-life]').forEach(el=>el.querySelector('span').textContent=st.life[el.dataset.life])}
