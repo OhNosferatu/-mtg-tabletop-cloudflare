@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h49.js"
+main = "worker-h50.js"
 compatibility_date = "2026-08-31"
 
-# H49: keep the stable H48 deck controls, make Mill physically move/reveal the
-# top card in Discard, and add a private Scry Hand above the player's hand.
+# H50: move deck fullscreen controls off the legacy inspect stack, serialize
+# deck actions, and allow repeated Scry 1 presses to build a private scry hand.
 [assets]
 directory = "./public"
 binding = "ASSETS"
