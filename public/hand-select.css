@@ -1,0 +1,7 @@
+.hcard.hand-selected{
+  outline:3px solid #f2c94c!important;
+  outline-offset:1px!important;
+  box-shadow:0 0 0 2px #2c2112,0 0 14px rgba(242,201,76,.65)!important;
+  position:relative;
+  z-index:30!important;
+}
