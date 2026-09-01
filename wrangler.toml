@@ -1,9 +1,9 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h51.js"
+main = "worker-h52.js"
 compatibility_date = "2026-08-31"
 
-# H51: keep the lightweight H50 deck overlay while making deck opening
-# single/double-tap safe and non-blocking on iPhone Safari.
+# H52: separate deck tapping from pointer capture so opening the deck cannot
+# occur inside the same captured pointer event used for dragging the top card.
 [assets]
 directory = "./public"
 binding = "ASSETS"
