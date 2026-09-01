@@ -2,9 +2,9 @@ name = "mtg-tabletop-cloudflarefinal"
 main = "worker.js"
 compatibility_date = "2026-08-31"
 
-# H33 infrastructure recovery: static frontend assets are served directly by Cloudflare.
-# Only API routes run through worker.js first.
+# H35 recovery: route all requests through worker.js again.
+# The core app has already been rolled back to the known-good pre-search version.
 [assets]
 directory = "./public"
 binding = "ASSETS"
-run_worker_first = [ "/api/*" ]
+run_worker_first = true
