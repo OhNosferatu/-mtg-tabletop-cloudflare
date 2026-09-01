@@ -1,9 +1,8 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h64.js"
+main = "worker-h65.js"
 compatibility_date = "2026-08-31"
 
-# H64: simplify deck controls and make Reveal Top / Flip Deck update the
-# physical deck-pile card orientation and order correctly.
+# H65: make Reveal Top toggle to Unreveal Card for the same revealed top card.
 [assets]
 directory = "./public"
 binding = "ASSETS"
