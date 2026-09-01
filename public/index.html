@@ -4,22 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover,user-scalable=no">
 <title>MTG Tabletop Desktop v1</title>
-<link rel="stylesheet" href="/style.css?v=20260831-9">
-<link rel="stylesheet" href="/controls.css?v=20260831-9">
+<link rel="stylesheet" href="/style.css?v=20260831-10">
+<link rel="stylesheet" href="/controls.css?v=20260831-10">
 <style>
 .inspect,.inspect *{touch-action:none!important;-webkit-touch-callout:none!important;-webkit-user-select:none!important;user-select:none!important}
 .inspect-close{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:120;width:44px;height:44px;border:1px solid #8b7659;border-radius:50%;background:#211b17;color:#fff;font:700 30px/1 system-ui;padding:0;display:grid;place-items:center}
 </style>
 </head>
 <body>
-<div class="bar">
-  <div class="tabs">
-    <button class="on" data-v="you">Your Side</button>
-    <button data-v="full">Full Board</button>
-    <button data-v="opp">Opponent</button>
-  </div>
-  <button id="import">Import</button>
-</div>
+<div class="bar"><div class="tabs"><button class="on" data-v="you">Your Side</button><button data-v="full">Full Board</button><button data-v="opp">Opponent</button></div><button id="import">Import</button></div>
 <div class="tools"><button id="draw">Draw 1</button><button id="mulligan">Mulligan</button><button id="untap">Untap All</button></div>
 <div id="board" class="board">
   <section id="you" class="screen on">
@@ -30,30 +23,18 @@
     <div id="deck" class="zone deck empty" data-name="DECK"></div>
     <div id="exile" class="zone exile" data-name="EXILE" data-icon="✦"></div>
     <div id="tokens" class="zone tokens" data-name="TOKENS" data-icon="◉"></div>
-    <div id="side" class="zone side" data-name="SIDEBOARD" data-icon="▤"></div>
+    <button id="trash" class="trash-zone" aria-label="Delete selected cards"><span>🗑</span><small>TRASH</small></button>
     <div id="field"></div>
   </section>
-  <section id="full" class="screen">
-    <div class="title">FULL BOARD</div>
-    <button class="life-heart full-life-opp" data-life="opp" aria-label="Opponent life total"><span>40</span></button>
-    <button class="life-heart" data-life="you" aria-label="Your life total"><span>40</span></button>
-    <div id="fullcards"></div>
-  </section>
-  <section id="opp" class="screen">
-    <div class="title">OPPONENT</div>
-    <button class="life-heart" data-life="opp" aria-label="Opponent life total"><span>40</span></button>
-    <div id="oppcards"></div>
-  </section>
+  <section id="full" class="screen"><div class="title">FULL BOARD</div><button class="life-heart full-life-opp" data-life="opp" aria-label="Opponent life total"><span>40</span></button><button class="life-heart" data-life="you" aria-label="Your life total"><span>40</span></button><div id="fullcards"></div></section>
+  <section id="opp" class="screen"><div class="title">OPPONENT</div><button class="life-heart" data-life="opp" aria-label="Opponent life total"><span>40</span></button><div id="oppcards"></div></section>
 </div>
 <aside id="hand" class="hand empty"><div class="handhead"><b>Your Hand</b><button id="closehand" class="close">Close</button></div><div id="handrow" class="handrow"></div></aside>
 <div id="imp" class="modal"><div class="box"><h3>Import Deck</h3><div class="methods"><button id="urlm" class="on">Deck URL</button><button id="listm">Card List</button></div><div id="urlp" class="pane on"><input id="url" placeholder="https://archidekt.com/decks/..."></div><div id="listp" class="pane"><textarea id="list"></textarea></div><div id="msg" class="msg">Archidekt URL is preferred.</div><div class="actions"><button id="cancel">Cancel</button><button id="run">Import</button></div></div></div>
-<div id="inspect" class="inspect">
-  <button id="closeinspect" class="inspect-close" aria-label="Close card preview">×</button>
-  <div class="previewwrap"><div class="preview"><img id="pimg"></div><div id="ctrl" class="ctrl"><button id="tap">Tap / Untap</button><button id="flip">Flip Card</button><button id="state" hidden>Other Side</button><button id="one">+1/+1</button><button id="manual">X/X</button><button id="tohand">To Hand</button><button id="todiscard">Discard</button><button id="toexile">Exile</button><div id="xx" class="xx"><input id="px" inputmode="numeric" placeholder="P"><input id="tx" inputmode="numeric" placeholder="T"><button id="apply">Apply</button></div></div></div>
-</div>
+<div id="inspect" class="inspect"><button id="closeinspect" class="inspect-close" aria-label="Close card preview">×</button><div class="previewwrap"><div class="preview"><img id="pimg"></div><div id="ctrl" class="ctrl"><button id="tap">Tap / Untap</button><button id="flip">Flip Card</button><button id="state" hidden>Other Side</button><button id="one">+1/+1</button><button id="manual">X/X</button><button id="tohand">To Hand</button><button id="todiscard">Discard</button><button id="toexile">Exile</button><div id="xx" class="xx"><input id="px" inputmode="numeric" placeholder="P"><input id="tx" inputmode="numeric" placeholder="T"><button id="apply">Apply</button></div></div></div></div>
 <div id="toast" class="toast"></div>
-<script src="/app.js?v=20260831-9" defer></script>
-<script src="/deck-state.js?v=20260831-9" defer></script>
-<script src="/ios-guard.js?v=20260831-9" defer></script>
+<script src="/app.js?v=20260831-10" defer></script>
+<script src="/deck-state.js?v=20260831-10" defer></script>
+<script src="/ios-guard.js?v=20260831-10" defer></script>
 </body>
 </html>
