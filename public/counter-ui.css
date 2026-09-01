@@ -1,0 +1,54 @@
+/* H22 counter display + left-side pile layout */
+#you .cmds{top:22%!important}
+#you .discard{top:40%!important}
+#you .deck{top:58%!important}
+#you .exile{top:76%!important}
+
+.card .badge.counter-stack{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:1px!important;
+  min-width:30px!important;
+  padding:3px 4px!important;
+  line-height:1.05!important;
+  white-space:nowrap!important;
+}
+.card .badge.counter-stack .counter-line{
+  display:block;
+  font-weight:1000;
+  font-size:7px;
+}
+.card .badge.counter-stack .base-line{
+  display:block;
+  margin-top:1px;
+  padding-top:2px;
+  border-top:1px solid #eedca855;
+  font-weight:900;
+  font-size:6px;
+}
+.preview{position:relative}
+.preview-counter-readout{
+  position:absolute;
+  right:8px;
+  bottom:8px;
+  z-index:5;
+  min-width:56px;
+  padding:6px 8px;
+  border:1px solid #eedca8;
+  border-radius:8px;
+  background:#15110fee;
+  color:#fff;
+  text-align:center;
+  font-weight:1000;
+  line-height:1.05;
+  box-shadow:0 3px 10px #0008;
+}
+.preview-counter-readout span{display:block;font-size:12px}
+.preview-counter-readout small{
+  display:block;
+  margin-top:4px;
+  padding-top:4px;
+  border-top:1px solid #eedca855;
+  font-size:9px;
+}
