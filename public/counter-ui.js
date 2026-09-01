@@ -2,8 +2,9 @@
   const counters=new Map();
   const bases=new Map();
   let activeId=null;
-  let holdTimer=null;
-  let held=false;
+  let baseHoldTimer=null;
+  let baseHeld=false;
+  let baseSide='p';
   let renderQueued=false;
 
   const fmtCounter=n=>n>0?`+${n}/+${n}`:n<0?`${n}/${n}`:'0/0';
@@ -21,13 +22,38 @@
     return el;
   }
 
+  function renderCounterButton(){
+    const btn=document.getElementById('one');
+    if(!btn)return;
+    btn.classList.add('split-stat-button','counter-split-button');
+    btn.innerHTML='<span class="split-half counter-plus">+1/+1</span><span class="split-half counter-minus">−1/−1</span>';
+  }
+
+  function renderBaseButton(){
+    const btn=document.getElementById('manual');
+    if(!btn)return;
+    btn.classList.add('split-stat-button','base-split-button');
+    const base=activeId?bases.get(activeId):null;
+    if(!base){
+      btn.classList.remove('active-base');
+      btn.innerHTML='<span class="base-activate">X/X</span>';
+      return;
+    }
+    btn.classList.add('active-base');
+    btn.innerHTML=`<span class="split-half base-power">${base.p}</span><span class="split-half base-toughness">${base.t}</span><span class="base-label">X/X</span>`;
+  }
+
   function renderPreview(){
     const el=ensurePreviewReadout();
     if(!el)return;
     if(!activeId){el.hidden=true;return;}
-    const n=counters.get(activeId)??0;
+    const hasCounter=counters.has(activeId);
     const base=bases.get(activeId);
-    const html=`<span class="counter-line">${fmtCounter(n)}</span>${base?`<small class="base-line">${base.p}/${base.t}</small>`:''}`;
+    if(!hasCounter&&!base){el.hidden=true;el.innerHTML='';return;}
+    const bits=[];
+    if(hasCounter)bits.push(`<span class="counter-line">${fmtCounter(counters.get(activeId)??0)}</span>`);
+    if(base)bits.push(`<span class="base-line"><b>${base.p}</b><em>/</em><b>${base.t}</b><small>X/X</small></span>`);
+    const html=bits.join('');
     el.hidden=false;
     if(el.innerHTML!==html)el.innerHTML=html;
   }
@@ -35,11 +61,12 @@
   function renderBoardCard(id){
     const hasCounter=counters.has(id);
     const base=bases.get(id);
-    if(!hasCounter&&!base)return;
-    const n=counters.get(id)??0;
-    const html=`<span class="counter-line">${fmtCounter(n)}</span>${base?`<span class="base-line">${base.p}/${base.t}</span>`:''}`;
     for(const card of cardEls(id)){
       let badge=card.querySelector('.badge');
+      if(!hasCounter&&!base){
+        if(badge?.classList.contains('counter-stack'))badge.remove();
+        continue;
+      }
       if(!badge){
         badge=document.createElement('div');
         badge.className='badge';
@@ -48,6 +75,10 @@
       badge.classList.add('counter-stack');
       badge.style.pointerEvents='none';
       badge.setAttribute('aria-hidden','true');
+      const bits=[];
+      if(hasCounter)bits.push(`<span class="counter-line">${fmtCounter(counters.get(id)??0)}</span>`);
+      if(base)bits.push(`<span class="base-line">${base.p}/${base.t}</span>`);
+      const html=bits.join('');
       if(badge.innerHTML!==html)badge.innerHTML=html;
     }
   }
@@ -56,6 +87,8 @@
     renderQueued=false;
     for(const id of new Set([...counters.keys(),...bases.keys()]))renderBoardCard(id);
     if(document.querySelector('#inspect.on'))renderPreview();
+    renderCounterButton();
+    renderBaseButton();
   }
 
   function renderAll(){
@@ -66,10 +99,7 @@
 
   document.addEventListener('pointerdown',e=>{
     const card=e.target.closest?.('.card[data-id],.hcard[data-id]');
-    if(card){
-      activeId=card.dataset.id;
-      renderAll();
-    }
+    if(card){activeId=card.dataset.id;renderAll();}
   },true);
 
   const inspect=document.getElementById('inspect');
@@ -83,49 +113,75 @@
       if(!activeId)return;
       e.preventDefault();
       e.stopPropagation();
-      held=false;
-      clearTimeout(holdTimer);
       try{counter.setPointerCapture?.(e.pointerId)}catch{}
-      holdTimer=setTimeout(()=>{
-        counters.set(activeId,(counters.get(activeId)??0)-1);
-        held=true;
-        renderAll();
-      },500);
     };
     counter.onpointerup=e=>{
       if(!activeId)return;
       e.preventDefault();
       e.stopPropagation();
-      clearTimeout(holdTimer);
-      if(!held)counters.set(activeId,(counters.get(activeId)??0)+1);
-      held=false;
+      const r=counter.getBoundingClientRect();
+      const delta=e.clientX<r.left+r.width/2?1:-1;
+      counters.set(activeId,(counters.get(activeId)??0)+delta);
       try{counter.releasePointerCapture?.(e.pointerId)}catch{}
       renderAll();
     };
-    counter.onpointercancel=()=>{
-      clearTimeout(holdTimer);
-      held=false;
-    };
+    counter.onpointercancel=()=>{};
     counter.onclick=e=>e.preventDefault();
   }
 
-  const apply=document.getElementById('apply');
-  if(apply){
-    const appApply=apply.onclick;
-    apply.onclick=e=>{
-      if(typeof appApply==='function')appApply.call(apply,e);
-      if(activeId){
-        const p=parseInt(document.getElementById('px')?.value,10);
-        const t=parseInt(document.getElementById('tx')?.value,10);
-        bases.set(activeId,{p:Number.isFinite(p)?p:0,t:Number.isFinite(t)?t:0});
+  const manual=document.getElementById('manual');
+  if(manual){
+    manual.onclick=e=>e.preventDefault();
+    manual.onpointerdown=e=>{
+      if(!activeId)return;
+      e.preventDefault();
+      e.stopPropagation();
+      const existing=bases.get(activeId);
+      const r=manual.getBoundingClientRect();
+      baseSide=e.clientX<r.left+r.width/2?'p':'t';
+      baseHeld=false;
+      clearTimeout(baseHoldTimer);
+      try{manual.setPointerCapture?.(e.pointerId)}catch{}
+      if(existing){
+        baseHoldTimer=setTimeout(()=>{
+          const b=bases.get(activeId)||{p:0,t:0};
+          b[baseSide]-=1;
+          bases.set(activeId,b);
+          baseHeld=true;
+          renderAll();
+        },500);
       }
+    };
+    manual.onpointerup=e=>{
+      if(!activeId)return;
+      e.preventDefault();
+      e.stopPropagation();
+      clearTimeout(baseHoldTimer);
+      const existing=bases.get(activeId);
+      if(!existing){
+        bases.set(activeId,{p:0,t:0});
+      }else if(!baseHeld){
+        existing[baseSide]+=1;
+        bases.set(activeId,existing);
+      }
+      baseHeld=false;
+      try{manual.releasePointerCapture?.(e.pointerId)}catch{}
       renderAll();
     };
+    manual.onpointercancel=()=>{
+      clearTimeout(baseHoldTimer);
+      baseHeld=false;
+    };
   }
+
+  const xx=document.getElementById('xx');
+  if(xx)xx.style.display='none';
 
   for(const root of [document.getElementById('field'),document.getElementById('fullcards')]){
     if(root)new MutationObserver(renderAll).observe(root,{childList:true,subtree:true});
   }
 
+  renderCounterButton();
+  renderBaseButton();
   renderAll();
 })();
