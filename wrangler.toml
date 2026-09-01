@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h70.js"
+main = "worker-h71.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H70: keep the proven H64 build-time chain, while separating Flip/Unflip deck
-# state from individual Reveal/Unreveal card state at runtime.
+# H71: keep the proven H64 build-time chain and scan the complete imported
+# Archidekt deck for Scryfall-related tokens and emblems at import time.
 [assets]
 directory = "./public"
 binding = "ASSETS"
