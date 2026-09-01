@@ -2,7 +2,7 @@ name = "mtg-tabletop-cloudflarefinal"
 main = "worker.js"
 compatibility_date = "2026-08-31"
 
-# Build marker H20: force a fresh Workers Build for hand insertion and pile ordering.
+# Build marker H21: force a fresh Workers Build for pile snapping and counter controls.
 [assets]
 directory = "./public"
 binding = "ASSETS"
