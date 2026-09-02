@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h94.js"
+main = "worker-h95.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H94: preserve H93 full-card layout, add a four-column searchable browser for
-# Deck, Tokens, Graveyard, and Exile with a dedicated three-action card viewer,
-# and restore single-tap full-screen behavior for the top Token pile card.
+# H95: preserve H94 searchable Deck/Tokens/Graveyard/Exile browser, restore the
+# original absolute board-zone positioning, attach Deck search to the actual
+# isolated deck overlay panel, and make search buttons reliable on iOS.
 [assets]
 directory = "./public"
 binding = "ASSETS"
