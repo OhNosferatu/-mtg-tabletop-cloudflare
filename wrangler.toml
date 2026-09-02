@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h97.js"
+main = "worker-h98.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H97: preserve H96 zone-browser behavior, remove board-level search icons from
-# Tokens/Graveyard/Exile entirely, and match the full-screen Search button size
-# to the compact Deck Search control.
+# H98: preserve H97 search cleanup, move the compact full-screen Search button
+# lower beside the action panel, and change the Search viewer's To Hand action
+# to To Board while leaving the normal full-card viewer unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
