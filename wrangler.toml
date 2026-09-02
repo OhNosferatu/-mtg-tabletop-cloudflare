@@ -1,13 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h90.js"
+main = "worker-h91.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H90: preserve the stable H89 page-reload Mulligan and replace the Hand
-# header label with a live card counter driven by the current hand size.
+# H91: preserve H90 Hand counter and stable H89 Mulligan, but invert battlefield
+# card gestures: single tap opens full-screen view after a short double-tap
+# window; double tap toggles tapped/untapped state; drag behavior is unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
