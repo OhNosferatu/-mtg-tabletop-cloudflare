@@ -1,16 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h125.js"
+main = "worker-h126.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H125: preserve H124 gesture controls and Full Board behavior while unifying
-# battlefield counter presentation. Full-card inspection keeps +1/+1 and X/X
-# controls/readouts separate; board views display their combined final P/T in
-# one badge. Your Side, Opponent, and Full Board now use the same badge sizing
-# and the larger Full Board font treatment.
+# H126: preserve H125 combined counter display, but restore the H124 battlefield
+# gesture bridge that H125 accidentally renamed in HTML. Single tap opens the
+# card viewer, double tap rotates, and long-press drag commits the new position
+# instead of snapping back.
 [assets]
 directory = "./public"
 binding = "ASSETS"
