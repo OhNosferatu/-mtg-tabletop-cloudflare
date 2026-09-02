@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h100.js"
+main = "worker-h101.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H100: preserve H99 gameplay/search mechanics and begin Full Board Phase 1:
-# split the table into opponent/your halves, center life totals on the divider,
-# mirror battlefield positions, stacking, tap state and counters, and keep
-# Full Board read-only except for single-tap full-card viewing.
+# H101: preserve H100 Full Board Phase 1, shrink overview cards to better match
+# Your Side scale/placement, and collapse Draw/Mulligan/Untap by default only
+# in Full Board behind a small centered dropdown toggle.
 [assets]
 directory = "./public"
 binding = "ASSETS"
