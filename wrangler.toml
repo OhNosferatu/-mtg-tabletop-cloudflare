@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h106.js"
+main = "worker-h107.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H106: keep H105's continuous 153.846%-height Full Board and scrubber, but
-# map cards by their true percentage positions within each player's half so the
-# overview mirrors Your Side/Opponent instead of bunching cards toward center.
-# Full Board images use contain sizing to avoid cropping card artwork.
+# H107: keep H106 Full Board positioning and continuous scroll behavior, but
+# isolate miniature Full Board cards from normal battlefield image cropping.
+# Full Board images now render at their natural card aspect ratio so the entire
+# Scryfall card face remains visible at miniature scale.
 [assets]
 directory = "./public"
 binding = "ASSETS"
