@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h110.js"
+main = "worker-h111.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H110: keep H109 Full Board scrollbar improvements, H108 scroll-position memory,
-# and H107 card rendering, while adding matching land zones to both the opponent
-# half and the player's half of Full Board.
+# H111: keep H110 Full Board land zones, H109 scrollbar styling, H108 scroll
+# memory, and H107 card rendering. The Full Board scrubber now dynamically
+# shortens to stay above the visible hand tray instead of overlaying the cards.
 [assets]
 directory = "./public"
 binding = "ASSETS"
