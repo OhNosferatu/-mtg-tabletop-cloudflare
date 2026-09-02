@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h101.js"
+main = "worker-h102.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H101: preserve H100 Full Board Phase 1, shrink overview cards to better match
-# Your Side scale/placement, and collapse Draw/Mulligan/Untap by default only
-# in Full Board behind a small centered dropdown toggle.
+# H102: preserve H101 Full Board controls, but render each player half as a
+# centered 50%-scale copy of the normal battlefield so X/Y/card proportions
+# stay consistent. Remove redundant Full Board/Opponent/Your Side labels.
 [assets]
 directory = "./public"
 binding = "ASSETS"
