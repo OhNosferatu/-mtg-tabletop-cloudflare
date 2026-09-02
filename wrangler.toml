@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h89.js"
+main = "worker-h90.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H89: Mulligan performs a clean page reload, then reconstructs the last
-# imported deck from session storage, shuffles it, and deals seven on the fresh
-# page so Safari never rebuilds the whole game during the original button tap.
+# H90: preserve the stable H89 page-reload Mulligan and replace the Hand
+# header label with a live card counter driven by the current hand size.
 [assets]
 directory = "./public"
 binding = "ASSETS"
