@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h143.js"
+main = "worker-h144.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H143: preserve H142 lighter-gray battlefield and all existing behavior. Make
-# the center turn switch blue on Your Turn and red on Opponent Turn using the
-# divider's existing turn state. No turn logic, timer, geometry, or gestures change.
+# H144: preserve H143 turn colors and H142 lighter-gray battlefield, but make
+# the turn button color state explicit and stable so Safari cannot flicker
+# between blue and red during the divider's periodic render updates. No turn
+# logic, timer, geometry, dragging, snapping, or gesture behavior changes.
 [assets]
 directory = "./public"
 binding = "ASSETS"
