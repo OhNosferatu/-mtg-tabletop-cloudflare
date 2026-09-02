@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h133.js"
+main = "worker-h134.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H133: preserve H132/H131/H130/H129/H128/H127/H126 behavior. Extend Full Board
-# to two exact normal-size battlefields plus a dedicated two-line center match
-# strip containing life totals, active-turn switch, turn count, and turn timer.
+# H134: preserve H133 battlefield geometry and the two-line divider. Reorder the
+# center strip to [blue life + your hand] [turn switch] [turn + timer]
+# [opponent hand + red life], hide the old floating hand chips, and keep life
+# totals/hand counts synchronized with the existing game-owned state.
 [assets]
 directory = "./public"
 binding = "ASSETS"
