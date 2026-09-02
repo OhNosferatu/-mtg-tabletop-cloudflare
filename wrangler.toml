@@ -10,6 +10,7 @@ routes = [
 # restoring reliable player-pile interaction on Full Board: tap to inspect,
 # drag top cards onto the battlefield/hand/other public piles, and keep deck
 # interactions routed through the existing deck controls.
+# Deployment retrigger: 2026-09-02.
 [assets]
 directory = "./public"
 binding = "ASSETS"
