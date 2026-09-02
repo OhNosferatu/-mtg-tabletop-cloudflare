@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h102.js"
+main = "worker-h103.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H102: preserve H101 Full Board controls, but render each player half as a
-# centered 50%-scale copy of the normal battlefield so X/Y/card proportions
-# stay consistent. Remove redundant Full Board/Opponent/Your Side labels.
+# H103: preserve H102 Full Board geometry and controls, but shrink the Full
+# Board card footprint from 46px to 38px for a cleaner two-player overview.
 [assets]
 directory = "./public"
 binding = "ASSETS"
