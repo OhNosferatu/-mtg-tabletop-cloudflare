@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h121.js"
+main = "worker-h122.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H121: preserve H120's exact one-to-one Full Board geometry and pile sizing,
-# but mirror the opponent pile column vertically so it reads top-to-bottom as
-# Tokens, Exile, Deck, Discard, Commander.
+# H122: keep H121's exact Full Board sizing and mirrored opponent piles, while
+# restoring reliable player-pile interaction on Full Board: tap to inspect,
+# drag top cards onto the battlefield/hand/other public piles, and keep deck
+# interactions routed through the existing deck controls.
 [assets]
 directory = "./public"
 binding = "ASSETS"
