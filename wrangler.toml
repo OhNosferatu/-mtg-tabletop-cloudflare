@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h140.js"
+main = "worker-h141.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H140: preserve H139 gray battlefield, H138/H137 identity accents, H136 hand
-# counter sync, and H133/H119 geometry. Add a subtle blue/red glow to the active
-# player's dedicated side screen and matching Full Board half, driven only by
-# the existing divider turn state. No card, zone, drag, or gesture geometry changes.
+# H141: revert H140 active-turn battlefield glow and restore the H139 visual
+# state: neutral graphite-gray board with blue player and red opponent identity
+# accents, while preserving all prior divider, hand-count, geometry, and gesture
+# behavior. No gameplay or layout changes.
 [assets]
 directory = "./public"
 binding = "ASSETS"
