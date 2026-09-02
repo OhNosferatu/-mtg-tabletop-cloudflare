@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h88.js"
+main = "worker-h89.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H88: hard-delete every local-player-owned card on Mulligan, rebuild a fresh
-# copy from the last successful import data, shuffle the rebuilt library, and
-# deal seven while leaving opponent-owned state untouched.
+# H89: Mulligan performs a clean page reload, then reconstructs the last
+# imported deck from session storage, shuffles it, and deals seven on the fresh
+# page so Safari never rebuilds the whole game during the original button tap.
 [assets]
 directory = "./public"
 binding = "ASSETS"
