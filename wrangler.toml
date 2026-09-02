@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h128.js"
+main = "worker-h129.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H128: preserve H127 counter-font synchronization and all H126 gesture fixes.
-# Tie the visible in-game build label directly to /api/health so the browser
-# version display cannot lag behind the actually deployed worker again.
+# H129: preserve H128/H127/H126 behavior, force browser assets to use a fresh
+# build query string, and hard-match counter typography across Your Side,
+# Opponent, and Full Board. Also keeps the visible build label synchronized
+# with /api/health so stale labels are easier to detect.
 [assets]
 directory = "./public"
 binding = "ASSETS"
