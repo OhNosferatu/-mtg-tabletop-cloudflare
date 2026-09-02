@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h132.js"
+main = "worker-h133.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H132: preserve H131/H130/H129/H128/H127/H126 behavior. Keep the exact H119
-# Full Board geometry, match Your Side/Opponent card-face rendering to Full Board,
-# and force the same counter-pill typography/geometry across every battlefield.
+# H133: preserve H132/H131/H130/H129/H128/H127/H126 behavior. Extend Full Board
+# to two exact normal-size battlefields plus a dedicated two-line center match
+# strip containing life totals, active-turn switch, turn count, and turn timer.
 [assets]
 directory = "./public"
 binding = "ASSETS"
