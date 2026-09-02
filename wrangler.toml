@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h93.js"
+main = "worker-h94.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H93: preserve H92 counter/reset behavior, but correct the full-card control
-# layout to Tap/Flip/To Hand, X/X/counters/resets, and a centered bottom row
-# of Exile/Discard unless a card-state button is present.
+# H94: preserve H93 full-card layout, add a four-column searchable browser for
+# Deck, Tokens, Graveyard, and Exile with a dedicated three-action card viewer,
+# and restore single-tap full-screen behavior for the top Token pile card.
 [assets]
 directory = "./public"
 binding = "ASSETS"
