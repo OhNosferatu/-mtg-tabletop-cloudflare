@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h124.js"
+main = "worker-h125.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H124: preserve H123/H122 Full Board geometry and pile interaction, but split
-# battlefield card gestures cleanly: single tap opens the full-card viewer,
-# double tap rotates/taps the card, and a 360ms long press arms drag movement.
-# The yellow selection outline and Full Board scroll freeze begin only after
-# the long press is armed, preventing taps and drags from interfering.
+# H125: preserve H124 gesture controls and Full Board behavior while unifying
+# battlefield counter presentation. Full-card inspection keeps +1/+1 and X/X
+# controls/readouts separate; board views display their combined final P/T in
+# one badge. Your Side, Opponent, and Full Board now use the same badge sizing
+# and the larger Full Board font treatment.
 [assets]
 directory = "./public"
 binding = "ASSETS"
