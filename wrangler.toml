@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h141.js"
+main = "worker-h142.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H141: revert H140 active-turn battlefield glow and restore the H139 visual
-# state: neutral graphite-gray board with blue player and red opponent identity
-# accents, while preserving all prior divider, hand-count, geometry, and gesture
-# behavior. No gameplay or layout changes.
+# H142: preserve H141/H139 behavior and visuals, but brighten the neutral gray
+# battlefield surface. Blue player/red opponent accents, divider, hand counts,
+# geometry, dragging, snapping, and gestures are unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
