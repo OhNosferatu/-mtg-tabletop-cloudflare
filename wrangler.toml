@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h117.js"
+main = "worker-h118.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H117: turn the full-size continuous Full Board into an interactive tabletop.
-# Both public battlefields and public piles can be manipulated from Full Board,
-# while hand contents remain private and only each player's hand count is shown.
-# Opponent deck/public-state actions expose hooks for the multiplayer sync layer.
+# H118: keep H117's interactive Full Board, but drag a single fixed card clone
+# on Safari to prevent visual trails and map Full Board drops through the exact
+# normal-side battlefield geometry so positions match between views.
 [assets]
 directory = "./public"
 binding = "ASSETS"
