@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h95.js"
+main = "worker-h96.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H95: preserve H94 searchable Deck/Tokens/Graveyard/Exile browser, restore the
-# original absolute board-zone positioning, attach Deck search to the actual
-# isolated deck overlay panel, and make search buttons reliable on iOS.
+# H96: preserve the H95 zone browser and Deck search, remove search buttons
+# from the Tokens/Graveyard/Exile piles, and show a context-sensitive Search
+# button beside the enlarged top card for those three zones instead.
 [assets]
 directory = "./public"
 binding = "ASSETS"
