@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h111.js"
+main = "worker-h112.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H111: keep H110 Full Board land zones, H109 scrollbar styling, H108 scroll
-# memory, and H107 card rendering. The Full Board scrubber now dynamically
-# shortens to stay above the visible hand tray instead of overlaying the cards.
+# H112: keep H111 Full Board behavior, but remove the visible scrollbar and use
+# direct touch scrolling across the Full Board itself. Since Full Board has no
+# pile column, both land zones now share equal full-width margins and line up.
 [assets]
 directory = "./public"
 binding = "ASSETS"
