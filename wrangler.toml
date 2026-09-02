@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h145.js"
+main = "worker-h146.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H145: preserve H144 turn-button colors and H142 lighter-gray battlefield while
-# removing the Full Board Draw/Mulligan/Untap collapsible dropdown. The same
-# three controls now remain fixed and visible on Full Board just like Your Side.
+# H146: preserve H145/H144/H142 behavior while forcing Draw 1 / Mulligan /
+# Untap All to remain fixed and visible on Full Board with no dropdown. Also
+# keep empty deck zones visually empty so no card-back image appears at count 0.
 # No gameplay, board geometry, dragging, snapping, or gesture behavior changes.
 [assets]
 directory = "./public"
