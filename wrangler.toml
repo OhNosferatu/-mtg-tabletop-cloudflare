@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h118.js"
+main = "worker-h119.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H118: keep H117's interactive Full Board, but drag a single fixed card clone
-# on Safari to prevent visual trails and map Full Board drops through the exact
-# normal-side battlefield geometry so positions match between views.
+# H119: Full Board is two exact copies of the normal side-board geometry stacked
+# vertically. Cards and piles use the same global physical dimensions as Your
+# Side, with no separate Full Board scaling or coordinate remapping.
 [assets]
 directory = "./public"
 binding = "ASSETS"
