@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h131.js"
+main = "worker-h132.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H131: preserve H130/H129/H128/H127/H126 behavior. Update the older visible
-# diagnostic banner text that remained stuck on H125 without touching gesture
-# API identifiers, and make Your Side/Opponent counter typography copy the
-# computed Full Board badge typography directly at runtime.
+# H132: preserve H131/H130/H129/H128/H127/H126 behavior. Keep the exact H119
+# Full Board geometry, match Your Side/Opponent card-face rendering to Full Board,
+# and force the same counter-pill typography/geometry across every battlefield.
 [assets]
 directory = "./public"
 binding = "ASSETS"
