@@ -1,16 +1,17 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h122.js"
+main = "worker-h123.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H122: keep H121's exact Full Board sizing and mirrored opponent piles, while
-# restoring reliable player-pile interaction on Full Board: tap to inspect,
-# drag top cards onto the battlefield/hand/other public piles, and keep deck
-# interactions routed through the existing deck controls.
-# Deployment retrigger: 2026-09-02.
+# H123: keep H122's interactive Full Board piles and exact one-to-one geometry.
+# Battlefield cards now show a yellow selection outline while held/moved. On
+# Full Board, selecting a card temporarily freezes board scrolling and blocks
+# other board interactions so only the selected card can move against a fixed
+# coordinate frame. The same yellow drag-selection treatment is used on Your
+# Side for consistency.
 [assets]
 directory = "./public"
 binding = "ASSETS"
