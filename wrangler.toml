@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h86.js"
+main = "worker-h87.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H86: preserve H85 snapshot-based Mulligan, but defer reset/render until after
-# Safari finishes the Mulligan tap and keep Hand closed during the rebuild to
-# avoid Hand Mutation/Resize observer layout races.
+# H87: rebuild Mulligan from the original imported deck data instead of
+# manipulating live card objects. Preserve H83 token/tap-indicator behavior.
 [assets]
 directory = "./public"
 binding = "ASSETS"
