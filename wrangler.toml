@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h135.js"
+main = "worker-h136.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H135: preserve H134 divider layout and H133 battlefield geometry. Fix divider
-# hand counters by reading the live rendered hand row directly for Your Hand,
-# observing hand DOM changes, and keeping the opponent count mirrored from the
-# existing opponent public hand-count source.
+# H136: preserve the H134 divider layout and H133 battlefield geometry while
+# bypassing the H135 self-triggering Full Board observer. Sync Your Hand directly
+# from the rendered hand row and opponent hand count from the public hand chip
+# using guarded updates that cannot recursively mutate the observed Full Board.
 [assets]
 directory = "./public"
 binding = "ASSETS"
