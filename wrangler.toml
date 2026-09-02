@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h142.js"
+main = "worker-h143.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H142: preserve H141/H139 behavior and visuals, but brighten the neutral gray
-# battlefield surface. Blue player/red opponent accents, divider, hand counts,
-# geometry, dragging, snapping, and gestures are unchanged.
+# H143: preserve H142 lighter-gray battlefield and all existing behavior. Make
+# the center turn switch blue on Your Turn and red on Opponent Turn using the
+# divider's existing turn state. No turn logic, timer, geometry, or gestures change.
 [assets]
 directory = "./public"
 binding = "ASSETS"
