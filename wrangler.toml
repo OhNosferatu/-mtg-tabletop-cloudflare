@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h146.js"
+main = "worker-h147.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H146: preserve H145/H144/H142 behavior while forcing Draw 1 / Mulligan /
-# Untap All to remain fixed and visible on Full Board with no dropdown. Also
-# keep empty deck zones visually empty so no card-back image appears at count 0.
-# No gameplay, board geometry, dragging, snapping, or gesture behavior changes.
+# H147: preserve H146 behavior while making the player hand count authoritative
+# from the real rendered hand row. Sync both the hidden H117 source and the H134
+# divider display so older periodic mirroring cannot overwrite it with stale data.
+# No gameplay, board geometry, dragging, snapping, turn, or gesture changes.
 [assets]
 directory = "./public"
 binding = "ASSETS"
