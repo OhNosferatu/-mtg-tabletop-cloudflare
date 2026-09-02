@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h104.js"
+main = "worker-h105.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H104: make Full Board a vertically scrollable two-page table. Opponent gets
-# one full board-height page and Your Side gets a second page below it, with
-# normal card scale/placement and vertical scroll snapping between the sides.
+# H105: branch from the stable H102 Full Board and replace the experimental
+# snap-page design with one continuous 153.846%-height table so 65% is visible
+# at once. Use uniform 42% miniature card/layout scale and a vertical scrubber.
 [assets]
 directory = "./public"
 binding = "ASSETS"
