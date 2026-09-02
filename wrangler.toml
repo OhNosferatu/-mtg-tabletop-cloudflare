@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h126.js"
+main = "worker-h127.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H126: preserve H125 combined counter display, but restore the H124 battlefield
-# gesture bridge that H125 accidentally renamed in HTML. Single tap opens the
-# card viewer, double tap rotates, and long-press drag commits the new position
-# instead of snapping back.
+# H127: preserve H126 gesture behavior and H125 combined counter mechanics.
+# Synchronize the battlefield counter typography on Your Side and Opponent to
+# the computed Full Board counter typography so all board views use the exact
+# same font size, line height, and weight.
 [assets]
 directory = "./public"
 binding = "ASSETS"
