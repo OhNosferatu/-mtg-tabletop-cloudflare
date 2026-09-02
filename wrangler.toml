@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h137.js"
+main = "worker-h138.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H137: preserve H136/H134/H133 behavior while adding blue player accents and
-# red opponent accents across Full Board and the dedicated Your Side/Opponent
-# screens. Geometry, card positions, divider spacing, and gestures are unchanged.
+# H138: preserve H137 player/opponent accent system, but restore the Your Side
+# land zone to its original green treatment. All geometry and interactions stay
+# unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
