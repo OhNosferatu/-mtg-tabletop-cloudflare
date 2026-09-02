@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h107.js"
+main = "worker-h108.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H107: keep H106 Full Board positioning and continuous scroll behavior, but
-# isolate miniature Full Board cards from normal battlefield image cropping.
-# Full Board images now render at their natural card aspect ratio so the entire
-# Scryfall card face remains visible at miniature scale.
+# H108: keep H107 Full Board card rendering, positioning, and continuous scroll,
+# but remember the Full Board vertical scroll position when switching to another
+# view and restore that exact position when returning to Full Board.
 [assets]
 directory = "./public"
 binding = "ASSETS"
