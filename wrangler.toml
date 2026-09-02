@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h99.js"
+main = "worker-h100.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H99: preserve H98 search/viewer behavior and lower the auto-snap overlap
-# threshold for Commander, Graveyard, Deck, Exile, and Tokens from 80% to 60%.
-# Battlefield card-to-card stacking remains unchanged.
+# H100: preserve H99 gameplay/search mechanics and begin Full Board Phase 1:
+# split the table into opponent/your halves, center life totals on the divider,
+# mirror battlefield positions, stacking, tap state and counters, and keep
+# Full Board read-only except for single-tap full-card viewing.
 [assets]
 directory = "./public"
 binding = "ASSETS"
