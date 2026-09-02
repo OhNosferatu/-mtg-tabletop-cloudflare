@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h91.js"
+main = "worker-h92.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H91: preserve H90 Hand counter and stable H89 Mulligan, but invert battlefield
-# card gestures: single tap opens full-screen view after a short double-tap
-# window; double tap toggles tapped/untapped state; drag behavior is unchanged.
+# H92: preserve H91 battlefield gestures, H90 Hand counter, and H89 Mulligan.
+# Reorganize the full-card controls into fixed rows, keep X/X labeled as X/X,
+# and add a split reset control for X/X values and +/-1 counters.
 [assets]
 directory = "./public"
 binding = "ASSETS"
