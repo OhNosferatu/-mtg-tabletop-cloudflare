@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h134.js"
+main = "worker-h135.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H134: preserve H133 battlefield geometry and the two-line divider. Reorder the
-# center strip to [blue life + your hand] [turn switch] [turn + timer]
-# [opponent hand + red life], hide the old floating hand chips, and keep life
-# totals/hand counts synchronized with the existing game-owned state.
+# H135: preserve H134 divider layout and H133 battlefield geometry. Fix divider
+# hand counters by reading the live rendered hand row directly for Your Hand,
+# observing hand DOM changes, and keeping the opponent count mirrored from the
+# existing opponent public hand-count source.
 [assets]
 directory = "./public"
 binding = "ASSETS"
