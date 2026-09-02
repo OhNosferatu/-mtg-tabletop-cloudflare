@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h113.js"
+main = "worker-h114.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H113: keep H112 direct board scrolling and full-width land zones, but mirror
-# the opponent land zone to the top of the opponent half instead of placing it
-# just above the center divider.
+# H114: Full Board is now two true full-size battlefield canvases stacked in one
+# continuous smooth-scroll surface. Cards use normal mobile battlefield size,
+# horizontal coordinate descaling is removed, and H112/H108 scrolling behavior
+# (direct touch scroll + remembered position) remains intact.
 [assets]
 directory = "./public"
 binding = "ASSETS"
