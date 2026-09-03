@@ -1,15 +1,17 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h220.js"
+main = "worker-h222.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H220 keeps H219/H217 as the gameplay, pile, and layout baseline but fixes the
-# Full Board fixed-anchor timing bug. The divider position is now measured only
-# after Full Board is visible in layout, preventing Safari from reading offsetTop
-# as zero and sending the viewport to the opponent/top edge.
+# H222 returns to H217 as the confirmed geometry/alignment baseline and borrows
+# only the successful scroll-preservation idea from H221. Full Board is briefly
+# laid out invisibly during activation so Safari can restore the saved scrollTop
+# before reveal, then normal display:none screen isolation immediately resumes.
+# This avoids H221's persistent hidden-board geometry that caused pile/card/zone
+# alignment regressions while preserving the user's previous Full Board position.
 [assets]
 directory = "./public"
 binding = "ASSETS"
