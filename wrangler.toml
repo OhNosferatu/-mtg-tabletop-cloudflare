@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h187.js"
+main = "worker-h186.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H187 builds on stable H186 and makes the opponent pile column a direct
-# vertical mirror of the player pile column while preserving all H186 geometry.
+# H186 restored as the stable pile-layout baseline. H187 mirror experiment is
+# disabled because it caused opponent piles to overlap again.
 [assets]
 directory = "./public"
 binding = "ASSETS"
