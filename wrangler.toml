@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h188.js"
+main = "worker-h189.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H188: clean redeploy of the previously approved H186 behavior. No geometry or
-# control changes; this is a fresh deployment checkpoint to clear the failed H187
-# mirror experiment from the active worker path.
+# H189: lock Full Board vertical geometry to fixed dimensions: each player side
+# 610px, divider 58px, total board 1278px, land-zone height 164.7px. Safari
+# viewport changes may change how much is visible, but cannot resize the board.
 [assets]
 directory = "./public"
 binding = "ASSETS"
