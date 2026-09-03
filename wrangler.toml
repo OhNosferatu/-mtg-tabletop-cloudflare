@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h171.js"
+main = "worker-h172.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H171: preserve H170 board-coordinate tracking. Inventory tokens/counters are
-# now dragged directly from Inventory onto the player's visible battlefield;
-# Inventory turns translucent during the drag and returns to normal on release.
+# H172: preserve H171 inventory drag/drop. Align the Full Board opponent half
+# with the dedicated Opponent view by using the same exact opponent land-zone
+# geometry and full-screen opponent card coordinate plane.
 [assets]
 directory = "./public"
 binding = "ASSETS"
