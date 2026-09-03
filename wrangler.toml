@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h170.js"
+main = "worker-h171.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H170: preserve H169 inventory/delete behavior. Fix mana/counter positioning in
-# Full Board by using the exact lower player-half geometry separated by H133's
-# fixed 58px divider, matching the coordinate mapping used by battlefield cards.
+# H171: preserve H170 board-coordinate tracking. Inventory tokens/counters are
+# now dragged directly from Inventory onto the player's visible battlefield;
+# Inventory turns translucent during the drag and returns to normal on release.
 [assets]
 directory = "./public"
 binding = "ASSETS"
