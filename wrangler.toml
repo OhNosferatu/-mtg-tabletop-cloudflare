@@ -1,16 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h164.js"
+main = "worker-h165.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H164: add the first Inventory items: six interactive mana tokens. Tokens are
-# placed into the first open player-battlefield slot, stay on the table, support
-# long-press free movement with the card-style yellow selection outline, and tap
-# to open a compact editor for +/- and direct numeric entry. Inventory remains
-# open while spawning multiple tokens and keeps the approved H162/H163 size.
+# H165: preserve H164 mana-token behavior while shrinking battlefield tokens by
+# about 30%, using actual mana-symbol SVG artwork, and enlarging the token editor
+# symbol to roughly 80% of the card-inspector visual size. Placement and drag
+# geometry are updated to match the smaller token footprint.
 [assets]
 directory = "./public"
 binding = "ASSETS"
