@@ -1,15 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h182.js"
+main = "worker-h183.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H182: bypass H181's resize feedback loop. Keep Full Board only, restore the
-# Draw/Mulligan/Untap/dropdown action row, remove the obsolete Full Board tab,
-# expand the board once by the reclaimed row height, preserve land-zone pixel
-# size, and color active-side pile labels by turn.
+# H183: stability rollback. Bypass H181/H182 board-height experiments and
+# restore the last known-good H180 Full Board-only geometry and action controls.
 [assets]
 directory = "./public"
 binding = "ASSETS"
