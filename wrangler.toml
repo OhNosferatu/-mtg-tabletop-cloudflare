@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h186.js"
+main = "worker-h187.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H186 branches directly from H184. Preserve H184 board/action-row stability and
-# position both pile columns from measured one-board pixel geometry so the player
-# and opponent piles cannot overlap through legacy shared-layer percentages.
+# H187 builds on stable H186 and makes the opponent pile column a direct
+# vertical mirror of the player pile column while preserving all H186 geometry.
 [assets]
 directory = "./public"
 binding = "ASSETS"
