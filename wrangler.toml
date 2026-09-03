@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h195.js"
+main = "worker-h196.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H195: preserve H193/H178 three-screen behavior, stabilize active-tab switching,
-# and remove H194's competing Full Board scroll-restoration layer so H178 alone
-# controls returning to the last Full Board position without a visible snap.
+# H196: preserve the H178/H193/H195 three-screen layout and Full Board position
+# memory, but intercept the legacy H176 Full Board click reset so returning to
+# Full Board does not visibly jump to the opponent-board top before restoring.
 [assets]
 directory = "./public"
 binding = "ASSETS"
