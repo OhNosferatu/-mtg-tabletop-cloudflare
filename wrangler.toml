@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h196.js"
+main = "worker-h197.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H196: preserve the H178/H193/H195 three-screen layout and Full Board position
-# memory, but intercept the legacy H176 Full Board click reset so returning to
-# Full Board does not visibly jump to the opponent-board top before restoring.
+# H197 returns to the H195/H178 stable geometry and hides only the Full Board
+# scroll viewport during H178's existing saved-position restoration window. This
+# removes the visible intermediate snap without changing piles or board layout.
 [assets]
 directory = "./public"
 binding = "ASSETS"
