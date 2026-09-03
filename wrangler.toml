@@ -1,18 +1,17 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h225.js"
+main = "worker-h226.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H225 keeps H223's confirmed card, pile, land-zone, and dedicated Opponent
-# geometry/interaction fixes, removes H224's saved-scroll reveal gate, and uses
-# deterministic source-aware Full Board opening anchors instead of arbitrary
-# scroll restoration: Your Side opens with the divider at the top and the player
-# battlefield below it; Opponent opens at the top of the opponent battlefield.
-# H222's brief hidden prewarm remains only so Safari receives that anchor before
-# Full Board is revealed.
+# H226 keeps H225/H223 gameplay, card, pile, land-zone, and opponent geometry
+# intact. Opponent -> Full Board remains unchanged because it is already stable.
+# Your Side -> Full Board now keeps Your Side painted while Full Board is briefly
+# laid out invisibly at the deterministic player anchor, reasserts that anchor for
+# several paint frames, then atomically reveals Full Board. This prevents Safari
+# from exposing the natural opponent/top scroll position during the transition.
 [assets]
 directory = "./public"
 binding = "ASSETS"
