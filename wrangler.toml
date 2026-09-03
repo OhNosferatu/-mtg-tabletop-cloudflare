@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h158.js"
+main = "worker-h159.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H158: preserve the working H157 Opponent overlay. Keep only one opponent life
-# counter on the Opponent view, positioned top-left, and restore the player's
-# normal hand bar so the player can inspect their hand while viewing Opponent.
+# H159: preserve H158 opponent overlay/hand behavior. Align the Opponent label
+# and the single opponent life heart to the same centerline as the mirrored pile
+# column, with vertical spacing so they no longer overlap.
 [assets]
 directory = "./public"
 binding = "ASSETS"
