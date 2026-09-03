@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h200.js"
+main = "worker-h201.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H200 keeps H199 as the stable baseline and changes only the dedicated Your Side
-# land zone so its geometry matches the Full Board player land zone. No pile,
-# card, scroll, board-size, or gesture behavior is changed.
+# H201 keeps H200 as the stable baseline, aligns the Full Board player pile slots
+# to the dedicated Your Side pile geometry, and gives player pile labels the same
+# gray typography on both screens. No opponent, card, scroll, board-size, or
+# gesture behavior is changed.
 [assets]
 directory = "./public"
 binding = "ASSETS"
