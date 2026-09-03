@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h176.js"
+main = "worker-h177.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H176: bypass H174/H175 board-bound experiments. Bind Full Board to the actual
-# H105 scroll viewport and make its content exactly opponent board + 58px divider
-# + player board, preserving H173 opponent token ownership and shared coordinates.
+# H177: preserve H176 bounded Full Board scrolling. Align Full Board cards using
+# each owner's exact board rectangle, remember Full Board scroll position, remove
+# the temporary green boundary rule, unify pile-label styling, and restore the
+# Your Side pile order: Commander -> Exile -> Deck -> Graveyard -> Tokens.
 [assets]
 directory = "./public"
 binding = "ASSETS"
