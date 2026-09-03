@@ -1,17 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h217.js"
+main = "worker-h218.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H217 returns to H212 as the stable gameplay baseline and replaces the H213-H216
-# horizontal pile experiments with an exact runtime measurement from the visible
-# Full Board screen edge to the Full Board player pile edge. That same pixel gap
-# is applied to Your Side through a parent CSS variable, preventing H116 clones
-# from feeding the adjustment back into Full Board. Vertical spacing, pile order,
-# fonts, colors, land zones, scrolling, and interactions are unchanged.
+# H218 keeps H217 as the confirmed pile/layout baseline and removes only the two
+# legacy Full Board opening scroll moves (H105 center + H176 top reset) that were
+# fighting H178's saved scroll-position restore. Full Board should now reopen at
+# the exact spot it was left without first jumping toward the opponent/top side.
 [assets]
 directory = "./public"
 binding = "ASSETS"
