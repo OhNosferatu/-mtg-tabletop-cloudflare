@@ -1,16 +1,18 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h224.js"
+main = "worker-h225.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H224 keeps H223's accepted geometry, land-zone parity, and dedicated Opponent
-# card movement intact. Video review showed the remaining screen "jitter" is a
-# transient paint during Full Board activation, so H224 gates only the Full Board
-# viewport until the saved scrollTop is stable for two paint frames, then reveals
-# it. No card, pile, land-zone, or battlefield dimensions are changed.
+# H225 keeps H223's confirmed card, pile, land-zone, and dedicated Opponent
+# geometry/interaction fixes, removes H224's saved-scroll reveal gate, and uses
+# deterministic source-aware Full Board opening anchors instead of arbitrary
+# scroll restoration: Your Side opens with the divider at the top and the player
+# battlefield below it; Opponent opens at the top of the opponent battlefield.
+# H222's brief hidden prewarm remains only so Safari receives that anchor before
+# Full Board is revealed.
 [assets]
 directory = "./public"
 binding = "ASSETS"
