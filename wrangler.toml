@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h160.js"
+main = "worker-h161.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H160: preserve the working H159 opponent overlay/hand behavior. Remove the
-# Opponent label and make the single opponent life heart exactly match Your Side
-# in size and vertical placement, mirrored to the left edge.
+# H161: preserve H160 gameplay/opponent layout. Rework the top controls into
+# two rows: Your Side | Full Board | Opponent, then Draw 1 | Mulligan |
+# Untap All | dropdown. The dropdown matches the old Import button size and
+# contains Import (same existing action) plus the new Inventory entry point.
 [assets]
 directory = "./public"
 binding = "ASSETS"
