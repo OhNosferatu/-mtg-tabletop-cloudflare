@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h197.js"
+main = "worker-h198.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H197 returns to the H195/H178 stable geometry and hides only the Full Board
-# scroll viewport during H178's existing saved-position restoration window. This
-# removes the visible intermediate snap without changing piles or board layout.
+# H198 keeps the H197 three-screen baseline and changes only the dedicated
+# Opponent-screen land zone so its geometry matches the Full Board opponent land
+# zone exactly. No pile, card, scroll, or board behavior is changed.
 [assets]
 directory = "./public"
 binding = "ASSETS"
