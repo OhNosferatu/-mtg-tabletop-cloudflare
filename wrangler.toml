@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h166.js"
+main = "worker-h167.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H166: preserve H165 mana-token sizing/artwork. The mana token editor now uses
-# the device's native numeric keyboard for Set Value and adopts the same
-# translucent full-screen backdrop style used by the card inspector.
+# H167: preserve H166 mana-token artwork/editor. Remove the token-editor Close
+# button in favor of backdrop dismissal, center token values, and add persistent
+# delete mode plus last-deletion Undo controls to the top dropdown menu.
 [assets]
 directory = "./public"
 binding = "ASSETS"
