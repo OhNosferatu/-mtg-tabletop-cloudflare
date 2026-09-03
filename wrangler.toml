@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h219.js"
+main = "worker-h220.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H219 keeps H218/H217 as the confirmed gameplay, pile, and layout baseline but
-# changes Full Board opening to one fixed visual anchor: the match divider is
-# aligned to the top of the Full Board viewport, matching the user's reference
-# screenshot. Saved scroll position is no longer used as the opening target.
+# H220 keeps H219/H217 as the gameplay, pile, and layout baseline but fixes the
+# Full Board fixed-anchor timing bug. The divider position is now measured only
+# after Full Board is visible in layout, preventing Safari from reading offsetTop
+# as zero and sending the viewport to the opponent/top edge.
 [assets]
 directory = "./public"
 binding = "ASSETS"
