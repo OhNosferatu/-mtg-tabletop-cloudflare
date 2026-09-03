@@ -1,14 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h213.js"
+main = "worker-h214.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H213 keeps H212 as the stable gameplay/visual baseline and only nudges the
-# dedicated Your Side pile column slightly right so it matches the Full Board
-# player pile column. Vertical spacing, pile order, fonts, and behavior are unchanged.
+# H214 keeps H213/H212 as the stable gameplay and visual baseline and applies
+# the same screen-parity approach used successfully on the opponent piles:
+# Full Board remains the player-pile anchor while only the dedicated Your Side
+# pile column is shifted right. Vertical spacing, pile order, fonts, and behavior
+# remain unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
