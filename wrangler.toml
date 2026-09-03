@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h148.js"
+main = "worker-h149.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H148: preserve H147 behavior while ensuring Full Board deck piles are visually
-# blank whenever their deck count is zero. Both player and opponent Full Board
-# deck zones now suppress the card-back art until cards are actually present.
-# No gameplay, board geometry, dragging, snapping, turn, or gesture changes.
+# H149: bypass H148's Full Board pile-layer observer after token spawning regressed.
+# Preserve H147 hand-count behavior and all prior visuals/interactions, while keeping
+# empty Full Board deck art suppressed using a source-deck-only sync that does not
+# observe or rewrite token pile layers.
 [assets]
 directory = "./public"
 binding = "ASSETS"
