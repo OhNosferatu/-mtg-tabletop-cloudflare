@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h210.js"
+main = "worker-h211.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H210 keeps H209 behavior intact and removes the remaining Full Board card
-# drop-shadow/box-shadow with higher-specificity selectors. Card gestures,
-# fullscreen viewing, piles, land zones, scrolling, and token behavior are unchanged.
+# H211 keeps the confirmed H210 visual/gesture baseline and allows battlefield
+# cards to change controller by crossing the Full Board divider. The player's
+# private hand can also place cards directly onto the opponent battlefield, and
+# dedicated views support transferring a field card via the opposite board tab.
 [assets]
 directory = "./public"
 binding = "ASSETS"
