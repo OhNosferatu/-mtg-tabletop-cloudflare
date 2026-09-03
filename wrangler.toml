@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h178.js"
+main = "worker-h193.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# Rollback to H178: restore the last three-screen layout with Your Side,
-# Full Board, and Opponent before the Full Board-only experiments began.
+# H193: keep the H178 three-screen layout and remove only the legacy Full Board
+# pseudo-boundary rules that appear as a full-width green horizontal line.
 [assets]
 directory = "./public"
 binding = "ASSETS"
