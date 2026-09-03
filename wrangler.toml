@@ -1,13 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h191.js"
+main = "worker-h192.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H191: keep H190 proportional board scaling, but move Full Board pile positions
-# into durable CSS slots so H116 pile cloning after Mulligan cannot erase them.
+# H192: preserve H190 proportional geometry, but make Full Board pile positions
+# authoritative across fresh render and Mulligan rerenders using semantic
+# data-h117-zone selectors plus a narrow child-list observer on each pile layer.
 [assets]
 directory = "./public"
 binding = "ASSETS"
