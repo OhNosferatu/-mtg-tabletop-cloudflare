@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h162.js"
+main = "worker-h163.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H162: preserve H161 top controls and gameplay. Inventory now opens a dedicated
-# modal styled like Import Deck, with an empty placeholder area ready for future
-# mana counters and other inventory items.
+# H163: preserve H162 inventory modal size. Lock the inner inventory area height
+# and add a subtle right-side floating scrollbar that only appears when future
+# inventory items overflow the available space.
 [assets]
 directory = "./public"
 binding = "ASSETS"
