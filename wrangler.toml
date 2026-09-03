@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h168.js"
+main = "worker-h169.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H168: mana tokens now share the same battlefield coordinate space as cards
-# across Your Side and Full Board. Mulligan clears placed inventory mana tokens.
-# Delete mode keeps its dropdown tray open, including while using Undo.
+# H169: preserve H168 coordinate/mulligan behavior. Add a generic white Counter
+# inventory token with black centered values (including negatives), and expand
+# persistent delete/undo mode to all movable cards, including pile-top cards.
 [assets]
 directory = "./public"
 binding = "ASSETS"
