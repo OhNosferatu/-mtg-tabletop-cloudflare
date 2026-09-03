@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h207.js"
+main = "worker-h208.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H207 keeps H206 intact and removes the remaining Full Board pile shadows with
-# higher-specificity overrides for the opponent and player pile columns.
+# H208 keeps H207 intact and removes the remaining shadow/filter effect from the
+# dedicated Your Side pile boxes using a higher-specificity #you override.
 [assets]
 directory = "./public"
 binding = "ASSETS"
