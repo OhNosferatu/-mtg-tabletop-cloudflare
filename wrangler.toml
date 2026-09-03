@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h209.js"
+main = "worker-h210.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H209 keeps H208 as the stable visual/layout baseline and restores reliable
-# single-tap fullscreen viewing for battlefield cards without changing double-tap
-# rotate, long-press drag, pile/land geometry, scrolling, or mana-token editing.
+# H210 keeps H209 behavior intact and removes the remaining Full Board card
+# drop-shadow/box-shadow with higher-specificity selectors. Card gestures,
+# fullscreen viewing, piles, land zones, scrolling, and token behavior are unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
