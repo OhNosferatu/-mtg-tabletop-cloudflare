@@ -1,13 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h193.js"
+main = "worker-h194.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H193: keep the H178 three-screen layout and remove only the legacy Full Board
-# pseudo-boundary rules that appear as a full-width green horizontal line.
+# H194: preserve the H178 three-screen layout and H193 green-line fix while
+# stabilizing tab switching and restoring the last Full Board scroll position.
 [assets]
 directory = "./public"
 binding = "ASSETS"
