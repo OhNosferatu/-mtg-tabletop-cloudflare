@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h205.js"
+main = "worker-h206.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H205 keeps H204 geometry and shadow behavior, standardizes opponent pile
-# outlines to one exact red across Opponent and Full Board, and pins player pile
-# outlines to one exact blue across Your Side and Full Board.
+# H206 keeps H205 geometry, pile colors, spacing, fonts, and behavior intact while
+# removing visual shadow effects across the game UI for a flatter, uniform look.
 [assets]
 directory = "./public"
 binding = "ASSETS"
