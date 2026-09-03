@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h172.js"
+main = "worker-h173.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H172: preserve H171 inventory drag/drop. Align the Full Board opponent half
-# with the dedicated Opponent view by using the same exact opponent land-zone
-# geometry and full-screen opponent card coordinate plane.
+# H173: preserve H172 opponent card geometry and H171 inventory drag/drop.
+# Inventory tokens now carry an owner and render/move on the matching dedicated
+# and Full Board battlefield, including the opponent side/upper Full Board half.
 [assets]
 directory = "./public"
 binding = "ASSETS"
