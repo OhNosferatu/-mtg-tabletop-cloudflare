@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h161.js"
+main = "worker-h162.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H161: preserve H160 gameplay/opponent layout. Rework the top controls into
-# two rows: Your Side | Full Board | Opponent, then Draw 1 | Mulligan |
-# Untap All | dropdown. The dropdown matches the old Import button size and
-# contains Import (same existing action) plus the new Inventory entry point.
+# H162: preserve H161 top controls and gameplay. Inventory now opens a dedicated
+# modal styled like Import Deck, with an empty placeholder area ready for future
+# mana counters and other inventory items.
 [assets]
 directory = "./public"
 binding = "ASSETS"
