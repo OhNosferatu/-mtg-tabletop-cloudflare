@@ -1,13 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h183.js"
+main = "worker-h184.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H183: stability rollback. Bypass H181/H182 board-height experiments and
-# restore the last known-good H180 Full Board-only geometry and action controls.
+# H184: preserve H183/H180 stable Full Board geometry and permanently pin the
+# Draw/Mulligan/Untap/dropdown action row immediately above the board so Mulligan
+# and other state changes cannot hide or collapse it.
 [assets]
 directory = "./public"
 binding = "ASSETS"
