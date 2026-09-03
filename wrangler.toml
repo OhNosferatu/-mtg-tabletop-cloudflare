@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h190.js"
+main = "worker-h191.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H190: preserve the approved 393px-wide proportions (610px player side,
-# 58px divider, 27% land zone) but scale the entire geometry proportionally
-# from board width on different devices. Avoid Safari viewport-height resizing.
+# H191: keep H190 proportional board scaling, but move Full Board pile positions
+# into durable CSS slots so H116 pile cloning after Mulligan cannot erase them.
 [assets]
 directory = "./public"
 binding = "ASSETS"
