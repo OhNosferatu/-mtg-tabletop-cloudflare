@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h185.js"
+main = "worker-h184.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H185: preserve H184 fixed action row and H180 stable board geometry. Anchor
-# each Full Board pile directly to its owner's one-board coordinate system so
-# opponent/player pile columns cannot overlap or drift across the divider.
+# H184 restored as the stable baseline. Future changes should branch from H184
+# unless explicitly requested otherwise.
 [assets]
 directory = "./public"
 binding = "ASSETS"
