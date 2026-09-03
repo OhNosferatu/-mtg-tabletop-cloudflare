@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h218.js"
+main = "worker-h219.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H218 keeps H217 as the confirmed pile/layout baseline and removes only the two
-# legacy Full Board opening scroll moves (H105 center + H176 top reset) that were
-# fighting H178's saved scroll-position restore. Full Board should now reopen at
-# the exact spot it was left without first jumping toward the opponent/top side.
+# H219 keeps H218/H217 as the confirmed gameplay, pile, and layout baseline but
+# changes Full Board opening to one fixed visual anchor: the match divider is
+# aligned to the top of the Full Board viewport, matching the user's reference
+# screenshot. Saved scroll position is no longer used as the opening target.
 [assets]
 directory = "./public"
 binding = "ASSETS"
