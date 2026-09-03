@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h203.js"
+main = "worker-h204.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H203 keeps H202 as the stable baseline and shifts only opponent pile vertical
-# anchoring. The dedicated Opponent Commander is mirrored 13.5% from its bottom
-# edge to match the player's 13.5% top offset, with the remaining opponent piles
-# preserving the same spacing on both Opponent and Full Board views.
+# H204 keeps the confirmed H203 pile geometry and removes only the inherited
+# inset shadow from the dedicated Opponent-screen pile boxes. Full Board piles,
+# cards, land zones, scrolling, board sizing, fonts, and gestures are unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
