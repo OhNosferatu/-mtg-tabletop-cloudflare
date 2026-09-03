@@ -1,15 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h223.js"
+main = "worker-h224.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H223 keeps H222's accepted Full Board transition/scroll behavior intact while
-# restoring exact opponent land-zone parity and keeping dedicated Opponent card
-# movement on the dedicated #oppcards coordinate plane rather than Full Board's
-# half-board geometry.
+# H224 keeps H223's accepted geometry, land-zone parity, and dedicated Opponent
+# card movement intact. Video review showed the remaining screen "jitter" is a
+# transient paint during Full Board activation, so H224 gates only the Full Board
+# viewport until the saved scrollTop is stable for two paint frames, then reveals
+# it. No card, pile, land-zone, or battlefield dimensions are changed.
 [assets]
 directory = "./public"
 binding = "ASSETS"
