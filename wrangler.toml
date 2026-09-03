@@ -1,17 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h222.js"
+main = "worker-h223.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H222 returns to H217 as the confirmed geometry/alignment baseline and borrows
-# only the successful scroll-preservation idea from H221. Full Board is briefly
-# laid out invisibly during activation so Safari can restore the saved scrollTop
-# before reveal, then normal display:none screen isolation immediately resumes.
-# This avoids H221's persistent hidden-board geometry that caused pile/card/zone
-# alignment regressions while preserving the user's previous Full Board position.
+# H223 keeps H222's accepted Full Board transition/scroll behavior intact while
+# restoring exact opponent land-zone parity and keeping dedicated Opponent card
+# movement on the dedicated #oppcards coordinate plane rather than Full Board's
+# half-board geometry.
 [assets]
 directory = "./public"
 binding = "ASSETS"
