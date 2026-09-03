@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h211.js"
+main = "worker-h212.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H211 keeps the confirmed H210 visual/gesture baseline and allows battlefield
-# cards to change controller by crossing the Full Board divider. The player's
-# private hand can also place cards directly onto the opponent battlefield, and
-# dedicated views support transferring a field card via the opposite board tab.
+# H212 keeps H211 as the stable board/transfer baseline and fixes face-down card
+# revealing so one Flip tap loads missing front artwork and completes the reveal
+# automatically. Card movement, piles, land zones, scrolling, and shadows remain unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
