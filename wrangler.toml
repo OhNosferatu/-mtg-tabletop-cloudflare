@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h151.js"
+main = "worker-h152.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H151: preserve H150 pile order and all current gameplay/interaction behavior,
-# but replace every game-facing and runtime instance of Discard/discard/DISCARD
-# with Graveyard/graveyard/GRAVEYARD across HTML, JavaScript, and CSS assets.
-# The graveyard is now the canonical zone name throughout the running game.
+# H152: preserve H151 graveyard terminology and all current Full Board/player
+# behavior while turning Opponent Side into a public-information control board.
+# Opponent public cards/piles are interactive, hidden hand stays count-only, and
+# pile order is Commander -> Exile -> Deck -> Graveyard -> Tokens with red identity.
 [assets]
 directory = "./public"
 binding = "ASSETS"
