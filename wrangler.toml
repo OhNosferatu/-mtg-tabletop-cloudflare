@@ -1,16 +1,17 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h216.js"
+main = "worker-h217.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H216 keeps H215/H212 gameplay and visual behavior intact, but removes the
-# guessed Your Side pile percentage. The dedicated Your Side pile offsets are
-# measured directly from the matching Full Board player piles at runtime, so
-# Full Board is the exact horizontal source of truth. Vertical spacing, pile
-# order, fonts, colors, land zones, scrolling, and interactions are unchanged.
+# H217 returns to H212 as the stable gameplay baseline and replaces the H213-H216
+# horizontal pile experiments with an exact runtime measurement from the visible
+# Full Board screen edge to the Full Board player pile edge. That same pixel gap
+# is applied to Your Side through a parent CSS variable, preventing H116 clones
+# from feeding the adjustment back into Full Board. Vertical spacing, pile order,
+# fonts, colors, land zones, scrolling, and interactions are unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
