@@ -1,14 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h163.js"
+main = "worker-h164.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H163: preserve H162 inventory modal size. Lock the inner inventory area height
-# and add a subtle right-side floating scrollbar that only appears when future
-# inventory items overflow the available space.
+# H164: add the first Inventory items: six interactive mana tokens. Tokens are
+# placed into the first open player-battlefield slot, stay on the table, support
+# long-press free movement with the card-style yellow selection outline, and tap
+# to open a compact editor for +/- and direct numeric entry. Inventory remains
+# open while spawning multiple tokens and keeps the approved H162/H163 size.
 [assets]
 directory = "./public"
 binding = "ASSETS"
