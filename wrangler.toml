@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h152.js"
+main = "worker-h153.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H152: preserve H151 graveyard terminology and all current Full Board/player
-# behavior while turning Opponent Side into a public-information control board.
-# Opponent public cards/piles are interactive, hidden hand stays count-only, and
-# pile order is Commander -> Exile -> Deck -> Graveyard -> Tokens with red identity.
+# H153: preserve H152/H151 behavior, but add a robust HTML-side fallback so the
+# Opponent public-control UI is visibly rendered on iOS Safari even if the H152
+# app.js runtime hook fails. Shows Commander -> Exile -> Deck -> Graveyard ->
+# Tokens, opponent life, and count-only hand without changing player/full-board logic.
 [assets]
 directory = "./public"
 binding = "ASSETS"
