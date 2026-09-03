@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h175.js"
+main = "worker-h176.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H175: preserve H174 bounded Full Board canvas. Add explicit red/blue board
-# frames and position Full Board cards directly from each owner's exact board
-# rect using the same stored x/y percentages as the dedicated board views.
+# H176: bypass H174/H175 board-bound experiments. Bind Full Board to the actual
+# H105 scroll viewport and make its content exactly opponent board + 58px divider
+# + player board, preserving H173 opponent token ownership and shared coordinates.
 [assets]
 directory = "./public"
 binding = "ASSETS"
