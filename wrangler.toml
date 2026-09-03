@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h198.js"
+main = "worker-h199.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H198 keeps the H197 three-screen baseline and changes only the dedicated
-# Opponent-screen land zone so its geometry matches the Full Board opponent land
-# zone exactly. No pile, card, scroll, or board behavior is changed.
+# H199 returns to the H197 stable baseline and fixes only the dedicated Opponent
+# land-zone rule with enough specificity to override H172. No pile, card, scroll,
+# or board behavior is changed.
 [assets]
 directory = "./public"
 binding = "ASSETS"
