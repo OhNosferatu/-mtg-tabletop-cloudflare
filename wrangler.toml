@@ -1,14 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h180.js"
+main = "worker-h181.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H180: preserve the H179 full-board-only experiment. Use one authoritative
-# semantic pile layout for both halves and suppress legacy pseudo-land/boundary
-# artifacts that could appear as a green horizontal line.
+# H181: full-board-only layout. Remove the remaining Full Board selector row,
+# expand both battlefield canvases by the reclaimed height while keeping land
+# zones at their prior pixel size, and color pile labels by active turn
+# (opponent red / player blue; inactive side neutral gray).
 [assets]
 directory = "./public"
 binding = "ASSETS"
