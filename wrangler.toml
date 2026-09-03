@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h179.js"
+main = "worker-h180.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H179: experimental full-board-only interface. Hide Your Side/Opponent view
-# controls and dedicated screens, initialize the established Full Board once,
-# then keep Full Board as the only battlefield view.
+# H180: preserve the H179 full-board-only experiment. Use one authoritative
+# semantic pile layout for both halves and suppress legacy pseudo-land/boundary
+# artifacts that could appear as a green horizontal line.
 [assets]
 directory = "./public"
 binding = "ASSETS"
