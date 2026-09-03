@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h153.js"
+main = "worker-h154.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H153: preserve H152/H151 behavior, but add a robust HTML-side fallback so the
-# Opponent public-control UI is visibly rendered on iOS Safari even if the H152
-# app.js runtime hook fails. Shows Commander -> Exile -> Deck -> Graveyard ->
-# Tokens, opponent life, and count-only hand without changing player/full-board logic.
+# H154: dedicated Opponent tab is now a true vertical mirror of Your Side.
+# Mirrored piles are Tokens -> Graveyard -> Deck -> Exile -> Commander, the land
+# zone sits at the top of the battlefield, opponent hand remains count-only, and
+# H152/H153 experimental opponent UI is bypassed. Full Board/player logic unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
