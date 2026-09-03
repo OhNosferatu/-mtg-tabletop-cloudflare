@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h147.js"
+main = "worker-h148.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H147: preserve H146 behavior while making the player hand count authoritative
-# from the real rendered hand row. Sync both the hidden H117 source and the H134
-# divider display so older periodic mirroring cannot overwrite it with stale data.
+# H148: preserve H147 behavior while ensuring Full Board deck piles are visually
+# blank whenever their deck count is zero. Both player and opponent Full Board
+# deck zones now suppress the card-back art until cards are actually present.
 # No gameplay, board geometry, dragging, snapping, turn, or gesture changes.
 [assets]
 directory = "./public"
