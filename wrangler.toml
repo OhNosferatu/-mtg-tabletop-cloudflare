@@ -1,15 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h149.js"
+main = "worker-h150.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H149: bypass H148's Full Board pile-layer observer after token spawning regressed.
-# Preserve H147 hand-count behavior and all prior visuals/interactions, while keeping
-# empty Full Board deck art suppressed using a source-deck-only sync that does not
-# observe or rewrite token pile layers.
+# H150: preserve H149 stable token spawning, H147 hand counts, fixed Full Board
+# action buttons, lighter-gray battlefield, and turn colors. Reorder pile columns
+# to Commander -> Exile -> Deck -> Graveyard -> Tokens for the player perspective,
+# mirror that order on the opponent Full Board half, and rename all player-facing
+# Discard labels/actions to Graveyard while keeping the internal discard zone key.
 [assets]
 directory = "./public"
 binding = "ASSETS"
