@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h204.js"
+main = "worker-h205.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H204 keeps the confirmed H203 pile geometry and removes only the inherited
-# inset shadow from the dedicated Opponent-screen pile boxes. Full Board piles,
-# cards, land zones, scrolling, board sizing, fonts, and gestures are unchanged.
+# H205 keeps H204 geometry and shadow behavior, standardizes opponent pile
+# outlines to one exact red across Opponent and Full Board, and pins player pile
+# outlines to one exact blue across Your Side and Full Board.
 [assets]
 directory = "./public"
 binding = "ASSETS"
