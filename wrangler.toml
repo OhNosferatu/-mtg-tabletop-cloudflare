@@ -1,14 +1,13 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h192.js"
+main = "worker-h178.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H192: preserve H190 proportional geometry, but make Full Board pile positions
-# authoritative across fresh render and Mulligan rerenders using semantic
-# data-h117-zone selectors plus a narrow child-list observer on each pile layer.
+# Rollback to H178: restore the last three-screen layout with Your Side,
+# Full Board, and Opponent before the Full Board-only experiments began.
 [assets]
 directory = "./public"
 binding = "ASSETS"
