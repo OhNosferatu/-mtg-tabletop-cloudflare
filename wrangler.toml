@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h181.js"
+main = "worker-h182.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H181: full-board-only layout. Remove the remaining Full Board selector row,
-# expand both battlefield canvases by the reclaimed height while keeping land
-# zones at their prior pixel size, and color pile labels by active turn
-# (opponent red / player blue; inactive side neutral gray).
+# H182: bypass H181's resize feedback loop. Keep Full Board only, restore the
+# Draw/Mulligan/Untap/dropdown action row, remove the obsolete Full Board tab,
+# expand the board once by the reclaimed row height, preserve land-zone pixel
+# size, and color active-side pile labels by turn.
 [assets]
 directory = "./public"
 binding = "ASSETS"
