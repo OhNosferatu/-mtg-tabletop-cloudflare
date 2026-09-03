@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h202.js"
+main = "worker-h203.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H202 keeps H201 as the stable baseline and mirrors the player-side parity fix
-# for the opponent: dedicated Opponent pile slots now map exactly into the upper
-# Full Board half, and opponent pile labels use the same neutral-gray typography
-# on both screens. No card, land-zone, scroll, board-size, or gesture behavior changes.
+# H203 keeps H202 as the stable baseline and shifts only opponent pile vertical
+# anchoring. The dedicated Opponent Commander is mirrored 13.5% from its bottom
+# edge to match the player's 13.5% top offset, with the remaining opponent piles
+# preserving the same spacing on both Opponent and Full Board views.
 [assets]
 directory = "./public"
 binding = "ASSETS"
