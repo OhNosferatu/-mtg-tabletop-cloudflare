@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h174.js"
+main = "worker-h175.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H174: preserve H173 opponent token/card behavior. Lock Full Board to exactly
-# one opponent board + 58px divider + one player board, clamp scrolling to those
-# bounds, and keep dedicated board screens fixed to one normal battlefield.
+# H175: preserve H174 bounded Full Board canvas. Add explicit red/blue board
+# frames and position Full Board cards directly from each owner's exact board
+# rect using the same stored x/y percentages as the dedicated board views.
 [assets]
 directory = "./public"
 binding = "ASSETS"
