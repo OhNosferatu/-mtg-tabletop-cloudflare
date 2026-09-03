@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h156.js"
+main = "worker-h157.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H156: replace the entire dedicated Opponent section in served HTML rather than
-# appending runtime UI into the legacy opponent screen. This guarantees the
-# mirrored board structure is present: Tokens -> Graveyard -> Deck -> Exile ->
-# Commander, land zone at the top, bottom life, and count-only opponent hand.
-# Full Board and Your Side remain unchanged.
+# H157: bypass H152-H156 opponent-screen markup attempts. Render the dedicated
+# Opponent mirror as an independent overlay inside #board when the Opponent tab
+# is active. This avoids any legacy #opp DOM replacement/clearing behavior while
+# preserving Full Board, Your Side, token spawning, graveyard terminology, and
+# current hand/turn fixes.
 [assets]
 directory = "./public"
 binding = "ASSETS"
