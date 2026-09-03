@@ -1,13 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h186.js"
+main = "worker-h188.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H186 restored as the stable pile-layout baseline. H187 mirror experiment is
-# disabled because it caused opponent piles to overlap again.
+# H188: clean redeploy of the previously approved H186 behavior. No geometry or
+# control changes; this is a fresh deployment checkpoint to clear the failed H187
+# mirror experiment from the active worker path.
 [assets]
 directory = "./public"
 binding = "ASSETS"
