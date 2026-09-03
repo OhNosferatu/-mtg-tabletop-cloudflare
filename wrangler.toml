@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h212.js"
+main = "worker-h213.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H212 keeps H211 as the stable board/transfer baseline and fixes face-down card
-# revealing so one Flip tap loads missing front artwork and completes the reveal
-# automatically. Card movement, piles, land zones, scrolling, and shadows remain unchanged.
+# H213 keeps H212 as the stable gameplay/visual baseline and only nudges the
+# dedicated Your Side pile column slightly right so it matches the Full Board
+# player pile column. Vertical spacing, pile order, fonts, and behavior are unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
