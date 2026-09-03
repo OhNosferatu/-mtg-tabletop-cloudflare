@@ -1,13 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h208.js"
+main = "worker-h209.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H208 keeps H207 intact and removes the remaining shadow/filter effect from the
-# dedicated Your Side pile boxes using a higher-specificity #you override.
+# H209 keeps H208 as the stable visual/layout baseline and restores reliable
+# single-tap fullscreen viewing for battlefield cards without changing double-tap
+# rotate, long-press drag, pile/land geometry, scrolling, or mana-token editing.
 [assets]
 directory = "./public"
 binding = "ASSETS"
