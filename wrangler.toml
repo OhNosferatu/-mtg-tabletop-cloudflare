@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h169.js"
+main = "worker-h170.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H169: preserve H168 coordinate/mulligan behavior. Add a generic white Counter
-# inventory token with black centered values (including negatives), and expand
-# persistent delete/undo mode to all movable cards, including pile-top cards.
+# H170: preserve H169 inventory/delete behavior. Fix mana/counter positioning in
+# Full Board by using the exact lower player-half geometry separated by H133's
+# fixed 58px divider, matching the coordinate mapping used by battlefield cards.
 [assets]
 directory = "./public"
 binding = "ASSETS"
