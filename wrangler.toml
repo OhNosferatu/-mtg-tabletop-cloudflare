@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h178.js"
+main = "worker-h179.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H178: preserve H176 bounded Full Board scrolling. Robustly align opponent cards
-# to the dedicated Opponent coordinate plane, preserve Full Board scroll position
-# across view changes, normalize pile-label styling, and enforce Your Side pile
-# order: Commander -> Exile -> Deck -> Graveyard -> Tokens.
+# H179: experimental full-board-only interface. Hide Your Side/Opponent view
+# controls and dedicated screens, initialize the established Full Board once,
+# then keep Full Board as the only battlefield view.
 [assets]
 directory = "./public"
 binding = "ASSETS"
