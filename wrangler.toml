@@ -1,15 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h165.js"
+main = "worker-h166.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H165: preserve H164 mana-token behavior while shrinking battlefield tokens by
-# about 30%, using actual mana-symbol SVG artwork, and enlarging the token editor
-# symbol to roughly 80% of the card-inspector visual size. Placement and drag
-# geometry are updated to match the smaller token footprint.
+# H166: preserve H165 mana-token sizing/artwork. The mana token editor now uses
+# the device's native numeric keyboard for Set Value and adopts the same
+# translucent full-screen backdrop style used by the card inspector.
 [assets]
 directory = "./public"
 binding = "ASSETS"
