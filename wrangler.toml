@@ -1,14 +1,14 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h167.js"
+main = "worker-h168.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H167: preserve H166 mana-token artwork/editor. Remove the token-editor Close
-# button in favor of backdrop dismissal, center token values, and add persistent
-# delete mode plus last-deletion Undo controls to the top dropdown menu.
+# H168: mana tokens now share the same battlefield coordinate space as cards
+# across Your Side and Full Board. Mulligan clears placed inventory mana tokens.
+# Delete mode keeps its dropdown tray open, including while using Undo.
 [assets]
 directory = "./public"
 binding = "ASSETS"
