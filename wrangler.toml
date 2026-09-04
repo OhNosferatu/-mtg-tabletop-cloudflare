@@ -1,17 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h235.js"
+main = "worker-h236.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H235 builds directly on H229 and removes the H232-H234 Opponent-only gesture
-# experiments from the active chain. Dedicated Opponent cards now use the exact
-# same H124 battlefield recognizer as Your Side and Full Board. The visually
-# active tab is synchronized to st.view, the player's own hand remains available
-# on Opponent, and H211 handles hand-to-opponent placement. Separate opponent
-# coordinates and existing Full Board behavior remain unchanged.
+# H236 keeps H235's tab/view synchronization, hand availability, hand-to-opponent
+# drop path, separate opponent coordinates, and existing Full Board behavior. The
+# dedicated Opponent card renderer now removes its old immediate onclick viewer
+# handler, matching Full Board so H124 exclusively owns single tap, double tap,
+# and long-press behavior on battlefield cards.
 [assets]
 directory = "./public"
 binding = "ASSETS"
