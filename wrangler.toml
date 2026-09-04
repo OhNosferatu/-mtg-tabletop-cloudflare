@@ -1,15 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h247.js"
+main = "worker-h248.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H247 builds from H244 and fixes the actual H211 Full Board drop route. Existing
-# battlefield cards now use H244's drag-ghost center instead of the raw pointer,
-# and Full Board placement writes directly into the destination board plane with
-# no card-to-card snap helper. Your Side/Opponent behavior remains unchanged.
+# H248 keeps H247's Full Board free-placement behavior and fixes the underlying
+# state transfers for Full Board piles. Moving a real card from deck/commander/
+# tokens/other piles to the battlefield now removes it from the source first;
+# field-to-pile moves likewise detach the source id before adding it to the target.
+# Opponent public deckCount is decremented when a known deck card leaves the deck.
 [assets]
 directory = "./public"
 binding = "ASSETS"
