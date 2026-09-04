@@ -11,10 +11,13 @@ function transformHtml(source){
   /* Wait longer before treating the first dedicated-Opponent tap as a single
      tap. This gives iPhone Safari 450ms to deliver the second press. The H124
      recognizer used by Your Side and Full Board keeps its existing timing. */
-  out=out.replace(
-    /(<script id="h232-opponent-h124-parity">[\s\S]*?const DOUBLE_MS=)285(;)/,
-    (_,before,after)=>before+'450'+after
-  );
+  const h232Start=out.indexOf('<script id="h232-opponent-h124-parity">');
+  const h232End=h232Start>=0?out.indexOf('</script>',h232Start):-1;
+  if(h232Start>=0&&h232End>h232Start){
+    const block=out.slice(h232Start,h232End);
+    const timed=block.replace('const DOUBLE_MS=285;','const DOUBLE_MS=450;');
+    out=out.slice(0,h232Start)+timed+out.slice(h232End);
+  }
 
   /* H209 has an older single-tap viewer fallback. Keep it behind the expanded
      Opponent double-tap window so it cannot open the viewer between presses. */
