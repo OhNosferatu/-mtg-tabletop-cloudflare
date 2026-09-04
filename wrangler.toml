@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h241.js"
+main = "worker-h242.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H241 keeps H240's one-to-one card sizing and full-size board geometry. The
-# dedicated Opponent card shape is the corner-clipping source of truth: Your Side,
-# Opponent, and Full Board now use the same 7px outer radius with a single shared
-# overflow clip, so the amount cut from each card corner is visually identical.
+# H242 keeps H240/H241 one-to-one card sizing and board geometry, but tightens
+# the shared battlefield corner radius from 7px to 4px. Your Side, Opponent, and
+# Full Board still use one identical outer clipping rule; only the amount of the
+# rounded cut is reduced so the printed black card border is not over-rounded.
 [assets]
 directory = "./public"
 binding = "ASSETS"
