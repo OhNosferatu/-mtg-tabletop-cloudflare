@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h227.js"
+main = "worker-h228.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H227 keeps H226/H225/H223 gameplay and geometry intact. It fixes a CSS
-# visibility conflict during Your Side -> Full Board: H222 was explicitly making
-# the Full Board viewport visible while H226 was trying to keep its parent hidden
-# during staging. H227 gives the staged hidden state higher specificity so Safari
-# cannot paint the opponent/top frame before the player anchor is ready.
+# H228 returns screen switching and Full Board scroll behavior to the exact
+# H217 -> H197/H178 system that was previously confirmed stable, removing all
+# H218-H227 transition/prewarm/source-anchor experiments. It retains the current
+# opponent land-zone parity and dedicated Opponent drag-plane corrections without
+# changing card, pile, land-zone, or gameplay geometry.
 [assets]
 directory = "./public"
 binding = "ASSETS"
