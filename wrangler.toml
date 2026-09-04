@@ -1,15 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h238.js"
+main = "worker-h239.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H238 keeps H237/H236 behavior intact and changes only the initial screen on
-# page load: the game always starts on Your Side instead of restoring Full Board
-# or another previously selected tab from sessionStorage. Normal tab switching
-# after load is unchanged.
+# H239 keeps H238/H237/H236 behavior intact and changes only Full Board card
+# corner rendering. Full Board cards are much smaller than dedicated-board cards,
+# so their inherited 7px radius clipped too much of the artwork. H239 scales that
+# radius down proportionally without changing card size, position, gestures, or
+# Full Board scrolling.
 [assets]
 directory = "./public"
 binding = "ASSETS"
