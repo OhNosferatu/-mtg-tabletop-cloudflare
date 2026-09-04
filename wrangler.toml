@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h236.js"
+main = "worker-h237.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H236 keeps H235's tab/view synchronization, hand availability, hand-to-opponent
-# drop path, separate opponent coordinates, and existing Full Board behavior. The
-# dedicated Opponent card renderer now removes its old immediate onclick viewer
-# handler, matching Full Board so H124 exclusively owns single tap, double tap,
-# and long-press behavior on battlefield cards.
+# H237 keeps H236's confirmed card interactions and H228/H229 geometry. It removes
+# the legacy H105/H176 Full Board opening anchors (center and scrollTop=0), applies
+# H178's remembered Full Board scroll position while the screen is still hidden,
+# then reveals it. H217 pile calibration no longer relayouts hidden Full Board on
+# every tab click; startup/resize/orientation calibration remains intact.
 [assets]
 directory = "./public"
 binding = "ASSETS"
