@@ -1,16 +1,17 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h230.js"
+main = "worker-h231.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H230 keeps H229/H228 geometry, screen switching, scroll behavior, opponent land
-# parity, drag-plane fixes, and tapped-card transform-origin parity intact. It adds
-# only a narrow dedicated-Opponent Safari double-tap fallback: H124 remains the
-# primary gesture system, and H230 invokes the same H124 rotate bridge only when
-# a clean double tap reaches pointerup but the card's tap state did not change.
+# H231 returns to H229 as the gameplay/geometry baseline and fixes dedicated
+# Opponent double-tap recognition at the source. H124's first-tap viewer timer is
+# extended only on the dedicated Opponent screen, giving iPhone Safari more time
+# to receive the second tap before treating the first as a single tap. H209's
+# fallback viewer delay is extended to match. All other screens keep their prior
+# gesture timing, and H229's tapped-card alignment remains unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
