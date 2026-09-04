@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h242.js"
+main = "worker-h243.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H242 keeps H240/H241 one-to-one card sizing and board geometry, but tightens
-# the shared battlefield corner radius from 7px to 4px. Your Side, Opponent, and
-# Full Board still use one identical outer clipping rule; only the amount of the
-# rounded cut is reduced so the printed black card border is not over-rounded.
+# H243 keeps H242's card shape and the established one-to-one board geometry.
+# Card-to-card overlap snapping is disabled on Your Side, Opponent, and Full Board,
+# so battlefield cards remain exactly where released. The five pile/zone targets
+# retain their existing magnetic/snap behavior.
 [assets]
 directory = "./public"
 binding = "ASSETS"
