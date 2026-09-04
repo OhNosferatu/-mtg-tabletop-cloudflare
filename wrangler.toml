@@ -1,17 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h232.js"
+main = "worker-h233.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H232 returns to H229 as the stable gameplay/geometry baseline and removes the
-# H230/H231 dedicated-opponent double-tap experiments. Dedicated Opponent cards
-# now use their own copy of the exact H124 battlefield gesture contract before
-# the older document-level recognizer: single tap opens the viewer, double tap
-# rotates 90 degrees, and long press moves the card. The same H124 action bridge
-# remains the single source of truth, while Your Side and Full Board are untouched.
+# H233 keeps H232's dedicated Opponent gesture contract and synchronizes the
+# visually active tab with the internal game view. The player's hand remains
+# available on the Opponent screen and H211/H223 place hand cards directly into
+# the dedicated opponent coordinate plane. Full Board behavior is unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
