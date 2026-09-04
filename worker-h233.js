@@ -1,6 +1,8 @@
 import h232 from './worker-h232.js';
 
-const BUILD='H233';
+// H234 keeps this proven single-pass response path. The Opponent-only gesture
+// timing changes are baked into worker-h209.js and worker-h232.js.
+const BUILD='H234';
 function headers(contentType){return{'content-type':contentType,'cache-control':'no-store, max-age=0, must-revalidate','pragma':'no-cache','expires':'0','x-mtg-build':BUILD}}
 function stamp(source){return source.replace(/MTG TableTop\s+H\d+/g,'MTG TableTop '+BUILD).replace(/Game loaded\s*[·.]\s*H\d+/g,'Game loaded · '+BUILD)}
 
