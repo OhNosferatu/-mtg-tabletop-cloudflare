@@ -25,6 +25,11 @@ window.MTG_H233_activeView={
   set:h233SetActiveView,
   get:()=>st.view
 };
+const h234OppTap={id:null,at:0,timer:null,pointerRotateId:null,pointerRotateAt:0};
+const h234RotateOpponent=id=>{
+  const card=st.cards[id];if(!card)return false;
+  card.tap=!card.tap;render();return true;
+};
 /* Keep dedicated Opponent gestures inside the same app scope as st/render.
    The CustomEvent is cancelable so H232 can fall back to the older public API
    when this bridge is absent (for example if that historical build is run on
@@ -33,8 +38,29 @@ window.addEventListener('mtg-h234-opponent-card-action',event=>{
   const detail=event.detail||{};
   if(!detail.id||!['view','rotate','drop'].includes(detail.action))return;
   event.preventDefault();
+  if(detail.action==='rotate'){
+    h234OppTap.pointerRotateId=detail.id;h234OppTap.pointerRotateAt=performance.now();
+    h234RotateOpponent(detail.id);return;
+  }
   h124CardGestureAction(detail.id,'opp',detail.action,detail.x,detail.y);
 });
+/* Some mobile/WebKit event paths allow H209 to observe and cancel the second
+   tap but do not reach H232's pointerup action. Click is the common event that
+   remains in that case. Keep this fallback scoped to the dedicated Opponent
+   screen and the same 650ms interval. */
+window.addEventListener('click',event=>{
+  if(!document.body.classList.contains('h157-opp-mode'))return;
+  const card=event.target.closest?.('#oppcards .card[data-id]');if(!card)return;
+  const id=card.dataset.id,now=performance.now();
+  if(h234OppTap.id===id&&now-h234OppTap.at<=650){
+    clearTimeout(h234OppTap.timer);h234OppTap.id=null;h234OppTap.at=0;
+    if(!(h234OppTap.pointerRotateId===id&&now-h234OppTap.pointerRotateAt<300))h234RotateOpponent(id);
+    event.preventDefault();event.stopImmediatePropagation();return;
+  }
+  h234OppTap.id=id;h234OppTap.at=now;
+  clearTimeout(h234OppTap.timer);
+  h234OppTap.timer=setTimeout(()=>{if(h234OppTap.id===id){h234OppTap.id=null;h234OppTap.at=0}},650);
+},true);
 setTimeout(()=>{
   const view=document.querySelector('.tabs [data-v].on')?.dataset.v;
   h233SetActiveView(view);
