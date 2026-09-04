@@ -1,16 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h240.js"
+main = "worker-h241.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H240 builds from H238, removes H239's assumption that Full Board cards are
-# smaller, and reasserts the intended one-to-one table model: opponent full-size
-# board + 58px divider + player full-size board. Full Board cards use the exact
-# normal battlefield card width measured by H116, and all battlefield views stop
-# clipping the artwork corners with an extra rounded overflow mask.
+# H241 keeps H240's one-to-one card sizing and full-size board geometry. The
+# dedicated Opponent card shape is the corner-clipping source of truth: Your Side,
+# Opponent, and Full Board now use the same 7px outer radius with a single shared
+# overflow clip, so the amount cut from each card corner is visually identical.
 [assets]
 directory = "./public"
 binding = "ASSETS"
