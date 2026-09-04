@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h246.js"
+main = "worker-h247.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H246 keeps H244's confirmed Your Side/Opponent drag behavior and H243 free
-# battlefield placement. Full Board now commits the exact drag-ghost rectangle
-# through the established one-to-one Full Board coordinate helper, matching the
-# dedicated boards instead of using H245's delta experiment.
+# H247 builds from H244 and fixes the actual H211 Full Board drop route. Existing
+# battlefield cards now use H244's drag-ghost center instead of the raw pointer,
+# and Full Board placement writes directly into the destination board plane with
+# no card-to-card snap helper. Your Side/Opponent behavior remains unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
