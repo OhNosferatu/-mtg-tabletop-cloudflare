@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h239.js"
+main = "worker-h240.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H239 keeps H238/H237/H236 behavior intact and changes only Full Board card
-# corner rendering. Full Board cards are much smaller than dedicated-board cards,
-# so their inherited 7px radius clipped too much of the artwork. H239 scales that
-# radius down proportionally without changing card size, position, gestures, or
-# Full Board scrolling.
+# H240 builds from H238, removes H239's assumption that Full Board cards are
+# smaller, and reasserts the intended one-to-one table model: opponent full-size
+# board + 58px divider + player full-size board. Full Board cards use the exact
+# normal battlefield card width measured by H116, and all battlefield views stop
+# clipping the artwork corners with an extra rounded overflow mask.
 [assets]
 directory = "./public"
 binding = "ASSETS"
