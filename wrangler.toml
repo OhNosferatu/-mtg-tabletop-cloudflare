@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h245.js"
+main = "worker-h246.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H245 keeps H244's dedicated-board drag fix, H243 free placement, and H242 card
-# shape. Full Board now commits movement by applying the exact pointer drag delta
-# to the card's existing stored x/y coordinates instead of reconstructing its
-# position from client-space coordinates through the stacked board/divider map.
+# H246 keeps H244's confirmed Your Side/Opponent drag behavior and H243 free
+# battlefield placement. Full Board now commits the exact drag-ghost rectangle
+# through the established one-to-one Full Board coordinate helper, matching the
+# dedicated boards instead of using H245's delta experiment.
 [assets]
 directory = "./public"
 binding = "ASSETS"
