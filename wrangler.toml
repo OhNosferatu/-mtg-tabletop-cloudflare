@@ -7,8 +7,8 @@ routes = [
 ]
 
 # H234 keeps H233's Opponent view/hand synchronization and extends only the
-# dedicated Opponent double-tap window to 450ms. The older single-tap viewer
-# fallback waits 525ms on that screen. Your Side, Full Board, and the separate
+# dedicated Opponent double-tap window to 650ms. The older single-tap viewer
+# fallback waits 725ms on that screen. Your Side, Full Board, and the separate
 # opponent coordinate plane are unchanged.
 [assets]
 directory = "./public"

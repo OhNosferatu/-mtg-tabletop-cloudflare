@@ -16,7 +16,7 @@ function transformHtml(source){
        iPhone Safari. The existing H124 action bridge remains the source of truth
        for all card actions. */
     const HOLD_MS=360;
-    const DOUBLE_MS=450;
+    const DOUBLE_MS=650;
     const CANCEL_DISTANCE=11;
     const MOVE_DISTANCE=3;
     let gesture=null;
@@ -76,14 +76,14 @@ function transformHtml(source){
        document-level H124 recognizer sees the dedicated Opponent card. This does
        not affect Your Side or Full Board at all. H209's earlier window observer
        may still see the tap, but its viewer fallback exits once the H124 viewer
-      is already open. */
+       is already open. */
     window.addEventListener('pointerdown',e=>{
       if(e.button!==undefined&&e.button!==0)return;
       const card=activeCard(e);if(!card)return;
       e.preventDefault();e.stopImmediatePropagation();
       cleanup();
       const id=card.dataset.id;if(!id)return;
-      gesture={card,id,pid:e.pointerId,sx:e.clientX,sy:e.clientY,lastX:e.clientX,hastY:e.clientY,long:false,moved:false,cancelled:false,ghost:null,dx:0,dy:0,holdTimer:null};
+      gesture={card,id,pid:e.pointerId,sx:e.clientX,sy:e.clientY,lastX:e.clientX,lastY:e.clientY,long:false,moved:false,cancelled:false,ghost:null,dx:0,dy:0,holdTimer:null};
       gesture.holdTimer=setTimeout(armLongPress,HOLD_MS);
     },true);
 
@@ -122,7 +122,7 @@ function transformHtml(source){
 export default{
   async fetch(request,env,ctx){
     const url=new URL(request.url);
-    if(url.pathname==='/api/health')return new Response(JSON.stringify({ok:true,build:BUILD},{status:200,headers:headers('application/json; charset=utf-8')});
+    if(url.pathname==='/api/health')return new Response(JSON.stringify({ok:true,build:BUILD}),{status:200,headers:headers('application/json; charset=utf-8')});
     const response=await h229.fetch(request,env,ctx);
     if(url.pathname==='/'||url.pathname==='/index.html'||url.pathname==='/game'||url.pathname==='/game.html'||url.pathname==='/api/html-test'){
       const text=await response.text();
