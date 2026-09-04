@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h243.js"
+main = "worker-h244.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H243 keeps H242's card shape and the established one-to-one board geometry.
-# Card-to-card overlap snapping is disabled on Your Side, Opponent, and Full Board,
-# so battlefield cards remain exactly where released. The five pile/zone targets
-# retain their existing magnetic/snap behavior.
+# H244 keeps H243's free battlefield placement and H242's card shape. The H124
+# drag recognizer now commits the exact visual center of the drag ghost instead
+# of re-centering the card under the finger on pointerup, removing the visible
+# release-time jump while preserving existing hand/pile hit testing.
 [assets]
 directory = "./public"
 binding = "ASSETS"
