@@ -1,16 +1,17 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h248.js"
+main = "worker-h249.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H248 keeps H247's Full Board free-placement behavior and fixes the underlying
-# state transfers for Full Board piles. Moving a real card from deck/commander/
-# tokens/other piles to the battlefield now removes it from the source first;
-# field-to-pile moves likewise detach the source id before adding it to the target.
-# Opponent public deckCount is decremented when a known deck card leaves the deck.
+# H249 builds from H247 and replaces the partial H248 pile patch with one
+# authoritative Full Board transfer system. Full Board pile drags resolve the
+# real current card id at pointerdown, detach it from every source collection,
+# then add that same id to the field/hand/target pile. The final handlers are
+# installed after the older H122 pile wiring so visual mirror cards cannot leave
+# stale copies behind. H247 free card placement remains unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
