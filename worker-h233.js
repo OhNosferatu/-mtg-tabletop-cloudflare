@@ -25,6 +25,16 @@ window.MTG_H233_activeView={
   set:h233SetActiveView,
   get:()=>st.view
 };
+/* Keep dedicated Opponent gestures inside the same app scope as st/render.
+   The CustomEvent is cancelable so H232 can fall back to the older public API
+   when this bridge is absent (for example if that historical build is run on
+   its own). */
+window.addEventListener('mtg-h234-opponent-card-action',event=>{
+  const detail=event.detail||{};
+  if(!detail.id||!['view','rotate','drop'].includes(detail.action))return;
+  event.preventDefault();
+  h124CardGestureAction(detail.id,'opp',detail.action,detail.x,detail.y);
+});
 setTimeout(()=>{
   const view=document.querySelector('.tabs [data-v].on')?.dataset.v;
   h233SetActiveView(view);

@@ -26,7 +26,11 @@ function transformHtml(source){
       if(!document.body.classList.contains('h157-opp-mode'))return null;
       return e.target.closest?.('#oppcards .card[data-id]')||null;
     };
-    const api=(id,action,x,y)=>window.MTG_H124_cardGesture?.(id,'opp',action,x,y);
+    const api=(id,action,x,y)=>{
+      const event=new CustomEvent('mtg-h234-opponent-card-action',{cancelable:true,detail:{id,action,x,y}});
+      window.dispatchEvent(event);
+      if(!event.defaultPrevented)window.MTG_H124_cardGesture?.(id,'opp',action,x,y);
+    };
     const keyFor=id=>'opp:'+id;
 
     const clearVisual=()=>{
