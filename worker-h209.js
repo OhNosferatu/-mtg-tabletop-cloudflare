@@ -74,7 +74,7 @@ function transformHtml(source){
         pending.delete(key);
         if(viewerOpen())return;
         window.MTG_H209_openBoardObject?.(cur.id);
-      },DOUBLE_MS+55);
+      },ownerFor(cur.card)==='opp'&&document.body.classList.contains('h157-opp-mode')?525:DOUBLE_MS+55);
       pending.set(key,timer);
     },true);
 
