@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h229.js"
+main = "worker-h230.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H229 keeps H228's restored H197/H178 screen-switching and scroll behavior,
-# opponent land-zone parity, and dedicated Opponent drag-plane fix. It corrects
-# only tapped opponent-card visual parity: dedicated Opponent and Full Board now
-# rotate opponent cards around the same center transform origin, so tapping a card
-# cannot make it appear to shift horizontally between the two views.
+# H230 keeps H229/H228 geometry, screen switching, scroll behavior, opponent land
+# parity, drag-plane fixes, and tapped-card transform-origin parity intact. It adds
+# only a narrow dedicated-Opponent Safari double-tap fallback: H124 remains the
+# primary gesture system, and H230 invokes the same H124 rotate bridge only when
+# a clean double tap reaches pointerup but the card's tap state did not change.
 [assets]
 directory = "./public"
 binding = "ASSETS"
