@@ -1,17 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h249.js"
+main = "worker-h250.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H249 builds from H247 and replaces the partial H248 pile patch with one
-# authoritative Full Board transfer system. Full Board pile drags resolve the
-# real current card id at pointerdown, detach it from every source collection,
-# then add that same id to the field/hand/target pile. The final handlers are
-# installed after the older H122 pile wiring so visual mirror cards cannot leave
-# stale copies behind. H247 free card placement remains unchanged.
+# H250 keeps H247's confirmed Full Board free-placement/overlap behavior, but
+# removes H248/H249's separate Full Board pile state model. Full Board pile drags
+# now call the same canonical movement helpers used by the dedicated Your Side
+# and Opponent screens; Full Board only maps coordinates and performs pile hit
+# testing. H122's competing Full Board pile controller is disabled.
 [assets]
 directory = "./public"
 binding = "ASSETS"
