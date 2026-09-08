@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h253.js"
+main = "worker-h254.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H253 builds on H252's live canonical Full Board sync. It restores the intended
-# 60% pile-overlap snap threshold from H99/H117, allows the private Scry tray to
-# display while Full Board is active, and makes Full Board deck rendering follow
-# the same visible-card / Reveal Top / Flip Deck state as the dedicated player
-# deck. Draw, Mill, Shuffle, pile interactions, and H247 free placement stay intact.
+# H254 repairs a generated deckVisibleFaceUp misspelling that could abort render
+# after import or pile/deck actions, leaving missing/stale piles and frozen input.
+# It also removes phantom card-back artwork from truly empty decks and applies
+# the same 60% physical overlap snap rule to dedicated Opponent piles. H253 Full
+# Board live-state/deck fixes and H247 free-placement behavior remain intact.
 [assets]
 directory = "./public"
 binding = "ASSETS"
