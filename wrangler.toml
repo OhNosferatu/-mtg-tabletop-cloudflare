@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h250.js"
+main = "worker-h251.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H250 keeps H247's confirmed Full Board free-placement/overlap behavior, but
-# removes H248/H249's separate Full Board pile state model. Full Board pile drags
-# now call the same canonical movement helpers used by the dedicated Your Side
-# and Opponent screens; Full Board only maps coordinates and performs pile hit
-# testing. H122's competing Full Board pile controller is disabled.
+# H251 branches from H247 and removes H248-H250's Full Board pile experiments.
+# It restores the confirmed H201/H203 pile geometry, keeps the original H117/H122
+# pile interaction system, and changes only Full Board battlefield-to-pile hit
+# testing to the same 80% card-overlap rule used by the dedicated board. Opponent
+# deck counts are adjusted when known cards move into/out of that deck.
 [assets]
 directory = "./public"
 binding = "ASSETS"
