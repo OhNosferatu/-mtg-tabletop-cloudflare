@@ -1,16 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h254.js"
+main = "worker-h255.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H254 repairs a generated deckVisibleFaceUp misspelling that could abort render
-# after import or pile/deck actions, leaving missing/stale piles and frozen input.
-# It also removes phantom card-back artwork from truly empty decks and applies
-# the same 60% physical overlap snap rule to dedicated Opponent piles. H253 Full
-# Board live-state/deck fixes and H247 free-placement behavior remain intact.
+# H255 keeps H254's render-stability and 60% opponent-pile snap fixes. Empty
+# deck piles no longer paint the global CSS card-back pseudo-element, and Reveal
+# Top / Flip Deck now use direct authoritative deck-state + overlay rendering so
+# they behave consistently from Your Side and Full Board.
 [assets]
 directory = "./public"
 binding = "ASSETS"
