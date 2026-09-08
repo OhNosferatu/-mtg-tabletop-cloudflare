@@ -1,16 +1,16 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h252.js"
+main = "worker-h253.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H252 keeps H251's confirmed Full Board pile geometry and H247 free card
-# placement. Full Board is now rebuilt from the same live canonical card/pile
-# arrays after every render, so deck counts/top cards and viewer-driven zone moves
-# cannot leave stale mirror state. H124 remains the sole battlefield recognizer;
-# its Full Board drop path is wrapped only to apply the same 80% pile-overlap snap.
+# H253 builds on H252's live canonical Full Board sync. It restores the intended
+# 60% pile-overlap snap threshold from H99/H117, allows the private Scry tray to
+# display while Full Board is active, and makes Full Board deck rendering follow
+# the same visible-card / Reveal Top / Flip Deck state as the dedicated player
+# deck. Draw, Mill, Shuffle, pile interactions, and H247 free placement stay intact.
 [assets]
 directory = "./public"
 binding = "ASSETS"
