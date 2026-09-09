@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h255.js"
+main = "worker-h256.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H255 keeps H254's render-stability and 60% opponent-pile snap fixes. Empty
-# deck piles no longer paint the global CSS card-back pseudo-element, and Reveal
-# Top / Flip Deck now use direct authoritative deck-state + overlay rendering so
-# they behave consistently from Your Side and Full Board.
+# H256 fixes the empty deck at the source stylesheet: the card-back pseudo-card
+# is now created only when the deck is not empty. It also hides any stale child
+# deck image whenever the pile is marked empty. H255 Reveal Top / Flip Deck and
+# the H254/H253 interaction fixes remain unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
