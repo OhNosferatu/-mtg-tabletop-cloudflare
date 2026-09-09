@@ -1,15 +1,15 @@
 name = "mtg-tabletop-cloudflarefinal"
-main = "worker-h256.js"
+main = "worker-h257.js"
 compatibility_date = "2026-08-31"
 
 routes = [
   { pattern = "mtgtabletop.app", custom_domain = true }
 ]
 
-# H256 fixes the empty deck at the source stylesheet: the card-back pseudo-card
-# is now created only when the deck is not empty. It also hides any stale child
-# deck image whenever the pile is marked empty. H255 Reveal Top / Flip Deck and
-# the H254/H253 interaction fixes remain unchanged.
+# H257 keeps H256's no-phantom-card-back rule, but restores an empty outlined
+# DECK drop target on both Full Board halves when their deck count is zero.
+# H205 still owns blue/red outline colors and H201/H203 keep exact pile geometry.
+# H255 Reveal Top / Flip Deck and H254/H253 interaction fixes remain unchanged.
 [assets]
 directory = "./public"
 binding = "ASSETS"
